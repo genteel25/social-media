@@ -9,6 +9,33 @@ class AppRouter {
         name: RouteConstants.splash,
         path: '/',
         builder: (context, state) => const SplashScreen(),
+        routes: [
+          GoRoute(
+            path: RouteConstants.onboard,
+            name: RouteConstants.onboard,
+            builder: (context, state) => const OnboardScreen(),
+          ),
+          GoRoute(
+            path: RouteConstants.welcome,
+            name: RouteConstants.welcome,
+            builder: (context, state) => const WelcomeScreen(),
+          ),
+          GoRoute(
+            path: RouteConstants.appLock,
+            name: RouteConstants.appLock,
+            builder: (context, state) => const AppLockScreen(),
+          ),
+          GoRoute(
+            path: RouteConstants.signIn,
+            name: RouteConstants.signIn,
+            builder: (context, state) => const SignInScreen(),
+          ),
+          GoRoute(
+            path: RouteConstants.signUp,
+            name: RouteConstants.signUp,
+            builder: (context, state) => const SignUpScreen(),
+          ),
+        ],
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -81,7 +108,7 @@ class AppRouter {
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: MessagesScreen(),
                 ),
-                routes: [],
+                routes: const [],
               ),
             ],
           ),

@@ -16,6 +16,7 @@ export 'package:keyboard_service/keyboard_service.dart';
 export 'package:flutter_native_splash/flutter_native_splash.dart';
 export 'package:flutter_animate/flutter_animate.dart' hide ShimmerEffect;
 export 'package:intl_phone_field/intl_phone_field.dart';
+export 'package:gif_view/gif_view.dart';
 
 //Relative folder export
 export 'app_dialogs.dart';

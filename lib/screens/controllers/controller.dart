@@ -6,3 +6,8 @@ export 'profile.dart';
 export 'search.dart';
 export 'menu.dart';
 export 'splash.dart';
+export 'onboard.dart';
+export 'welcome.dart';
+export 'app_lock.dart';
+export 'signin.dart';
+export 'signup.dart';
