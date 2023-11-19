@@ -12,6 +12,7 @@ class SplashView extends StatelessView<SplashScreen, SplashController> {
         height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
+            fit: BoxFit.cover,
             image: AssetImage("assets/images/splash.png"),
           ),
         ),

@@ -13,95 +13,99 @@ class OnboardView extends StatelessView<OnboardScreen, OnboardController> {
       body: SizedBox(
         height: double.infinity,
         width: double.infinity,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 617.h,
-              child: PageView(
-                controller: controller.pageViewController,
-                physics: const NeverScrollableScrollPhysics(),
-                onPageChanged: (value) => controller.changeCurrentIndex(value),
-                children: const [
-                  PageWidget(
-                    assetPath: "assets/images/onboard_first.png",
-                    title: "Introducing Duduzili",
-                    subtitle:
-                        "The ultimate social media app designed to connect people, inspire creativity, and foster meaningful interactions",
-                  ),
-                  PageWidget(
-                    assetPath: "assets/images/onboard_second.png",
-                    title: "Post and Share",
-                    subtitle:
-                        "Create and share posts, photos, videos, and stories with your friends, family, and the wider Duduzili community.",
-                  ),
-                  PageWidget(
-                    assetPath: "assets/images/onboard_third.png",
-                    title: "Discover and Explore",
-                    subtitle:
-                        "Find new people to follow, explore trending topics, and discover exciting content from users around the globe.",
-                  ),
-                ],
+        child: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 617.h,
+                child: PageView(
+                  controller: controller.pageViewController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  onPageChanged: (value) =>
+                      controller.changeCurrentIndex(value),
+                  children: const [
+                    PageWidget(
+                      assetPath: "assets/images/onboard_first.png",
+                      title: "Introducing Duduzili",
+                      subtitle:
+                          "The ultimate social media app designed to connect people, inspire creativity, and foster meaningful interactions",
+                    ),
+                    PageWidget(
+                      assetPath: "assets/images/onboard_second.png",
+                      title: "Post and Share",
+                      subtitle:
+                          "Create and share posts, photos, videos, and stories with your friends, family, and the wider Duduzili community.",
+                    ),
+                    PageWidget(
+                      assetPath: "assets/images/onboard_third.png",
+                      title: "Discover and Explore",
+                      subtitle:
+                          "Find new people to follow, explore trending topics, and discover exciting content from users around the globe.",
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: 18.h),
-            SizedBox(
-              width: 60.w,
-              height: 60.h,
-              child: DashedCircularProgressBar.aspectRatio(
-                aspectRatio: 1,
-                progress: controller.progressPercentage,
-                startAngle: 0,
-                sweepAngle: 360,
-                foregroundColor: AppColors.primaryColor,
-                backgroundColor: AppColors.skyWhite,
-                foregroundStrokeWidth: 3,
-                backgroundStrokeWidth: 3,
-                animation: true,
-                animationDuration: const Duration(seconds: 2),
-                // seekSize: 6,
-                seekColor: const Color(0xffeeeeee),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: InkWell(
-                    splashColor: Colors.green,
-                    borderRadius: BorderRadius.circular(40.r),
-                    onTap: () => controller.onChangePercentHandler(),
-                    child: Ink(
-                      // color: Colors.green,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: AppColors.inkDarkest,
-                          shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                            colors: [
-                              AppColors.primaryLight,
-                              AppColors.primaryColor
+              SizedBox(height: 18.h),
+              SizedBox(
+                width: 60.w,
+                height: 60.h,
+                child: DashedCircularProgressBar.aspectRatio(
+                  aspectRatio: 1,
+                  progress: controller.progressPercentage,
+                  startAngle: 0,
+                  sweepAngle: 360,
+                  foregroundColor: AppColors.primaryColor,
+                  backgroundColor: AppColors.skyWhite,
+                  foregroundStrokeWidth: 3,
+                  backgroundStrokeWidth: 3,
+                  animation: true,
+                  animationDuration: const Duration(seconds: 2),
+                  // seekSize: 6,
+                  seekColor: const Color(0xffeeeeee),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: InkWell(
+                      splashColor: Colors.green,
+                      borderRadius: BorderRadius.circular(40.r),
+                      onTap: () => controller.onChangePercentHandler(),
+                      child: Ink(
+                        // color: Colors.green,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: AppColors.inkDarkest,
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                              colors: [
+                                AppColors.primaryLight,
+                                AppColors.primaryColor
+                              ],
+                            ),
+                            boxShadow: [
+                              BoxShadow(),
                             ],
                           ),
-                          boxShadow: [
-                            BoxShadow(),
-                          ],
-                        ),
-                        child: SvgPicture.asset(
-                          "assets/svgs/arrow_right.svg",
-                          fit: BoxFit.none,
+                          child: SvgPicture.asset(
+                            "assets/svgs/arrow_right.svg",
+                            fit: BoxFit.none,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 29.h),
-            // Spacer(),
-            controller.currentIndex < 2
-                ? Text(
-                    "Skip to Sign up",
-                    style:
-                        Styles.x14dp_222C27_400w(color: AppColors.primaryColor),
-                  )
-                : const SizedBox.shrink(),
-          ],
+              SizedBox(height: 29.h),
+              // Spacer(),
+              controller.currentIndex < 2
+                  ? Text(
+                      "Skip to Sign up",
+                      style: Styles.x14dp_222C27_400w(
+                          color: AppColors.primaryColor),
+                    )
+                  : const SizedBox.shrink(),
+            ],
+          ),
         ),
       ),
     );

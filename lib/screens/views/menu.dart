@@ -6,7 +6,7 @@ class MenusView extends StatelessView<MenusScreen, MenusController> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Color(0xff281461),
+      // backgroundColor: Color(0xff281461),
       body: Text("data"),
     );
   }

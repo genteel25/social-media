@@ -17,6 +17,8 @@ export 'package:flutter_native_splash/flutter_native_splash.dart';
 export 'package:flutter_animate/flutter_animate.dart' hide ShimmerEffect;
 export 'package:intl_phone_field/intl_phone_field.dart';
 export 'package:gif_view/gif_view.dart';
+export 'package:pinput/pinput.dart';
+export 'package:percent_indicator/linear_percent_indicator.dart';
 
 //Relative folder export
 export 'app_dialogs.dart';

@@ -35,6 +35,43 @@ class AppRouter {
             name: RouteConstants.signUp,
             builder: (context, state) => const SignUpScreen(),
           ),
+          GoRoute(
+            path: RouteConstants.addProfilePicture,
+            name: RouteConstants.addProfilePicture,
+            builder: (context, state) => const AddProfilePictureScreen(),
+          ),
+          GoRoute(
+            path: RouteConstants.completeRegistration,
+            name: RouteConstants.completeRegistration,
+            builder: (context, state) => const CompleteRegistrationScreen(),
+          ),
+          GoRoute(
+            path: RouteConstants.selectPreference,
+            name: RouteConstants.selectPreference,
+            builder: (context, state) => const SelectPreferenceScreen(),
+          ),
+          GoRoute(
+            path: RouteConstants.setupUsername,
+            name: RouteConstants.setupUsername,
+            builder: (context, state) => const SetupUsernameScreen(),
+          ),
+          GoRoute(
+            path: RouteConstants.verifyOtp,
+            name: RouteConstants.verifyOtp,
+            builder: (context, state) => VerifyOtpScreen(
+              accountRecovery: state.extra as bool?,
+            ),
+          ),
+          GoRoute(
+            path: RouteConstants.recoverAccount,
+            name: RouteConstants.recoverAccount,
+            builder: (context, state) => const RecoverAccountScreen(),
+          ),
+          GoRoute(
+            path: RouteConstants.setPassword,
+            name: RouteConstants.setPassword,
+            builder: (context, state) => const SetPasswordScreen(),
+          ),
         ],
       ),
       StatefulShellRoute.indexedStack(
