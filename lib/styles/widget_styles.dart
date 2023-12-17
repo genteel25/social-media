@@ -1,4 +1,4 @@
-import 'package:mobile_app/utils/helper.dart';
+import 'package:duduzili/utils/helper.dart';
 
 class Styles {
   static x32dp_222C27_700w({double? height, Color? color}) => GoogleFonts.sora(
@@ -31,6 +31,12 @@ class Styles {
         fontWeight: FontWeight.w700,
         height: height ?? 1.4,
       );
+  static x18dp_222C27_700w({double? height, Color? color}) => GoogleFonts.sora(
+        fontSize: 18.sp,
+        color: color ?? AppColors.neutral800,
+        fontWeight: FontWeight.w700,
+        height: height ?? 1.4,
+      );
   static x16dp_222C27_400w({double? height, Color? color}) => GoogleFonts.sora(
         fontSize: 16.sp,
         color: color ?? AppColors.neutral800,
@@ -41,6 +47,18 @@ class Styles {
         fontSize: 16.sp,
         color: color ?? AppColors.neutral800,
         fontWeight: FontWeight.w500,
+        height: height ?? 1.4,
+      );
+  static x16dp_222C27_600w({double? height, Color? color}) => GoogleFonts.sora(
+        fontSize: 16.sp,
+        color: color ?? AppColors.neutral800,
+        fontWeight: FontWeight.w600,
+        height: height ?? 1.4,
+      );
+  static x16dp_222C27_700w({double? height, Color? color}) => GoogleFonts.sora(
+        fontSize: 16.sp,
+        color: color ?? AppColors.neutral800,
+        fontWeight: FontWeight.w700,
         height: height ?? 1.4,
       );
   static x14dp_222C27_600w({double? height, Color? color}) => GoogleFonts.sora(
@@ -73,14 +91,38 @@ class Styles {
         fontWeight: FontWeight.w600,
         height: height ?? 1.5,
       );
+  static x12dp_222C27_500w({double? height, Color? color}) => GoogleFonts.sora(
+        fontSize: 12.sp,
+        color: color ?? AppColors.neutral600,
+        fontWeight: FontWeight.w500,
+        height: height ?? 1.5,
+      );
   static x12dp_222C27_400w({double? height, Color? color}) => GoogleFonts.sora(
         fontSize: 12.sp,
         color: color ?? AppColors.neutral600,
         fontWeight: FontWeight.w400,
         height: height ?? 1.5,
       );
+  static x10dp_222C27_600w({double? height, Color? color}) => GoogleFonts.sora(
+        fontSize: 10.sp,
+        color: color ?? AppColors.neutral600,
+        fontWeight: FontWeight.w600,
+        height: height ?? 1.4,
+      );
   static x10dp_222C27_400w({double? height, Color? color}) => GoogleFonts.sora(
         fontSize: 10.sp,
+        color: color ?? AppColors.neutral600,
+        fontWeight: FontWeight.w400,
+        height: height ?? 1.4,
+      );
+  static x8dp_222C27_600w({double? height, Color? color}) => GoogleFonts.sora(
+        fontSize: 8.sp,
+        color: color ?? AppColors.neutral600,
+        fontWeight: FontWeight.w600,
+        height: height ?? 1.4,
+      );
+  static x8dp_222C27_400w({double? height, Color? color}) => GoogleFonts.sora(
+        fontSize: 8.sp,
         color: color ?? AppColors.neutral600,
         fontWeight: FontWeight.w400,
         height: height ?? 1.4,

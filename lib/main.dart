@@ -1,14 +1,14 @@
-import 'package:mobile_app/styles/themes.dart';
+import 'package:flutter/foundation.dart';
 
 import 'utils/helper.dart';
 
 void main() async {
-  // WidgetsBinding widgetsBinding =
   WidgetsFlutterBinding.ensureInitialized();
+  if (kDebugMode) {
+    Bloc.observer = AppBlocObserver();
+  }
   await ScreenUtil.ensureScreenSize();
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
-  // FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {
@@ -24,18 +24,13 @@ class MyApp extends StatelessWidget {
         //scaleByHeight: true,
         useInheritedMediaQuery: true,
         rebuildFactor: (old, data) {
-          return true;
+          return false;
         },
         builder: (context, child) {
-          return Listener(
-            onPointerMove: (event) {
-              KeyboardService.dismiss();
-            },
-            child: MaterialApp.router(
-              debugShowCheckedModeBanner: false,
-              theme: AppTheme.lightTheme(),
-              routerConfig: AppRouter.router,
-            ),
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme(),
+            routerConfig: AppRouter.router,
           );
         });
   }

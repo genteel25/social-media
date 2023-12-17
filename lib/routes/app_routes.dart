@@ -1,9 +1,16 @@
+
+
 import '../utils/helper.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
     navigatorKey: GlobalVariables.mainNavigatorKey,
-    // initialLocation: RouteConstants.splash,
+    debugLogDiagnostics: kDebugMode,
+    // initialLocation:
+    // AppInitializer.firstTime == null ? OnboardingScreen.route : null,
+    observers: [
+      if (kDebugMode) GoRouterObserver(),
+    ],
     routes: [
       GoRoute(
         name: RouteConstants.splash,
@@ -72,6 +79,30 @@ class AppRouter {
             name: RouteConstants.setPassword,
             builder: (context, state) => const SetPasswordScreen(),
           ),
+          GoRoute(
+            path: RouteConstants.createPost,
+            name: RouteConstants.createPost,
+            parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+            builder: (context, state) => const CreatePostScreen(),
+          ),
+          GoRoute(
+            path: RouteConstants.discoverPeople,
+            name: RouteConstants.discoverPeople,
+            parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+            builder: (context, state) => const DiscoverPeopleScreen(),
+          ),
+          GoRoute(
+            path: RouteConstants.discoverCommunity,
+            name: RouteConstants.discoverCommunity,
+            parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+            builder: (context, state) => const DiscoverCommunityScreen(),
+          ),
+          GoRoute(
+            path: RouteConstants.followRequest,
+            name: RouteConstants.followRequest,
+            parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+            builder: (context, state) => const FollowRequestScreen(),
+          ),
         ],
       ),
       StatefulShellRoute.indexedStack(
@@ -89,19 +120,13 @@ class AppRouter {
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: HomeScreen(),
                 ),
-                routes: const [
-                  // child route
-                  // GoRoute(
-                  //   path: RouteConstants.gameHistory,
-                  //   name: RouteConstants.gameHistory,
-                  //   builder: (context, state) => const GameHistoryScreen(),
-                  // ),
-                  // GoRoute(
-                  //   path: RouteConstants.timelinePost,
-                  //   name: RouteConstants.timelinePost,
-                  //   parentNavigatorKey: GlobalVariables.mainNavigatorKey,
-                  //   builder: (context, state) => const TimelinePostScreen(),
-                  // ),
+                routes: [
+                  GoRoute(
+                    path: RouteConstants.comment,
+                    name: RouteConstants.comment,
+                    parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+                    builder: (context, state) => const CommentScreen(),
+                  ),
                 ],
               ),
             ],
@@ -131,7 +156,14 @@ class AppRouter {
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: CommunityScreen(),
                 ),
-                routes: const [],
+                routes: [
+                  GoRoute(
+                    path: RouteConstants.communityInfo,
+                    name: RouteConstants.communityInfo,
+                    parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+                    builder: (context, state) => const CommunityInfoScreen(),
+                  ),
+                ],
               ),
             ],
           ),
@@ -145,7 +177,14 @@ class AppRouter {
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: MessagesScreen(),
                 ),
-                routes: const [],
+                routes: [
+                  GoRoute(
+                    path: RouteConstants.chat,
+                    name: RouteConstants.chat,
+                    parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+                    builder: (context, state) => const ChatScreen(),
+                  ),
+                ],
               ),
             ],
           ),
@@ -159,7 +198,14 @@ class AppRouter {
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: ProfileScreen(),
                 ),
-                routes: [],
+                routes: [
+                  GoRoute(
+                    path: RouteConstants.editProfile,
+                    name: RouteConstants.editProfile,
+                    parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+                    builder: (context, state) => const EditProfileScreen(),
+                  ),
+                ],
               ),
             ],
           ),

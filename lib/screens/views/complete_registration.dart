@@ -260,7 +260,7 @@ class CompleteRegistrationView extends StatelessView<CompleteRegistrationScreen,
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 120.h),
+                                SizedBox(height: 110.sp),
                                 SizedBox(
                                   width: double.infinity,
                                   height: 48.h,

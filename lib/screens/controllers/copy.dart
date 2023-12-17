@@ -2,17 +2,17 @@
 
 import '../../utils/helper.dart';
 
-class CopyScreen extends StatefulWidget {
-  const CopyScreen({Key? key}) : super(key: key);
+class CommunityInfoScreen extends StatefulWidget {
+  const CommunityInfoScreen({Key? key}) : super(key: key);
 
   @override
-  CopyController createState() => CopyController();
+  CommunityInfoController createState() => CommunityInfoController();
 }
 
-class CopyController extends State<CopyScreen> {
+class CommunityInfoController extends State<CommunityInfoScreen> {
   
   @override
-  Widget build(BuildContext context) => CopyView(this);
+  Widget build(BuildContext context) => CommunityInfoView(this);
 
   @override
   void initState() {

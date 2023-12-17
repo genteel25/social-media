@@ -1,4 +1,4 @@
-import 'package:mobile_app/utils/helper.dart';
+import '../utils/helper.dart';
 
 class AppTheme {
   static ThemeData lightTheme() {
@@ -12,6 +12,7 @@ class AppTheme {
       colorScheme:
           const ColorScheme.light().copyWith(background: AppColors.skyWhite),
       splashColor: AppColors.primaryColor.withOpacity(0.1),
+      scaffoldBackgroundColor: AppColors.background,
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: Styles.x14dp_222C27_400w(
           color: AppColors.neutral600,
@@ -113,6 +114,22 @@ class AppTheme {
             ),
           ),
         ),
+      ),
+      chipTheme: ChipThemeData(
+        color: const MaterialStatePropertyAll(Colors.white),
+        backgroundColor: Colors.white,
+        selectedColor: Colors.white,
+        disabledColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
+        labelPadding: EdgeInsets.zero,
+        padding: EdgeInsets.zero,
+        shadowColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0.r),
+        ),
+      ),
+      switchTheme: const SwitchThemeData(
+        trackColor: MaterialStatePropertyAll(AppColors.primaryColor),
       ),
     );
   }

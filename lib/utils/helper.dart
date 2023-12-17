@@ -6,8 +6,7 @@ export 'package:flutter_svg/flutter_svg.dart';
 export 'package:google_fonts/google_fonts.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:bloc/bloc.dart';
-export 'package:awesome_extensions/awesome_extensions.dart'
-    hide Shimmer, ShimmerDirection, NavigatorExt;
+export 'package:get_it/get_it.dart';
 export 'package:shimmer/shimmer.dart';
 export 'package:dio/dio.dart';
 export 'package:equatable/equatable.dart';
@@ -19,14 +18,31 @@ export 'package:intl_phone_field/intl_phone_field.dart';
 export 'package:gif_view/gif_view.dart';
 export 'package:pinput/pinput.dart';
 export 'package:percent_indicator/linear_percent_indicator.dart';
+export 'package:just_audio/just_audio.dart';
+export 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+export 'dart:developer' hide Flow;
+export 'dart:async';
+export 'package:flutter_media_metadata/flutter_media_metadata.dart';
+export 'package:detectable_text_field/detectable_text_field.dart';
+export 'package:video_player/video_player.dart';
+export 'package:camerawesome/camerawesome_plugin.dart';
+export 'package:flutter_story_view/flutter_story_view.dart';
+export 'package:flutter/foundation.dart';
+export 'package:flutter/services.dart';
+export 'package:easy_localization/easy_localization.dart' hide TextDirection;
+export 'package:internet_connection_checker/internet_connection_checker.dart';
 
-//Relative folder export
+//Relative folder Export
 export 'app_dialogs.dart';
 export 'app_utils.dart';
 export 'functions.dart';
 export 'global_variables.dart';
 export 'constants.dart';
 export 'app_strings.dart';
+export 'app_bottom_sheet.dart';
+export 'observers.dart';
+export 'extensions.dart';
+export 'app_enums.dart';
 
 //Screens Export
 export '../screens/screen.dart';
@@ -36,3 +52,6 @@ export '../routes/route.dart';
 
 //Styles Export
 export '../styles/style.dart';
+
+//Adjacent folder Export
+export '../config/config.dart';

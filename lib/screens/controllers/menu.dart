@@ -11,7 +11,9 @@ class MenusScreen extends StatefulWidget {
   MenusController createState() => MenusController();
 }
 
-class MenusController extends State<MenusScreen> {
+class MenusController extends State<MenusScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController? animationController;
   @override
   Widget build(BuildContext context) => MenusView(this);
   int currentIndex = 0;
@@ -21,6 +23,7 @@ class MenusController extends State<MenusScreen> {
       value,
       initialLocation: value == widget.navigationShell.currentIndex,
     );
+    animationController?.forward();
   }
 
   navigateHandler(String route) {
@@ -31,5 +34,9 @@ class MenusController extends State<MenusScreen> {
   @override
   void initState() {
     super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
   }
 }

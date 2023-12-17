@@ -7,12 +7,24 @@ class ProfileScreen extends StatefulWidget {
   ProfileController createState() => ProfileController();
 }
 
-class ProfileController extends State<ProfileScreen> {
+class ProfileController extends State<ProfileScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController tabController;
+  int currentTabIndex = 0;
+
+  setCurrentIndex(int value) {
+    setState(() {
+      // tabController.index = value;
+      currentTabIndex = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) => ProfileView(this);
 
   @override
   void initState() {
     super.initState();
+    tabController = TabController(length: 4, vsync: this);
   }
 }

@@ -73,7 +73,9 @@ class SignInView extends StatelessView<SignInScreen, SignInController> {
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.done,
                     cursorWidth: 0.7.w,
-                    decoration: const InputDecoration(hintText: "Password"),
+                    decoration: const InputDecoration(
+                      hintText: "Password",
+                    ),
                   ),
                   SizedBox(height: 43.h),
                   Row(
@@ -119,7 +121,7 @@ class SignInView extends StatelessView<SignInScreen, SignInController> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => context.goNamed(RouteConstants.home),
                       child: Text("Log in"),
                     ),
                   ),

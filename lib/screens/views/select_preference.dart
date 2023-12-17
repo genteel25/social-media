@@ -1,5 +1,3 @@
-import 'package:mobile_app/utils/app_bottom_sheet.dart';
-
 import '../../utils/helper.dart';
 
 class SelectPreferenceView
@@ -124,7 +122,7 @@ class SelectPreferenceView
                 ),
               ),
             ),
-            SizedBox(height: 100.h),
+            SizedBox(height: 60.h),
             Stack(
               children: [
                 SizedBox(

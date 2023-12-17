@@ -18,4 +18,7 @@ class GlobalVariables {
       GlobalKey<ScaffoldState>();
   static final GlobalKey<ScaffoldState> timelineScaffoldKey =
       GlobalKey<ScaffoldState>();
+
+  static final hashRegex = RegExp(r'\B#\w+');
+  static final userRegex = RegExp(r'\B@\w+');
 }
