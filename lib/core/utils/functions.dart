@@ -1,10 +1,7 @@
 import 'dart:io';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
-import '../../utils/helper.dart';
 import '../core.dart';
-import '../storage/istorage.dart';
 
 String? validateDot(String? value) {
   if (!value!.trim().contains('.')) {

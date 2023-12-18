@@ -1,12 +1,13 @@
-import '../../utils/helper.dart';
+import 'package:timeago/timeago.dart';
+import '../../../../core/helpers/helpers.dart';
 
 class AppInitializer {
   static late GetIt instanceLocator;
-  static late bool? firstTime;
-  static late bool? isLoggedIn;
-  static late String? email;
-  static late String? password;
-  static late bool? isDarkMode;
+  // static late bool? firstTime;
+  // static late bool? isLoggedIn;
+  // static late String? email;
+  // static late String? password;
+  // static late bool? isDarkMode;
   AppInitializer._();
 
   static void close() {
@@ -21,7 +22,11 @@ class AppInitializer {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     await ScreenUtil.ensureScreenSize();
     await EasyLocalization.ensureInitialized();
-    // setLocaleMessages('en', MyCustomMessages());
+    if (kDebugMode) {
+      Bloc.observer = AppBlocObserver();
+    }
+    await ScreenUtil.ensureScreenSize();
+    setLocaleMessages('en', MyCustomMessages());
     initializeDi();
   }
 
@@ -33,10 +38,10 @@ class AppInitializer {
     // email = await GetIt.I.get<LocalStorage>().getEmail();
     // password = await GetIt.I.get<LocalStorage>().getPassword();
     // isDarkMode = await GetIt.I.get<LocalStorage>().isDarkMode();
-    if (isLoggedIn == true) {
-      // final token = await GetIt.I.get<LocalStorage>().getToken();
-      // GetIt.I.get<IApiClient>().setToken(token ?? '');
-    }
+    // if (isLoggedIn == true) {
+    // final token = await GetIt.I.get<LocalStorage>().getToken();
+    // GetIt.I.get<IApiClient>().setToken(token ?? '');
+    // }
   }
 
   static dynamic logout() async {

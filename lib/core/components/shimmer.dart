@@ -1,6 +1,6 @@
 import 'package:h3m_shimmer_card/h3m_shimmer_card.dart';
 
-import '../../utils/helper.dart';
+import '../helpers/helpers.dart';
 
 class ShimmerTile extends StatelessWidget {
   const ShimmerTile({super.key, this.width, this.height, this.color});

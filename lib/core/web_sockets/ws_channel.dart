@@ -1,8 +1,7 @@
 
 
 import 'package:web_socket_channel/web_socket_channel.dart' as ws;
-
-import '../../utils/helper.dart';
+import '../helpers/helpers.dart';
 import 'iweb_socket.dart';
 
 class WsChannelClient implements IWebSocket {

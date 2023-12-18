@@ -1,4 +1,34 @@
-import '../../utils/helper.dart';
+// import 'package:duduzili/core/components/nested_scaffold_widget.dart';
+
+// import '../../features/auth/presentation/controller/add_profile_picture.dart';
+// import '../../features/auth/presentation/controller/app_lock.dart';
+// import '../../features/auth/presentation/controller/complete_registration.dart';
+// import '../../features/auth/presentation/controller/onboard.dart';
+// import '../../features/auth/presentation/controller/recover_account.dart';
+// import '../../features/auth/presentation/controller/select_preference.dart';
+// import '../../features/auth/presentation/controller/set_password.dart';
+// import '../../features/auth/presentation/controller/setup_username.dart';
+// import '../../features/auth/presentation/controller/signin.dart';
+// import '../../features/auth/presentation/controller/signup.dart';
+// import '../../features/auth/presentation/controller/splash.dart';
+// import '../../features/auth/presentation/controller/verify_otp.dart';
+// import '../../features/auth/presentation/controller/welcome.dart';
+// import '../../features/community/presentation/controller/community.dart';
+// import '../../features/community/presentation/controller/community_info.dart';
+// import '../../features/community/presentation/controller/discover_community.dart';
+// import '../../features/home/presentation/controller/comment.dart';
+// import '../../features/home/presentation/controller/create_post.dart';
+// import '../../features/home/presentation/controller/discover_people.dart';
+// import '../../features/home/presentation/controller/follow_request.dart';
+// import '../../features/home/presentation/controller/home.dart';
+// import '../../features/messages/presentation/controller/chat.dart';
+// import '../../features/messages/presentation/controller/messages.dart';
+// import '../../features/profile/presentation/controller/edit_profile.dart';
+// import '../../features/profile/presentation/controller/profile.dart';
+// import '../../features/search/presentation/controller/search.dart';
+// import '../utils/global_variables.dart';
+// import '../utils/observers.dart';
+import '../helpers/helpers.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -105,7 +135,7 @@ class AppRouter {
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
-          return MenusScreen(navigationShell: navigationShell);
+          return NestedScaffoldWidget(navigationShell: navigationShell);
         },
         branches: [
           StatefulShellBranch(

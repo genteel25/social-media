@@ -23,3 +23,56 @@ class Constants {
   //   ),
   // );
 }
+
+List<Map<String, dynamic>> stories = [
+  {
+    "imageUrl": "https://picsum.photos/200/300",
+    "title": "Jordan",
+    "noOfSeen": 3,
+    "noOfUnseen": 9,
+  },
+  {
+    "imageUrl": "https://picsum.photos/seed/picsum/200/300",
+    "title": "Lisa",
+    "noOfSeen": 0,
+    "noOfUnseen": 1,
+  },
+  {
+    "imageUrl": "https://picsum.photos/200/300/?blur",
+    "title": "Daniel",
+    "noOfSeen": 1,
+    "noOfUnseen": 4,
+  },
+  {
+    "imageUrl": "https://picsum.photos/200/300?grayscale",
+    "title": "Abraham",
+    "noOfSeen": 2,
+    "noOfUnseen": 6,
+  },
+  {
+    "imageUrl": "https://picsum.photos/seed/picsum/200/300",
+    "title": "Micheal",
+    "noOfSeen": 4,
+    "noOfUnseen": 11,
+  },
+];
+
+List<String> imageUrls = [
+  "https://picsum.photos/id/264/200/300",
+  "https://picsum.photos/id/263/200/300",
+  "https://picsum.photos/id/269/200/300",
+  "https://picsum.photos/id/261/200/300",
+];
+
+List<String> forYouItemList = [
+  '',
+  '',
+  '',
+  '',
+  '',
+  '',
+  '',
+  '',
+  '',
+  '',
+];

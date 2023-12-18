@@ -1,7 +1,4 @@
-// import 'package:loading_indicator/loading_indicator.dart';
-
-import '../../utils/helper.dart';
-import '../core.dart';
+import '../helpers/helpers.dart';
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({
@@ -13,7 +10,7 @@ class LoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("data");
+    return const Text("data");
     // LoadingIndicator(
     //   indicatorType: Indicator.circleStrokeSpin,
     //   colors: [context.colors.xDSAred6],

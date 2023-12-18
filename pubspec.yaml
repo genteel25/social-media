@@ -69,5 +69,8 @@ flutter:
     - assets/svgs/
     - assets/audio/
     - assets/video/
+    - assets/.env
+    - assets/.env.prod
+    - assets/translations/
 
   uses-material-design: true

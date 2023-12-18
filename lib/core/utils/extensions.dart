@@ -5,12 +5,8 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:timeago/timeago.dart';
-
-import '../../utils/helper.dart';
-import '../components/shimmer.dart';
 import '../core.dart';
 
 extension StringExtensions on String {
@@ -166,10 +162,10 @@ extension ContextExtension on BuildContext {
             CupertinoDialogAction(
               onPressed: () => Navigator.of(context).pop(),
               child: 'OK'.toText(
-                // style: context.labelSmall!.copyWith(
-                //     // color: AppColors.cgsPrimaryButton,
-                //     ),
-              ),
+                  // style: context.labelSmall!.copyWith(
+                  //     // color: AppColors.cgsPrimaryButton,
+                  //     ),
+                  ),
             ),
           ],
         ),
@@ -183,17 +179,17 @@ extension ContextExtension on BuildContext {
         pageBuilder: (context, animation1, animation2) {
           return AlertDialog(
             title: title.toText(
-              // style: context.labelLarge!.copyWith(
-              //     // color: darkTheme.value ? Colors.white : Colors.black,
-              //     ),
-            ),
+                // style: context.labelLarge!.copyWith(
+                //     // color: darkTheme.value ? Colors.white : Colors.black,
+                //     ),
+                ),
             // content: message.toText(style: context.labelSmall),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
                 child: 'OK'.toText(
-                  // style: context.labelSmall!.copyWith(),
-                ),
+                    // style: context.labelSmall!.copyWith(),
+                    ),
               ),
             ],
           );

@@ -1,4 +1,4 @@
-import '../../utils/helper.dart';
+import '../helpers/helpers.dart';
 
 class Debouncer {
   Debouncer({required this.duration});
