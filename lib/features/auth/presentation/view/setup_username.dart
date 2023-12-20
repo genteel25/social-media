@@ -58,7 +58,7 @@ class SetupUsernameView extends StatelessWidget
             children: [
               SizedBox(
                 width: double.infinity,
-                height: 48.h,
+                height: 48.sp,
                 child: ElevatedButton(
                   onPressed: () => controller.onPressed!(),
                   child: const Text("Continue"),
@@ -74,12 +74,13 @@ class SetupUsernameView extends StatelessWidget
           SizedBox(height: 16.h),
           SizedBox(
             width: double.infinity,
-            height: 48.h,
+            height: 48.sp,
             child: TextButton(
               onPressed: () {},
               child: Text(
                 "Skip for later",
-                style: Styles.x16dp_222C27_400w(color: AppColors.primaryColor),
+                style: Styles.x16dp_222C27_400w(
+                    color: AppColors.primaryColor, height: 1.4.h),
               ),
             ),
           ),

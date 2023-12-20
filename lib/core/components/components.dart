@@ -29,4 +29,5 @@ export 'sliver_delegate_widget.dart';
 export 'stacked_image.dart';
 export 'textfields.dart';
 export 'upload_field.dart';
+export 'dropdown_widget.dart';
 

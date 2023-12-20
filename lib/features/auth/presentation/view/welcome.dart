@@ -32,7 +32,7 @@ class WelcomeView extends StatelessWidget implements WelcomeViewContract {
                   ),
                   SizedBox(height: 48.h),
                   Padding(
-                    padding: REdgeInsets.symmetric(horizontal: 68),
+                    padding: REdgeInsets.symmetric(horizontal: 68.sp),
                     child: Text(
                       "Welcome to Duduzili",
                       style: Styles.x32dp_222C27_700w(),
@@ -41,7 +41,7 @@ class WelcomeView extends StatelessWidget implements WelcomeViewContract {
                   ),
                   SizedBox(height: 8.h),
                   Padding(
-                    padding: REdgeInsets.symmetric(horizontal: 33),
+                    padding: REdgeInsets.symmetric(horizontal: 33.sp),
                     child: Text(
                       "Connect with friends, discover new communities, and share your life with others",
                       style: Styles.x16dp_222C27_400w(),
@@ -140,7 +140,7 @@ class WelcomeView extends StatelessWidget implements WelcomeViewContract {
                   SizedBox(height: 20.h),
                   SizedBox(
                     width: double.infinity,
-                    height: 48.h,
+                    height: 48.sp,
                     child: ElevatedButton(
                       onPressed: () => context.pushNamed(RouteConstants.signUp),
                       style: ElevatedButton.styleFrom(

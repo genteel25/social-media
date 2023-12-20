@@ -1,5 +1,3 @@
-
-
 import '../../../../core/helpers/helpers.dart';
 
 class HomeView extends StatelessWidget implements HomeViewContract {
@@ -68,7 +66,7 @@ class HomeView extends StatelessWidget implements HomeViewContract {
           SvgPicture.asset(
             "assets/svgs/search_inactive.svg",
             width: 24.w,
-            height: 24.w,
+            height: 24.h,
             color: const Color(0xff292D32),
           ),
           SizedBox(width: 15.45.w),
@@ -82,216 +80,205 @@ class HomeView extends StatelessWidget implements HomeViewContract {
         ],
         centerTitle: true,
       ),
-      body: NestedScrollView(
-        controller: controller.controller,
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return [
-            // SizedBox(height: 20.h),
-            SliverToBoxAdapter(
-              child: Container(
-                color: AppColors.skyWhite,
-                child: Column(
-                  children: [
-                    SizedBox(height: 20.h),
-                    SizedBox(
-                      height: 92.h,
-                      // width: 100.w,
-                      child: SingleChildScrollView(
-                        primary: false,
-                        padding: REdgeInsets.symmetric(horizontal: 20.w),
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            Column(
-                              children: [
-                                GestureDetector(
-                                  onTap: () => Navigator.push(
-                                      GlobalVariables
-                                          .mainNavigatorKey.currentContext!,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const CameraWidget(),
-                                      )),
-                                  child: Stack(
-                                    children: [
-                                      Container(
-                                        padding: REdgeInsets.all(4),
-                                        width: 62.sp,
-                                        height: 62.sp,
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Container(
+              color: AppColors.skyWhite,
+              child: Column(
+                children: [
+                  SizedBox(height: 20.h),
+                  SizedBox(
+                    height: 92.h,
+                    // width: 100.w,
+                    child: SingleChildScrollView(
+                      primary: false,
+                      padding: REdgeInsets.symmetric(horizontal: 20.w),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () => Navigator.push(
+                                    GlobalVariables
+                                        .mainNavigatorKey.currentContext!,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CameraWidget(),
+                                    )),
+                                child: Stack(
+                                  // alignment: Alignment.center,
+                                  children: [
+                                    Container(
+                                      padding: REdgeInsets.all(4),
+                                      width: 70.sp,
+                                      height: 70.sp,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: AppColors.neutral600,
+                                            width: 1.5.w,
+                                          )),
+                                      child: const FlutterLogo(),
+                                    ),
+                                    Positioned(
+                                      bottom: 0,
+                                      right: 0,
+                                      child: Container(
+                                        width: 20.sp,
+                                        height: 20.sp,
                                         decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                              color: AppColors.neutral600,
-                                              width: 1.5.w,
-                                            )),
-                                        child: const FlutterLogo(),
-                                      ),
-                                      Positioned(
-                                        bottom: 0,
-                                        right: 0,
-                                        child: Container(
-                                          width: 20.w,
-                                          height: 20.h,
-                                          decoration: BoxDecoration(
-                                            color: AppColors.primaryColor,
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                              color: Colors.white,
-                                              width: 1.w,
-                                            ),
-                                          ),
-                                          child: Icon(
-                                            Icons.add,
+                                          color: AppColors.primaryColor,
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
                                             color: Colors.white,
-                                            size: 10.w.h,
+                                            width: 1.w,
                                           ),
                                         ),
+                                        child: Icon(
+                                          Icons.add,
+                                          color: Colors.white,
+                                          size: 10.sp,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const Spacer(),
+                              Text(
+                                "Your story",
+                                style: Styles.x12dp_222C27_400w(
+                                    color: AppColors.neutral1000),
+                              )
+                            ],
+                          ),
+                          SizedBox(width: 12.w),
+                          SizedBox(
+                            height: 92.h,
+                            // width: 200.w,
+                            child: ListView.separated(
+                              // controller: controller.controller,
+                              itemCount: stories.length,
+                              shrinkWrap: true,
+                              // primary: false,
+                              physics: const NeverScrollableScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (BuildContext context, int index) {
+                                return GestureDetector(
+                                  onTap: () => Navigator.push(
+                                    GlobalVariables
+                                        .mainNavigatorKey.currentContext!,
+                                    MaterialPageRoute(
+                                      builder: (context) => StoryViewWidget(
+                                        imageUrls: imageUrls,
+                                        statusType: statusType.audio,
+                                      ),
+                                    ),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      StatusView(
+                                        indexOfSeenStatus: stories[index]
+                                            ['noOfSeen'],
+                                        numberOfStatus: stories[index]
+                                            ['noOfUnseen'],
+                                        radius: 34.2.r,
+                                        padding: 3,
+                                        strokeWidth: 2,
+                                        spacing: 12,
+                                        seenColor: AppColors.neutral400,
+                                        unSeenColor: AppColors.primaryColor,
+                                        centerImageUrl: stories[index]
+                                            ['imageUrl'],
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        stories[index]['title'],
+                                        style: Styles.x12dp_222C27_400w(
+                                            color: AppColors.neutral1000),
                                       )
                                     ],
                                   ),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  "Your story",
-                                  style: Styles.x12dp_222C27_400w(
-                                      color: AppColors.neutral1000),
-                                )
-                              ],
-                            ),
-                            SizedBox(width: 12.w),
-                            SizedBox(
-                              height: 92.h,
-                              // width: 200.w,
-                              child: ListView.separated(
-                                // controller: controller.controller,
-                                itemCount: stories.length,
-                                shrinkWrap: true,
-                                // primary: false,
-                                physics: const NeverScrollableScrollPhysics(),
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
-                                    onTap: () => Navigator.push(
-                                      GlobalVariables
-                                          .mainNavigatorKey.currentContext!,
-                                      MaterialPageRoute(
-                                        builder: (context) => StoryViewWidget(
-                                          imageUrls: imageUrls,
-                                          statusType: statusType.image,
-                                        ),
-                                      ),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        StatusView(
-                                          indexOfSeenStatus: stories[index]
-                                              ['noOfSeen'],
-                                          numberOfStatus: stories[index]
-                                              ['noOfUnseen'],
-                                          radius: 34.2,
-                                          padding: 3,
-                                          strokeWidth: 2,
-                                          spacing: 12,
-                                          seenColor: AppColors.neutral400,
-                                          unSeenColor: AppColors.primaryColor,
-                                          centerImageUrl: stories[index]
-                                              ['imageUrl'],
-                                        ),
-                                        const Spacer(),
-                                        Text(
-                                          stories[index]['title'],
-                                          style: Styles.x12dp_222C27_400w(
-                                              color: AppColors.neutral1000),
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                },
-                                separatorBuilder: (context, index) =>
-                                    SizedBox(width: 12.w),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 23.h),
-                  ],
-                ),
-              ),
-            ),
-            SliverPersistentHeader(
-              delegate: SliverCustomHeaderDelegate(
-                minHeight: 54.h,
-                maxHeight: 54.h,
-                child: Container(
-                  // padding: REdgeInsets.all(20),
-                  color: Colors.white,
-                  height: 34.h,
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () =>
-                                controller.setCurrentSelectedChipIndex(0),
-                            child: RawChip(
-                              label: Text(
-                                "For you",
-                                style: Styles.x12dp_222C27_600w(
-                                  color:
-                                      controller.currentSelectedChipIndex == 0
-                                          ? AppColors.inkDarkest
-                                          : const Color(0xff9e9e9e),
-                                ),
-                              ),
-                              selected:
-                                  controller.currentSelectedChipIndex == 0,
-                              showCheckmark: false,
-                            ),
-                          ),
-                          SizedBox(width: 113.w),
-                          GestureDetector(
-                            onTap: () =>
-                                controller.setCurrentSelectedChipIndex(1),
-                            child: RawChip(
-                              label: Text(
-                                "Following",
-                                style: Styles.x12dp_222C27_600w(
-                                  color:
-                                      controller.currentSelectedChipIndex == 1
-                                          ? AppColors.inkDarkest
-                                          : const Color(0xff9e9e9e),
-                                ),
-                              ),
-                              selected:
-                                  controller.currentSelectedChipIndex == 1,
-                              showCheckmark: false,
+                                );
+                              },
+                              separatorBuilder: (context, index) =>
+                                  SizedBox(width: 12.w),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 4.h),
-                      const Divider(
-                        color: AppColors.neutral300,
-                        height: 0,
-                        thickness: 0.8,
-                      ),
-                    ],
+                    ),
                   ),
+                  SizedBox(height: 23.h),
+                ],
+              ),
+            ),
+          ),
+          SliverPersistentHeader(
+            delegate: SliverCustomHeaderDelegate(
+              minHeight: 60.h,
+              maxHeight: 60.h,
+              child: Container(
+                // padding: REdgeInsets.all(20),
+                color: Colors.white,
+                height: 34.h,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () =>
+                              controller.setCurrentSelectedChipIndex(0),
+                          child: RawChip(
+                            label: Text(
+                              "For you",
+                              style: Styles.x12dp_222C27_600w(
+                                color: controller.currentSelectedChipIndex == 0
+                                    ? AppColors.inkDarkest
+                                    : const Color(0xff9e9e9e),
+                              ),
+                            ),
+                            selected: controller.currentSelectedChipIndex == 0,
+                            showCheckmark: false,
+                          ),
+                        ),
+                        SizedBox(width: 113.w),
+                        GestureDetector(
+                          onTap: () =>
+                              controller.setCurrentSelectedChipIndex(1),
+                          child: RawChip(
+                            label: Text(
+                              "Following",
+                              style: Styles.x12dp_222C27_600w(
+                                color: controller.currentSelectedChipIndex == 1
+                                    ? AppColors.inkDarkest
+                                    : const Color(0xff9e9e9e),
+                              ),
+                            ),
+                            selected: controller.currentSelectedChipIndex == 1,
+                            showCheckmark: false,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 4.h),
+                    Divider(
+                      color: AppColors.neutral300,
+                      height: 0.h,
+                      thickness: 0.8,
+                    ),
+                  ],
                 ),
               ),
-              pinned: true,
             ),
-          ];
-        },
-        body: Padding(
-          padding: REdgeInsets.only(top: 0),
-          child: controller.currentSelectedChipIndex == 0
-              ? ListView.separated(
-                  // primary: false,
-                  physics: const ClampingScrollPhysics(),
+            pinned: true,
+          ),
+          controller.currentSelectedChipIndex == 0
+              ? SliverList.separated(
                   itemBuilder: (context, index) {
                     return index == 4
                         ? const FollowRequestWidget()
@@ -301,30 +288,36 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                             // index % 2 == 1
                             //     ? const ImagePostWidget()
                             //     :
-                            const AudioPlayerWidget();
+                            const AudioPlayerWidget(
+                                isClickable: true,
+                              );
                   },
                   separatorBuilder: (context, index) => SizedBox(height: 8.h),
                   itemCount: forYouItemList.length)
-              : ListView.separated(
-                  // primary: false,
-                  physics: const ClampingScrollPhysics(),
-                  // padding: REdgeInsets.only(left: 20, right: 20, top: 20),
+              : SliverList.separated(
                   itemBuilder: (context, index) {
-                    return const VideoPlayerWidget();
+                    return const VideoPlayerWidget(isClickable: false);
                   },
                   separatorBuilder: (context, index) => SizedBox(height: 8.h),
-                  itemCount: 8),
-        ),
+                  itemCount: 8,
+                )
+        ],
       ),
       floatingActionButton: Container(
-        margin: REdgeInsets.only(bottom: 10),
+        width: 48.sp,
+        height: 48.sp,
+        margin: REdgeInsets.only(bottom: 10.sp),
         child: FloatingActionButton(
           heroTag: null,
           onPressed: () => context.pushNamed(RouteConstants.createPost),
           backgroundColor: AppColors.primaryColor,
           elevation: 0,
           isExtended: true,
-          child: const Icon(Icons.add, color: Colors.white),
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 24.sp,
+          ),
         ),
       ),
     );
@@ -341,7 +334,7 @@ class DiscoverCommunityWidget extends StatelessWidget {
     return Container(
       padding: REdgeInsets.symmetric(horizontal: 20, vertical: 10),
       color: Colors.white,
-      height: 356.h,
+      height: 359.h,
       child: Column(
         children: [
           SizedBox(height: 14.h),
@@ -394,8 +387,8 @@ class DiscoverCommunityWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 168.w,
-                        height: 158.h,
+                        width: 168.sp,
+                        height: 158.sp,
                         child: const FlutterLogo(
                             // size: 158,
                             ),
@@ -455,7 +448,7 @@ class FollowRequestWidget extends StatelessWidget {
     return Container(
       padding: REdgeInsets.symmetric(horizontal: 20, vertical: 10),
       color: Colors.white,
-      height: 356.h,
+      height: 359.sp,
       child: Column(
         children: [
           SizedBox(height: 14.h),
@@ -507,8 +500,8 @@ class FollowRequestWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 168.w,
-                        height: 158.h,
+                        width: 168.sp,
+                        height: 158.sp,
                         child: const FlutterLogo(
                             // size: 158,
                             ),
@@ -529,8 +522,8 @@ class FollowRequestWidget extends StatelessWidget {
                       ),
                       SizedBox(height: 8.h),
                       SizedBox(
-                        height: 32.h,
-                        width: 168.w,
+                        height: 32.sp,
+                        width: 168.sp,
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(

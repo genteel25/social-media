@@ -16,28 +16,44 @@ class PostFooterWidgetState extends State<PostFooterWidget> {
       children: [
         Row(
           children: [
-            SvgPicture.asset("assets/svgs/heart.svg"),
+            SvgPicture.asset(
+              "assets/svgs/heart.svg",
+              width: 16.sp,
+              height: 16.sp,
+            ),
             SizedBox(width: 4.w),
             Text(
               "306 likes",
               style: Styles.x12dp_222C27_400w(color: AppColors.neutral800),
             ),
             SizedBox(width: 20.w),
-            SvgPicture.asset("assets/svgs/message.svg"),
+            SvgPicture.asset(
+              "assets/svgs/message.svg",
+              width: 16.sp,
+              height: 16.sp,
+            ),
             SizedBox(width: 4.w),
             Text(
               "3.1K comments",
               style: Styles.x12dp_222C27_400w(color: AppColors.neutral800),
             ),
             SizedBox(width: 20.w),
-            SvgPicture.asset("assets/svgs/share.svg"),
+            SvgPicture.asset(
+              "assets/svgs/share.svg",
+              width: 16.sp,
+              height: 16.sp,
+            ),
             SizedBox(width: 4.w),
             Text(
               "Share",
               style: Styles.x12dp_222C27_400w(color: AppColors.neutral800),
             ),
             const Spacer(),
-            SvgPicture.asset("assets/svgs/bookmark.svg"),
+            SvgPicture.asset(
+              "assets/svgs/bookmark.svg",
+              width: 16.sp,
+              height: 16.sp,
+            ),
           ],
         ),
         SizedBox(height: 8.h),

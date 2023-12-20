@@ -1,4 +1,3 @@
-
 import '../../../../core/helpers/helpers.dart';
 
 class ImageStatus extends StatefulWidget {
@@ -112,7 +111,7 @@ class ImageStatusState extends State<ImageStatus>
           SizedBox(height: 8.h),
           Container(
             width: double.infinity,
-            height: 450,
+            height: 450.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.r),
               color: AppColors.neutral1000,
@@ -127,7 +126,7 @@ class ImageStatusState extends State<ImageStatus>
           ),
           SizedBox(height: 24.h),
           SizedBox(
-            height: 50.h,
+            height: 50.sp,
             child: Align(
               alignment: Alignment.center,
               child: ListView.separated(
@@ -138,8 +137,8 @@ class ImageStatusState extends State<ImageStatus>
                   return GestureDetector(
                     onTap: () => onImageClickHandler(widget.imageUrls![index]),
                     child: Container(
-                      width: 50.w,
-                      height: 50.h,
+                      width: 50.sp,
+                      height: 50.sp,
                       // padding: REdgeInsets.all(8),
                       decoration: BoxDecoration(
                         // border: Border.all(

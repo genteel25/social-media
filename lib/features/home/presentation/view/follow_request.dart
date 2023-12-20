@@ -1,6 +1,7 @@
 import '../../../../core/helpers/helpers.dart';
 
-class FollowRequestView extends StatelessWidget implements FollowRequestViewContract {
+class FollowRequestView extends StatelessWidget
+    implements FollowRequestViewContract {
   const FollowRequestView({
     Key? key,
     required this.controller,
@@ -32,7 +33,7 @@ class FollowRequestView extends StatelessWidget implements FollowRequestViewCont
                           Container(
                             padding: REdgeInsets.all(10),
                             width: 80.w,
-                            height: 80.h,
+                            height: 80.sp,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(color: AppColors.neutral300),
@@ -74,7 +75,7 @@ class FollowRequestView extends StatelessWidget implements FollowRequestViewCont
                               Row(
                                 children: [
                                   SizedBox(
-                                    height: 32.h,
+                                    height: 32.sp,
                                     width: 110.w,
                                     child: ElevatedButton(
                                         onPressed: () {},
@@ -93,7 +94,7 @@ class FollowRequestView extends StatelessWidget implements FollowRequestViewCont
                                   ),
                                   SizedBox(width: 12.w),
                                   SizedBox(
-                                    height: 32.h,
+                                    height: 32.sp,
                                     width: 110.w,
                                     child: OutlinedButton(
                                         onPressed: () {},

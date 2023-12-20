@@ -54,7 +54,7 @@ class AddProfilePictureView extends StatelessWidget
             children: [
               SizedBox(
                 width: double.infinity,
-                height: 48.h,
+                height: 48.sp,
                 child: ElevatedButton(
                   onPressed: () => controller.onPressed!(),
                   child: const Text("Continue"),
@@ -70,7 +70,7 @@ class AddProfilePictureView extends StatelessWidget
           SizedBox(height: 16.h),
           SizedBox(
             width: double.infinity,
-            height: 48.h,
+            height: 48.sp,
             child: TextButton(
               onPressed: () {},
               child: Text(

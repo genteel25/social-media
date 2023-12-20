@@ -95,8 +95,8 @@ class DiscoverCommunityView extends StatelessWidget
                         contentPadding: EdgeInsets.zero,
                         leading: Container(
                           padding: REdgeInsets.all(4),
-                          width: 40.w,
-                          height: 40.h,
+                          width: 40.sp,
+                          height: 40.sp,
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: AppColors.neutral300,

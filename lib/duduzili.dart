@@ -1,5 +1,3 @@
-
-
 import 'core/helpers/helpers.dart';
 
 class DuduziliApp extends StatelessWidget {
@@ -9,10 +7,9 @@ class DuduziliApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
         designSize: const Size(375, 812),
-        minTextAdapt: false,
-        splitScreenMode: false,
-        //scaleByHeight: true,
-        useInheritedMediaQuery: true,
+        minTextAdapt: true,
+        splitScreenMode: true,
+        useInheritedMediaQuery: false,
         rebuildFactor: (old, data) {
           return false;
         },

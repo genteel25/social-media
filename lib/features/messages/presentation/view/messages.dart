@@ -1,7 +1,6 @@
 import '../../../../core/helpers/helpers.dart';
 
-class MessagesView extends StatelessWidget
-    implements MessagesViewContract {
+class MessagesView extends StatelessWidget implements MessagesViewContract {
   const MessagesView({
     Key? key,
     required this.controller,
@@ -23,8 +22,8 @@ class MessagesView extends StatelessWidget
               return [
                 SliverPersistentHeader(
                   delegate: SliverCustomHeaderDelegate(
-                    minHeight: 188.sp,
-                    maxHeight: 188.sp,
+                    minHeight: 196.sp,
+                    maxHeight: 196.sp,
                     child: Container(
                       color: AppColors.skyWhite,
                       child: Column(
@@ -42,10 +41,10 @@ class MessagesView extends StatelessWidget
                                 color: AppColors.neutral600,
                               ),
                               indicatorWeight: 0.1,
-                              indicator: BoxDecoration(),
+                              indicator: const BoxDecoration(),
                               indicatorPadding: EdgeInsets.zero,
                               indicatorSize: TabBarIndicatorSize.label,
-                              tabs: [
+                              tabs: const [
                                 Tab(
                                   text: "Chats",
                                 ),
@@ -82,7 +81,7 @@ class MessagesView extends StatelessWidget
                           ),
                           SizedBox(height: 17.h),
                           SizedBox(
-                            height: 64.h,
+                            height: 64.sp,
                             child: ListView.separated(
                               padding: REdgeInsets.only(left: 20),
                               scrollDirection: Axis.horizontal,
@@ -146,19 +145,6 @@ class MessagesView extends StatelessWidget
                   ),
                   pinned: true,
                 ),
-                // SliverToBoxAdapter(
-                //   child: Column(
-                //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     children: [
-                //       SizedBox(height: 33.h),
-                //       Text(
-                //         "Discover community",
-                //         style: Styles.x16dp_222C27_600w(
-                //             color: AppColors.neutral1000),
-                //       ),
-                //     ],
-                //   ),
-                // )
               ];
             },
             body: TabBarView(
@@ -173,8 +159,8 @@ class MessagesView extends StatelessWidget
                         children: [
                           Container(
                             padding: REdgeInsets.all(4),
-                            width: 40.w,
-                            height: 40.h,
+                            width: 40.sp,
+                            height: 40.sp,
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border:
@@ -222,6 +208,8 @@ class MessagesView extends StatelessWidget
                           color: AppColors.neutral600,
                         ),
                       ),
+                      // minVerticalPadding: 2,
+
                       trailing: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -237,9 +225,9 @@ class MessagesView extends StatelessWidget
                           index % 3 == 1
                               ? Container(
                                   alignment: Alignment.center,
-                                  width: 15.w,
-                                  height: 15.h,
-                                  decoration: BoxDecoration(
+                                  width: 14.sp,
+                                  height: 14.sp,
+                                  decoration: const BoxDecoration(
                                     color: AppColors.errorError,
                                     shape: BoxShape.circle,
                                   ),
@@ -264,14 +252,20 @@ class MessagesView extends StatelessWidget
         ),
       ),
       floatingActionButton: Container(
-        margin: REdgeInsets.only(bottom: 10),
+        width: 48.sp,
+        height: 48.sp,
+        margin: REdgeInsets.only(bottom: 10.sp),
         child: FloatingActionButton(
           heroTag: null,
           onPressed: () => context.pushNamed(RouteConstants.createPost),
           backgroundColor: AppColors.primaryColor,
           elevation: 0,
           isExtended: true,
-          child: const Icon(Icons.add, color: Colors.white),
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 24.sp,
+          ),
         ),
       ),
     );

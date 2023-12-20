@@ -89,8 +89,8 @@ class SignUpView extends StatelessWidget implements SignUpViewContract {
                     children: [
                       Container(
                         margin: REdgeInsets.only(top: 4),
-                        height: 16.h,
-                        width: 16.w,
+                        height: 16.sp,
+                        width: 16.sp,
                         child: Checkbox(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(4.r),
@@ -106,14 +106,23 @@ class SignUpView extends StatelessWidget implements SignUpViewContract {
                           text: TextSpan(
                             text: "By clicking Sign up, you  agree to our ",
                             style: Styles.x14dp_222C27_400w(
-                                color: AppColors.neutral800, height: 1.h),
+                                color: AppColors.neutral800, height: 1.5),
                             children: [
                               TextSpan(
-                                  text:
-                                      "Privacy Policy and Terms and Conditions ",
+                                  text: "Privacy Policy and Terms ",
                                   style: Styles.x14dp_222C27_600w(
                                       color: AppColors.primaryColor,
-                                      height: 1.2.h)),
+                                      height: 1.4)),
+                              TextSpan(
+                                text: "and ",
+                                style: Styles.x14dp_222C27_400w(
+                                    color: AppColors.neutral800, height: 1.5),
+                              ),
+                              TextSpan(
+                                  text: "Conditions ",
+                                  style: Styles.x14dp_222C27_600w(
+                                      color: AppColors.primaryColor,
+                                      height: 1.4)),
                             ],
                           ),
                         ),

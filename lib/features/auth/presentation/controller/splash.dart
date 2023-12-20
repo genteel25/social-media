@@ -24,7 +24,7 @@ class SplashController extends State<SplashScreen>
       }
     });
     Future.delayed(const Duration(seconds: 16), () {
-      context.pushNamed(RouteConstants.onboard);
+      context.go("/${RouteConstants.onboard}");
     });
   }
 

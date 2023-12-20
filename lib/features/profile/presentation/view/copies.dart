@@ -1,10 +1,9 @@
 // part of '../controller/copy.dart';
 
-import 'package:flutter/material.dart';
+import '../../../../core/helpers/helpers.dart';
 
-import '../contracts/copy_contract.dart';
-
-class ProfileCopyView extends StatelessWidget implements ProfileCopyViewContract {
+class ProfileCopyView extends StatelessWidget
+    implements ProfileCopyViewContract {
   const ProfileCopyView({
     Key? key,
     required this.controller,

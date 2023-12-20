@@ -1,5 +1,3 @@
-
-
 import '../helpers/helpers.dart';
 import 'global_variables.dart';
 
@@ -103,13 +101,18 @@ class AppUtils {
     );
   }
 
-  static AppBar normalAppBar(BuildContext context, {required String title}) {
+  static AppBar normalAppBar(
+    BuildContext context, {
+    required String title,
+    Widget? trailing,
+    String? assetPath,
+  }) {
     return AppBar(
       toolbarHeight: 57.h,
-      leadingWidth: 80,
+      leadingWidth: 120,
       leading: Row(
         children: [
-          SizedBox(width: 20.w),
+          SizedBox(width: 20.sp),
           ExpandTapWidget(
             onTap: () => context.pop(),
             tapPadding: REdgeInsets.all(10),
@@ -122,7 +125,7 @@ class AppUtils {
                 shape: BoxShape.circle,
               ),
               child: SvgPicture.asset(
-                "assets/svgs/arrow_left.svg",
+                assetPath ?? "assets/svgs/arrow_left.svg",
                 width: 8.w,
                 height: 8.h,
                 fit: BoxFit.none,
@@ -136,6 +139,12 @@ class AppUtils {
         title,
         style: Styles.x16dp_222C27_600w(color: AppColors.neutral1000),
       ),
+      actions: trailing == null
+          ? null
+          : [
+              trailing,
+              SizedBox(width: 20.w),
+            ],
       centerTitle: true,
       backgroundColor: AppColors.skyWhite,
       elevation: 0,

@@ -1,33 +1,3 @@
-// import 'package:duduzili/core/components/nested_scaffold_widget.dart';
-
-// import '../../features/auth/presentation/controller/add_profile_picture.dart';
-// import '../../features/auth/presentation/controller/app_lock.dart';
-// import '../../features/auth/presentation/controller/complete_registration.dart';
-// import '../../features/auth/presentation/controller/onboard.dart';
-// import '../../features/auth/presentation/controller/recover_account.dart';
-// import '../../features/auth/presentation/controller/select_preference.dart';
-// import '../../features/auth/presentation/controller/set_password.dart';
-// import '../../features/auth/presentation/controller/setup_username.dart';
-// import '../../features/auth/presentation/controller/signin.dart';
-// import '../../features/auth/presentation/controller/signup.dart';
-// import '../../features/auth/presentation/controller/splash.dart';
-// import '../../features/auth/presentation/controller/verify_otp.dart';
-// import '../../features/auth/presentation/controller/welcome.dart';
-// import '../../features/community/presentation/controller/community.dart';
-// import '../../features/community/presentation/controller/community_info.dart';
-// import '../../features/community/presentation/controller/discover_community.dart';
-// import '../../features/home/presentation/controller/comment.dart';
-// import '../../features/home/presentation/controller/create_post.dart';
-// import '../../features/home/presentation/controller/discover_people.dart';
-// import '../../features/home/presentation/controller/follow_request.dart';
-// import '../../features/home/presentation/controller/home.dart';
-// import '../../features/messages/presentation/controller/chat.dart';
-// import '../../features/messages/presentation/controller/messages.dart';
-// import '../../features/profile/presentation/controller/edit_profile.dart';
-// import '../../features/profile/presentation/controller/profile.dart';
-// import '../../features/search/presentation/controller/search.dart';
-// import '../utils/global_variables.dart';
-// import '../utils/observers.dart';
 import '../helpers/helpers.dart';
 
 class AppRouter {
@@ -43,95 +13,107 @@ class AppRouter {
       GoRoute(
         name: RouteConstants.splash,
         path: '/',
+        // onExit: (context) => true,
         builder: (context, state) => const SplashScreen(),
-        routes: [
-          GoRoute(
-            path: RouteConstants.onboard,
-            name: RouteConstants.onboard,
-            builder: (context, state) => const OnboardScreen(),
-          ),
-          GoRoute(
-            path: RouteConstants.welcome,
-            name: RouteConstants.welcome,
-            builder: (context, state) => const WelcomeScreen(),
-          ),
-          GoRoute(
-            path: RouteConstants.appLock,
-            name: RouteConstants.appLock,
-            builder: (context, state) => const AppLockScreen(),
-          ),
-          GoRoute(
-            path: RouteConstants.signIn,
-            name: RouteConstants.signIn,
-            builder: (context, state) => const SignInScreen(),
-          ),
-          GoRoute(
-            path: RouteConstants.signUp,
-            name: RouteConstants.signUp,
-            builder: (context, state) => const SignUpScreen(),
-          ),
-          GoRoute(
-            path: RouteConstants.addProfilePicture,
-            name: RouteConstants.addProfilePicture,
-            builder: (context, state) => const AddProfilePictureScreen(),
-          ),
-          GoRoute(
-            path: RouteConstants.completeRegistration,
-            name: RouteConstants.completeRegistration,
-            builder: (context, state) => const CompleteRegistrationScreen(),
-          ),
-          GoRoute(
-            path: RouteConstants.selectPreference,
-            name: RouteConstants.selectPreference,
-            builder: (context, state) => const SelectPreferenceScreen(),
-          ),
-          GoRoute(
-            path: RouteConstants.setupUsername,
-            name: RouteConstants.setupUsername,
-            builder: (context, state) => const SetupUsernameScreen(),
-          ),
-          GoRoute(
-            path: RouteConstants.verifyOtp,
-            name: RouteConstants.verifyOtp,
-            builder: (context, state) => VerifyOtpScreen(
-              accountRecovery: state.extra as bool?,
-            ),
-          ),
-          GoRoute(
-            path: RouteConstants.recoverAccount,
-            name: RouteConstants.recoverAccount,
-            builder: (context, state) => const RecoverAccountScreen(),
-          ),
-          GoRoute(
-            path: RouteConstants.setPassword,
-            name: RouteConstants.setPassword,
-            builder: (context, state) => const SetPasswordScreen(),
-          ),
-          GoRoute(
-            path: RouteConstants.createPost,
-            name: RouteConstants.createPost,
-            parentNavigatorKey: GlobalVariables.mainNavigatorKey,
-            builder: (context, state) => const CreatePostScreen(),
-          ),
-          GoRoute(
-            path: RouteConstants.discoverPeople,
-            name: RouteConstants.discoverPeople,
-            parentNavigatorKey: GlobalVariables.mainNavigatorKey,
-            builder: (context, state) => const DiscoverPeopleScreen(),
-          ),
-          GoRoute(
-            path: RouteConstants.discoverCommunity,
-            name: RouteConstants.discoverCommunity,
-            parentNavigatorKey: GlobalVariables.mainNavigatorKey,
-            builder: (context, state) => const DiscoverCommunityScreen(),
-          ),
-          GoRoute(
-            path: RouteConstants.followRequest,
-            name: RouteConstants.followRequest,
-            parentNavigatorKey: GlobalVariables.mainNavigatorKey,
-            builder: (context, state) => const FollowRequestScreen(),
-          ),
-        ],
+        // routes: const [],
+      ),
+      GoRoute(
+        path: "/${RouteConstants.onboard}",
+        name: RouteConstants.onboard,
+        builder: (context, state) => const OnboardScreen(),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.welcome}",
+        name: RouteConstants.welcome,
+        builder: (context, state) => const WelcomeScreen(),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.appLock}",
+        name: RouteConstants.appLock,
+        builder: (context, state) => const AppLockScreen(),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.signIn}",
+        name: RouteConstants.signIn,
+        builder: (context, state) => const SignInScreen(),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.signUp}",
+        name: RouteConstants.signUp,
+        builder: (context, state) => const SignUpScreen(),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.addProfilePicture}",
+        name: RouteConstants.addProfilePicture,
+        builder: (context, state) => const AddProfilePictureScreen(),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.completeRegistration}",
+        name: RouteConstants.completeRegistration,
+        builder: (context, state) => const CompleteRegistrationScreen(),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.selectPreference}",
+        name: RouteConstants.selectPreference,
+        builder: (context, state) => const SelectPreferenceScreen(),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.setupUsername}",
+        name: RouteConstants.setupUsername,
+        builder: (context, state) => const SetupUsernameScreen(),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.verifyOtp}",
+        name: RouteConstants.verifyOtp,
+        builder: (context, state) => VerifyOtpScreen(
+          accountRecovery: state.extra as bool?,
+        ),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.recoverAccount}",
+        name: RouteConstants.recoverAccount,
+        builder: (context, state) => const RecoverAccountScreen(),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.setPassword}",
+        name: RouteConstants.setPassword,
+        builder: (context, state) => const SetPasswordScreen(),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.createPost}",
+        name: RouteConstants.createPost,
+        parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+        builder: (context, state) => const CreatePostScreen(),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.discoverPeople}",
+        name: RouteConstants.discoverPeople,
+        parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+        builder: (context, state) => const DiscoverPeopleScreen(),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.discoverCommunity}",
+        name: RouteConstants.discoverCommunity,
+        parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+        builder: (context, state) => const DiscoverCommunityScreen(),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.followRequest}",
+        name: RouteConstants.followRequest,
+        parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+        builder: (context, state) => const FollowRequestScreen(),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.yourProfile}",
+        name: RouteConstants.yourProfile,
+        parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+        builder: (context, state) => const YourProfileScreen(),
+      ),
+      GoRoute(
+        path: "/${RouteConstants.about}",
+        name: RouteConstants.about,
+        parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+        builder: (context, state) => const AboutScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -154,6 +136,12 @@ class AppRouter {
                     name: RouteConstants.comment,
                     parentNavigatorKey: GlobalVariables.mainNavigatorKey,
                     builder: (context, state) => const CommentScreen(),
+                  ),
+                  GoRoute(
+                    path: RouteConstants.post,
+                    name: RouteConstants.post,
+                    parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+                    builder: (context, state) => const PostScreen(),
                   ),
                 ],
               ),
@@ -190,6 +178,12 @@ class AppRouter {
                     name: RouteConstants.communityInfo,
                     parentNavigatorKey: GlobalVariables.mainNavigatorKey,
                     builder: (context, state) => const CommunityInfoScreen(),
+                  ),
+                  GoRoute(
+                    path: RouteConstants.createCommunity,
+                    name: RouteConstants.createCommunity,
+                    parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+                    builder: (context, state) => const CreateCommunityScreen(),
                   ),
                 ],
               ),
@@ -232,6 +226,30 @@ class AppRouter {
                     name: RouteConstants.editProfile,
                     parentNavigatorKey: GlobalVariables.mainNavigatorKey,
                     builder: (context, state) => const EditProfileScreen(),
+                  ),
+                  GoRoute(
+                    path: RouteConstants.aboutYou,
+                    name: RouteConstants.aboutYou,
+                    parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+                    builder: (context, state) => const AboutYouScreen(),
+                  ),
+                  GoRoute(
+                    path: RouteConstants.basicInfo,
+                    name: RouteConstants.basicInfo,
+                    parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+                    builder: (context, state) => const BasicInfoScreen(),
+                  ),
+                  GoRoute(
+                    path: RouteConstants.contactInfo,
+                    name: RouteConstants.contactInfo,
+                    parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+                    builder: (context, state) => const ContactInfoScreen(),
+                  ),
+                  GoRoute(
+                    path: RouteConstants.settings,
+                    name: RouteConstants.settings,
+                    parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+                    builder: (context, state) => const SettingsScreen(),
                   ),
                 ],
               ),

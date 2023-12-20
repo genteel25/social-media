@@ -13,7 +13,9 @@ class OnboardView extends StatelessWidget implements OnboardViewContract {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.skyWhite,
-      body: SizedBox(
+      body:
+          // AnimatedWaveContainer(),
+          SizedBox(
         height: double.infinity,
         width: double.infinity,
         child: SingleChildScrollView(
@@ -64,7 +66,7 @@ class OnboardView extends StatelessWidget implements OnboardViewContract {
                   foregroundStrokeWidth: 3,
                   backgroundStrokeWidth: 3,
                   animation: true,
-                  animationDuration: const Duration(seconds: 2),
+                  animationDuration: const Duration(seconds: 1),
                   // seekSize: 6,
                   seekColor: const Color(0xffeeeeee),
                   child: Padding(

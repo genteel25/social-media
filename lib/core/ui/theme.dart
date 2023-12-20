@@ -1,7 +1,5 @@
-
-
-
 import '../core.dart';
+
 class AppTheme {
   static ThemeData lightTheme() {
     return ThemeData(
@@ -77,7 +75,7 @@ class AppTheme {
           textStyle: MaterialStatePropertyAll(
             Styles.x16dp_222C27_400w(
               color: Colors.white,
-              height: 1.h,
+              height: 1.4.h,
             ),
           ),
           shape: MaterialStatePropertyAll(
@@ -87,7 +85,7 @@ class AppTheme {
           ),
           elevation: const MaterialStatePropertyAll(0),
           fixedSize: MaterialStatePropertyAll(
-            Size(double.infinity, 48.h),
+            Size(double.infinity, 48.sp),
           ),
           backgroundColor:
               const MaterialStatePropertyAll(AppColors.primaryColor),
@@ -115,6 +113,9 @@ class AppTheme {
               borderRadius: BorderRadius.circular(8.r),
             ),
           ),
+          fixedSize: MaterialStatePropertyAll(
+            Size(double.infinity, 48.sp),
+          ),
         ),
       ),
       chipTheme: ChipThemeData(
@@ -136,8 +137,6 @@ class AppTheme {
     );
   }
 }
-
-
 
 class CustomColors extends ThemeExtension<CustomColors> {
   final Color? black;

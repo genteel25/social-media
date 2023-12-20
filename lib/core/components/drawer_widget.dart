@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 import '../core.dart';
 
-
-
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({Key? key}) : super(key: key);
 
@@ -30,15 +28,15 @@ class DrawerWidgetState extends State<DrawerWidget> {
         children: [
           SizedBox(height: 60.h),
           ListTile(
-            visualDensity: const VisualDensity(vertical: -4),
+            visualDensity: const VisualDensity(vertical: -3),
             contentPadding: EdgeInsets.zero,
             leading: Stack(
               fit: StackFit.loose,
               children: [
                 Container(
                   padding: REdgeInsets.all(8),
-                  width: 40.w,
-                  height: 40.h,
+                  width: 40.sp,
+                  height: 40.sp,
                   decoration: BoxDecoration(
                     color: AppColors.skyWhite,
                     shape: BoxShape.circle,
@@ -52,9 +50,9 @@ class DrawerWidgetState extends State<DrawerWidget> {
                   bottom: 2,
                   right: 0,
                   child: Container(
-                    width: 10.w,
-                    height: 10.h,
-                    decoration: BoxDecoration(
+                    width: 10.sp,
+                    height: 10.sp,
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color(0xff008000),
                     ),
@@ -82,7 +80,7 @@ class DrawerWidgetState extends State<DrawerWidget> {
               ),
             ),
           ),
-          SizedBox(height: 32.h),
+          SizedBox(height: 24.h),
           Padding(
             padding: REdgeInsets.only(left: 10.5),
             child: Text(
@@ -90,65 +88,29 @@ class DrawerWidgetState extends State<DrawerWidget> {
               style: Styles.x8dp_222C27_600w(color: AppColors.neutral800),
             ),
           ),
-          ListTile(
-            onTap: () {},
-            contentPadding:
-                REdgeInsets.symmetric(vertical: 6.5, horizontal: 10.5),
-            visualDensity: const VisualDensity(vertical: -4),
-            leading: SvgPicture.asset(
-              "assets/svgs/sms.svg",
-              width: 18.w,
-              height: 18.h,
-            ),
-            title: Text(
-              "Message",
-              style: Styles.x12dp_222C27_600w(color: AppColors.neutral1000),
-            ),
+          SizedBox(height: 8.h),
+          DrawerMenuItem(
+            assetPath: "assets/svgs/sms.svg",
+            label: "Message",
+            onClick: () {},
           ),
-          ListTile(
-            onTap: () {},
-            contentPadding:
-                REdgeInsets.symmetric(vertical: 6.5, horizontal: 10.5),
-            visualDensity: const VisualDensity(vertical: -4),
-            leading: SvgPicture.asset(
-              "assets/svgs/global.svg",
-              width: 18.w,
-              height: 18.h,
-            ),
-            title: Text(
-              "Community",
-              style: Styles.x12dp_222C27_600w(color: AppColors.neutral1000),
-            ),
+          SizedBox(height: 8.h),
+          DrawerMenuItem(
+            assetPath: "assets/svgs/global.svg",
+            label: "Community",
+            onClick: () {},
           ),
-          ListTile(
-            onTap: () {},
-            contentPadding:
-                REdgeInsets.symmetric(vertical: 6.5, horizontal: 10.5),
-            visualDensity: const VisualDensity(vertical: -4),
-            leading: SvgPicture.asset(
-              "assets/svgs/notification_outline.svg",
-              width: 18.w,
-              height: 18.h,
-            ),
-            title: Text(
-              "Notification",
-              style: Styles.x12dp_222C27_600w(color: AppColors.neutral1000),
-            ),
+          SizedBox(height: 8.h),
+          DrawerMenuItem(
+            assetPath: "assets/svgs/notification_outline.svg",
+            label: "Notification",
+            onClick: () {},
           ),
-          ListTile(
-            onTap: () {},
-            contentPadding:
-                REdgeInsets.symmetric(vertical: 6.5, horizontal: 10.5),
-            visualDensity: const VisualDensity(vertical: -4),
-            leading: SvgPicture.asset(
-              "assets/svgs/favourite.svg",
-              width: 18.w,
-              height: 18.h,
-            ),
-            title: Text(
-              "Favourites",
-              style: Styles.x12dp_222C27_600w(color: AppColors.neutral1000),
-            ),
+          SizedBox(height: 8.h),
+          DrawerMenuItem(
+            assetPath: "assets/svgs/favourite.svg",
+            label: "Favourites",
+            onClick: () {},
           ),
           SizedBox(height: 20.h),
           Divider(
@@ -163,90 +125,44 @@ class DrawerWidgetState extends State<DrawerWidget> {
               style: Styles.x8dp_222C27_600w(color: AppColors.neutral800),
             ),
           ),
-          ListTile(
-            onTap: () {},
-            contentPadding:
-                REdgeInsets.symmetric(vertical: 6.5, horizontal: 10.5),
-            visualDensity: const VisualDensity(vertical: -4),
-            leading: SvgPicture.asset(
-              "assets/svgs/translate.svg",
-              width: 18.w,
-              height: 18.h,
-            ),
-            title: Text(
-              "Select preferred language",
-              style: Styles.x12dp_222C27_600w(color: AppColors.neutral1000),
-            ),
+          SizedBox(height: 8.h),
+          DrawerMenuItem(
+            assetPath: "assets/svgs/translate.svg",
+            label: "Select preferred language",
+            onClick: () {},
           ),
-          ListTile(
-            onTap: () {},
-            contentPadding:
-                REdgeInsets.symmetric(vertical: 6.5, horizontal: 10.5),
-            visualDensity: const VisualDensity(vertical: -4),
-            leading: SvgPicture.asset(
-              "assets/svgs/settings.svg",
-              width: 18.w,
-              height: 18.h,
-            ),
-            title: Text(
-              "Settings",
-              style: Styles.x12dp_222C27_600w(color: AppColors.neutral1000),
-            ),
+          SizedBox(height: 8.h),
+          DrawerMenuItem(
+            assetPath: "assets/svgs/settings.svg",
+            label: "Settings",
+            onClick: () {},
           ),
-          ListTile(
-            onTap: () {},
-            contentPadding:
-                REdgeInsets.symmetric(vertical: 6.5, horizontal: 10.5),
-            visualDensity: const VisualDensity(vertical: -4),
-            leading: SvgPicture.asset(
-              "assets/svgs/help.svg",
-              width: 18.w,
-              height: 18.h,
-            ),
-            title: Text(
-              "Help & Support",
-              style: Styles.x12dp_222C27_600w(color: AppColors.neutral1000),
-            ),
+          SizedBox(height: 8.h),
+          DrawerMenuItem(
+            assetPath: "assets/svgs/help.svg",
+            label: "Help & Support",
+            onClick: () {},
           ),
-          ListTile(
-            onTap: () {},
-            contentPadding:
-                REdgeInsets.symmetric(vertical: 6.5, horizontal: 10.5),
-            visualDensity: const VisualDensity(vertical: -4),
-            leading: SvgPicture.asset(
-              "assets/svgs/share_app.svg",
-              width: 18.w,
-              height: 18.h,
-            ),
-            title: Text(
-              "Share App",
-              style: Styles.x12dp_222C27_600w(color: AppColors.neutral1000),
-            ),
+          SizedBox(height: 8.h),
+          DrawerMenuItem(
+            assetPath: "assets/svgs/share_app.svg",
+            label: "Share App",
+            onClick: () {},
           ),
-          ListTile(
-            onTap: () {},
-            contentPadding:
-                REdgeInsets.symmetric(vertical: 6.5, horizontal: 10.5),
-            visualDensity: const VisualDensity(vertical: -4),
-            leading: SvgPicture.asset(
-              "assets/svgs/announcement.svg",
-              width: 18.w,
-              height: 18.h,
-            ),
-            title: Text(
-              "About Dudzili",
-              style: Styles.x12dp_222C27_600w(color: AppColors.neutral1000),
-            ),
+          SizedBox(height: 8.h),
+          DrawerMenuItem(
+            assetPath: "assets/svgs/announcement.svg",
+            label: "About Dudzili",
+            onClick: () {},
           ),
-          // SizedBox(height: 16.h),
-          const Spacer(),
+          SizedBox(height: 24.h),
           SizedBox(
             width: double.infinity,
             height: 40.h,
             child: OutlinedButton(
                 onPressed: () {},
                 style: OutlinedButton.styleFrom(
-                  side: BorderSide(
+                  side: const BorderSide(
                     color: AppColors.errorError,
                   ),
                   shape: RoundedRectangleBorder(
@@ -260,8 +176,7 @@ class DrawerWidgetState extends State<DrawerWidget> {
                   ),
                 )),
           ),
-          // SizedBox(height: 41.h),
-          const Spacer(),
+          SizedBox(height: 41.h),
           Row(
             children: [
               SvgPicture.asset(
@@ -278,8 +193,52 @@ class DrawerWidgetState extends State<DrawerWidget> {
               )
             ],
           ),
-          SizedBox(height: 41.h),
         ],
+      ),
+    );
+  }
+}
+
+class DrawerMenuItem extends StatelessWidget {
+  const DrawerMenuItem({
+    super.key,
+    required this.assetPath,
+    required this.label,
+    required this.onClick,
+  });
+
+  final String assetPath;
+  final String label;
+  final VoidCallback onClick;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onClick,
+      highlightColor: AppColors.primaryColor.withOpacity(0.2),
+      splashColor: AppColors.primaryColor.withOpacity(0.2),
+      child: Container(
+        // color: AppColors.primary80,
+        padding: REdgeInsets.symmetric(horizontal: 10.5, vertical: 11),
+        height: 40.h,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              assetPath,
+              width: 18.w,
+              height: 18.h,
+            ),
+            SizedBox(width: 19.5.w),
+            Text(
+              label,
+              style: Styles.x12dp_222C27_600w(
+                color: AppColors.neutral1000,
+                height: 1,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

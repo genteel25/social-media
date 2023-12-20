@@ -115,7 +115,7 @@ class SelectPreferenceView extends StatelessWidget
             SizedBox(height: 20.h),
             SizedBox(
               width: double.infinity,
-              height: 48.h,
+              height: 48.sp,
               child: TextButton(
                 onPressed: () {},
                 child: Text(
@@ -130,7 +130,7 @@ class SelectPreferenceView extends StatelessWidget
               children: [
                 SizedBox(
                   width: double.infinity,
-                  height: 48.h,
+                  height: 48.sp,
                   child: ElevatedButton(
                     // onPressed: () => widget.onPressed!(),
                     onPressed: () =>

@@ -33,12 +33,13 @@ class OnboardController extends State<OnboardScreen>
     if (currentIndex < 2) {
       setState(() {
         pageViewController.animateToPage((currentIndex + 1).toInt(),
-            duration: const Duration(seconds: 1), curve: Curves.easeInOut);
+            duration: const Duration(milliseconds: 600),
+            curve: Curves.easeInOut);
         currentIndex++;
         progressPercentage = progressPercentage * (currentIndex + 1);
       });
     } else {
-      context.pushNamed(RouteConstants.welcome);
+      context.goNamed(RouteConstants.welcome);
     }
   }
 

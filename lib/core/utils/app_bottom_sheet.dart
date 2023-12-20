@@ -39,12 +39,13 @@ class AppBottomSheets {
             ),
             SizedBox(height: 8.h),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 50),
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
                   "You will need to give Duduzili location permission for better experience.",
-                  style: Styles.x14dp_222C27_400w(color: AppColors.neutral800),
+                  style: Styles.x14dp_222C27_400w(
+                      color: AppColors.neutral800, height: 1.5.h),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -53,7 +54,7 @@ class AppBottomSheets {
             Container(
               padding: REdgeInsets.symmetric(horizontal: 20),
               width: double.infinity,
-              height: 48.h,
+              height: 48.sp,
               child: ElevatedButton(
                 onPressed: () => context.goNamed(RouteConstants.home),
                 child: const Text("Give permission"),
@@ -63,7 +64,7 @@ class AppBottomSheets {
             Container(
               padding: REdgeInsets.symmetric(horizontal: 20),
               width: double.infinity,
-              height: 48.h,
+              height: 48.sp,
               child: TextButton(
                 onPressed: () => context.goNamed(RouteConstants.signIn),
                 child: Text(

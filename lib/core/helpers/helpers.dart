@@ -37,6 +37,7 @@ export 'package:easy_localization/easy_localization.dart' hide TextDirection;
 export 'package:internet_connection_checker/internet_connection_checker.dart';
 export 'package:country_picker/country_picker.dart';
 export 'package:status_view/status_view.dart';
+export 'package:dropdown_button2/dropdown_button2.dart';
 
 //Relative folder Export
 export 'contracts/view_contract.dart';

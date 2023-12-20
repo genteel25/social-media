@@ -33,8 +33,8 @@ class SplashView extends StatelessWidget implements SplashViewContract {
                   child: Padding(
                     padding: REdgeInsets.only(right: 73.03),
                     child: SizedBox(
-                      width: 160.w,
-                      height: 30.h,
+                      width: 160.sp,
+                      height: 30.sp,
                       child: SvgPicture.asset(
                         "assets/svgs/dudzili.svg",
                         // width: 160.w,
@@ -48,8 +48,8 @@ class SplashView extends StatelessWidget implements SplashViewContract {
                 ),
                 GifView.asset(
                   "assets/images/dudzili_splash.gif",
-                  width: 131.w,
-                  height: 100.h,
+                  width: 131.sp,
+                  height: 100.sp,
                   controller: controller.gifController,
                 )
                     .animate(
@@ -63,7 +63,7 @@ class SplashView extends StatelessWidget implements SplashViewContract {
                     )
                     .moveX(
                       begin: 1,
-                      end: -88,
+                      end: -88.w,
                       delay: const Duration(milliseconds: 800),
                       duration: const Duration(milliseconds: 500),
                     ),

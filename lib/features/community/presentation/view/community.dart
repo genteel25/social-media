@@ -24,8 +24,8 @@ class CommunityView extends StatelessWidget implements CommunityViewContract {
               return [
                 SliverPersistentHeader(
                   delegate: SliverCustomHeaderDelegate(
-                    minHeight: 52.sp,
-                    maxHeight: 52.sp,
+                    minHeight: 61.sp,
+                    maxHeight: 61.sp,
                     child: Container(
                       color: AppColors.skyWhite,
                       child: Column(
@@ -43,7 +43,7 @@ class CommunityView extends StatelessWidget implements CommunityViewContract {
                                 color: AppColors.neutral600,
                               ),
                               indicatorWeight: 0.1,
-                              indicator: BoxDecoration(),
+                              indicator: const BoxDecoration(),
                               indicatorPadding: EdgeInsets.zero,
                               indicatorSize: TabBarIndicatorSize.label,
                               tabs: const [
@@ -56,11 +56,11 @@ class CommunityView extends StatelessWidget implements CommunityViewContract {
                               ],
                             ),
                           ),
-                          SizedBox(height: 7.h),
+                          SizedBox(height: 7.sp),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 0),
                             child: Divider(
-                                color: AppColors.neutral400, height: 0.h),
+                                color: AppColors.neutral400, height: 0.sp),
                           )
                         ],
                       ),
@@ -83,14 +83,6 @@ class CommunityView extends StatelessWidget implements CommunityViewContract {
                   separatorBuilder: (context, index) => SizedBox(height: 8.h),
                   itemCount: 8,
                 ),
-                // ListView.separated(
-                //   // padding: REdgeInsets.only(top: 16),
-                //   itemBuilder: (context, index) {
-                //     return const CommunityWidget();
-                //   },
-                //   separatorBuilder: (context, index) => SizedBox(height: 8.h),
-                //   itemCount: 8,
-                // ),
                 const CommunityWidget(),
               ],
             ),
@@ -98,14 +90,20 @@ class CommunityView extends StatelessWidget implements CommunityViewContract {
         ),
       ),
       floatingActionButton: Container(
-        margin: REdgeInsets.only(bottom: 10),
+        width: 48.sp,
+        height: 48.sp,
+        margin: REdgeInsets.only(bottom: 10.sp),
         child: FloatingActionButton(
           heroTag: null,
-          onPressed: () => context.pushNamed(RouteConstants.createPost),
+          onPressed: () => context.pushNamed(RouteConstants.createCommunity),
           backgroundColor: AppColors.primaryColor,
           elevation: 0,
           isExtended: true,
-          child: const Icon(Icons.add, color: Colors.white),
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 24.sp,
+          ),
         ),
       ),
     );

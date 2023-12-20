@@ -65,8 +65,8 @@ class VerifyOtpView extends StatelessWidget implements VerifyOtpViewContract {
                     length: 6,
                     defaultPinTheme: PinTheme(
                       // textStyle: Styles.x24dp_222C27_400w(),
-                      width: 50.w,
-                      height: 50.h,
+                      width: 50.sp,
+                      height: 50.sp,
                       textStyle:
                           Styles.x24dp_222C27_400w(color: AppColors.neutral900),
                       decoration: BoxDecoration(
@@ -81,8 +81,8 @@ class VerifyOtpView extends StatelessWidget implements VerifyOtpViewContract {
                     focusedPinTheme: PinTheme(
                       textStyle:
                           Styles.x24dp_222C27_400w(color: AppColors.neutral900),
-                      width: 50.w,
-                      height: 50.h,
+                      width: 50.sp,
+                      height: 50.sp,
                       decoration: BoxDecoration(
                         color: AppColors.skyWhite,
                         borderRadius: BorderRadius.circular(8.r),
@@ -98,7 +98,7 @@ class VerifyOtpView extends StatelessWidget implements VerifyOtpViewContract {
                 SizedBox(height: 40.h),
                 SizedBox(
                   width: double.infinity,
-                  height: 54.h,
+                  height: 54.sp,
                   child: ElevatedButton(
                       // onPressed: () => state.setNewPasswordNavigator(),
                       onPressed: () => controller.accountRecovery == true

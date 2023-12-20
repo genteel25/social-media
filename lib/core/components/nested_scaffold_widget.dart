@@ -1,6 +1,3 @@
-
-
-
 import '../helpers/helpers.dart';
 
 class NestedScaffoldWidget extends StatefulWidget {
@@ -40,10 +37,10 @@ class NestedScaffoldWidgetState extends State<NestedScaffoldWidget>
         clipBehavior: Clip.hardEdge,
         padding: REdgeInsets.symmetric(horizontal: 20),
         width: double.infinity,
-        height: 65.h,
+        height: 75.h,
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.9),
-          border:  const Border(
+          border: const Border(
             top: BorderSide(color: AppColors.neutral400),
           ),
         ),

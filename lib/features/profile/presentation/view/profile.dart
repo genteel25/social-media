@@ -15,12 +15,12 @@ class ProfileView extends StatelessWidget implements ProfileViewContract {
         context,
         title: "Ayodele Davies",
         trailingWidget: ExpandTapWidget(
-          onTap: () {},
+          onTap: () => context.pushNamed(RouteConstants.settings),
           tapPadding: REdgeInsets.all(10),
           child: SvgPicture.asset(
             "assets/svgs/setting_slim.svg",
             width: 24.w,
-            height: 24.w,
+            height: 24.h,
             color: const Color(0xff292D32),
           ),
         ),
@@ -162,7 +162,7 @@ class ProfileView extends StatelessWidget implements ProfileViewContract {
                         children: [
                           Expanded(
                             child: SizedBox(
-                              height: 32.h,
+                              height: 32.sp,
                               child: ElevatedButton(
                                 onPressed: () => context
                                     .pushNamed(RouteConstants.createPost),
@@ -190,15 +190,21 @@ class ProfileView extends StatelessWidget implements ProfileViewContract {
                           SizedBox(width: 12.w),
                           Expanded(
                             child: SizedBox(
-                              height: 32.h,
+                              height: 32.sp,
                               child: OutlinedButton(
-                                onPressed: () {},
+                                onPressed: () => Navigator.push(
+                                    GlobalVariables
+                                        .mainNavigatorKey.currentContext!,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CameraWidget(),
+                                    )),
                                 style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(4.r),
                                   ),
                                   primary: AppColors.primaryColor,
-                                  side: BorderSide(
+                                  side: const BorderSide(
                                     color: AppColors.primaryColor,
                                   ),
                                 ),
@@ -221,7 +227,7 @@ class ProfileView extends StatelessWidget implements ProfileViewContract {
                           SizedBox(width: 12.w),
                           Expanded(
                             child: SizedBox(
-                              height: 32.h,
+                              height: 32.sp,
                               child: OutlinedButton(
                                 onPressed: () => context
                                     .pushNamed(RouteConstants.editProfile),

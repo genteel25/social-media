@@ -1,6 +1,7 @@
 import '../../../../core/helpers/helpers.dart';
 
-class DiscoverPeopleView extends StatelessWidget implements DiscoverPeopleViewContract {
+class DiscoverPeopleView extends StatelessWidget
+    implements DiscoverPeopleViewContract {
   const DiscoverPeopleView({
     Key? key,
     required this.controller,
@@ -148,7 +149,7 @@ class DiscoverPeopleView extends StatelessWidget implements DiscoverPeopleViewCo
                   ? Column(
                       children: [
                         SizedBox(
-                          height: 250.h,
+                          height: 250.sp,
                           child: ListView.separated(
                             padding: REdgeInsets.symmetric(horizontal: 20),
                             primary: false,
@@ -161,7 +162,7 @@ class DiscoverPeopleView extends StatelessWidget implements DiscoverPeopleViewCo
                                   Container(
                                     padding: REdgeInsets.all(8),
                                     width: 136.w,
-                                    height: 100.h,
+                                    height: 100.sp,
                                     decoration: BoxDecoration(
                                       // shape: BoxShape.circle,
                                       border: Border.all(
@@ -173,7 +174,7 @@ class DiscoverPeopleView extends StatelessWidget implements DiscoverPeopleViewCo
                                       style: FlutterLogoStyle.stacked,
                                     ),
                                   ),
-                                  SizedBox(height: 12.w),
+                                  SizedBox(height: 12.h),
                                   // SizedBox(height: 8.h),
                                   Column(
                                     crossAxisAlignment:
@@ -195,7 +196,7 @@ class DiscoverPeopleView extends StatelessWidget implements DiscoverPeopleViewCo
                                       ),
                                       SizedBox(height: 8.h),
                                       SizedBox(
-                                        height: 32.h,
+                                        height: 32.sp,
                                         width: 136.w,
                                         child: ElevatedButton(
                                           onPressed: () {},
@@ -214,7 +215,7 @@ class DiscoverPeopleView extends StatelessWidget implements DiscoverPeopleViewCo
                                       ),
                                       SizedBox(height: 8.h),
                                       SizedBox(
-                                        height: 32.h,
+                                        height: 32.sp,
                                         width: 136.w,
                                         child: OutlinedButton(
                                           onPressed: () {},
@@ -244,7 +245,7 @@ class DiscoverPeopleView extends StatelessWidget implements DiscoverPeopleViewCo
                         ),
                         SizedBox(height: 24.h),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          padding: REdgeInsets.symmetric(horizontal: 20),
                           child: TextFormField(
                             decoration: InputDecoration(
                               prefixIcon: SvgPicture.asset(
@@ -257,11 +258,15 @@ class DiscoverPeopleView extends StatelessWidget implements DiscoverPeopleViewCo
                               filled: true,
                               fillColor: AppColors.neutral200,
                               hintText: "Search by name or username",
+                              isCollapsed: true,
+                              isDense: true,
+                              contentPadding: REdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 16),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(8.r),
                               ),
-                              contentPadding: EdgeInsets.zero,
+                              // contentPadding: EdgeInsets.zero,
                             ),
                           ),
                         ),

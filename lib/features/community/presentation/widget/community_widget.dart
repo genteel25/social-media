@@ -37,7 +37,7 @@ class CommunityWidgetState extends State<CommunityWidget> {
             ),
           ),
           SizedBox(
-            height: 330.h,
+            height: 330.sp,
             child: Container(
               color: AppColors.skyWhite,
               child: ListView.separated(
@@ -52,7 +52,7 @@ class CommunityWidgetState extends State<CommunityWidget> {
                     leading: Container(
                       padding: REdgeInsets.all(6),
                       width: 40.w,
-                      height: 40.h,
+                      height: 40.sp,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.r),
                         border: Border.all(

@@ -98,9 +98,10 @@ class CompleteRegistrationController extends State<CompleteRegistrationScreen>
           ),
         ),
         onSelect: (Country country) {
-          residenceController.text = country.displayNameNoCountryCode;
-          flagEmoji = country.flagEmoji;
-          log("flag emoji: ${country.flagEmoji}");
+          setState(() {
+            residenceController.text = country.displayNameNoCountryCode;
+            flagEmoji = country.flagEmoji;
+          });
         });
   }
 

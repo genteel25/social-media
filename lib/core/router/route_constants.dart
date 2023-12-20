@@ -25,4 +25,12 @@ class RouteConstants {
   static const communityInfo = "community_info";
   static const editProfile = "edit_profile";
   static const comment = "comment";
+  static const post = "post";
+  static const yourProfile = "your_profile";
+  static const about = "about";
+  static const createCommunity = "create_community";
+  static const aboutYou = "about_you";
+  static const basicInfo = "basic_info";
+  static const contactInfo = "contact_info";
+  static const settings = "settings";
 }
