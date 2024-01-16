@@ -1,0 +1,49 @@
+// library bloc;
+
+// export 'package:afex_mobile/features/assets/presentation/bloc/cash_cover_logs/cash_cover_logs_bloc.dart';
+// export 'package:afex_mobile/features/assets/presentation/bloc/delivery_logs/delivery_logs_bloc.dart';
+// export 'package:afex_mobile/features/assets/presentation/bloc/derivatives/derivatives_bloc.dart';
+// export 'package:afex_mobile/features/assets/presentation/bloc/fund_wallet/fund_wallet_bloc.dart';
+// export 'package:afex_mobile/features/assets/presentation/bloc/location/location_bloc.dart';
+// export 'package:afex_mobile/features/assets/presentation/bloc/margin_balance/margin_balance_bloc.dart';
+// export 'package:afex_mobile/features/assets/presentation/bloc/margin_logs/margin_logs_bloc.dart';
+// export 'package:afex_mobile/features/assets/presentation/bloc/otc_portfolio/otc_portfolio_bloc.dart';
+// export 'package:afex_mobile/features/assets/presentation/bloc/portfolio/portfolio_bloc.dart';
+// export 'package:afex_mobile/features/assets/presentation/bloc/portfolio_history/portfolio_history_bloc.dart';
+// export 'package:afex_mobile/features/assets/presentation/bloc/transaction_history/transaction_history_bloc.dart';
+// export 'package:afex_mobile/features/assets/presentation/bloc/virtual_account/virtual_account_bloc.dart';
+// export 'package:afex_mobile/features/auth/presentation/bloc/auth/auth_bloc.dart';
+// export 'package:afex_mobile/features/home/presentation/bloc/aml/aml_bloc.dart';
+// export 'package:afex_mobile/features/home/presentation/bloc/news/news_bloc.dart';
+// export 'package:afex_mobile/features/home/presentation/bloc/theme/theme_bloc.dart';
+// export 'package:afex_mobile/features/home/presentation/controllers/home.dart';
+
+// export 'package:afex_mobile/features/market/presentation/bloc/contract_specs/contract_specs_bloc.dart';
+// export 'package:afex_mobile/features/market/presentation/bloc/favourites/favourites_bloc.dart';
+// export 'package:afex_mobile/features/market/presentation/bloc/ohlc/ohlc_bloc.dart';
+// export 'package:afex_mobile/features/market/presentation/bloc/price_alert/price_alert_bloc.dart';
+// export 'package:afex_mobile/features/market/presentation/bloc/price_info/price_info_bloc.dart';
+// export 'package:afex_mobile/features/market/presentation/bloc/securities/securities_bloc.dart';
+
+// export 'package:afex_mobile/features/trade/presentation/bloc/open_order/open_order_bloc.dart';
+// export 'package:afex_mobile/features/trade/presentation/bloc/order_book/order_book_bloc.dart';
+// export 'package:afex_mobile/features/trade/presentation/bloc/putup_trade/putup_trade_bloc.dart';
+// export 'package:afex_mobile/features/trade/presentation/bloc/trade_history/trade_history_bloc.dart';
+// export 'package:afex_mobile/features/user/presentation/bloc/account_pin/account_pin_bloc.dart';
+// export 'package:afex_mobile/features/user/presentation/bloc/add_bank/add_bank_bloc.dart';
+// export 'package:afex_mobile/features/user/presentation/bloc/bank_list/bank_list_bloc.dart';
+// export 'package:afex_mobile/features/user/presentation/bloc/biometrics/biometrics_bloc.dart';
+// export 'package:afex_mobile/features/user/presentation/bloc/change_password/change_password_bloc.dart';
+// export 'package:afex_mobile/features/user/presentation/bloc/client_bank_list/client_bank_list_bloc.dart';
+
+// export 'package:afex_mobile/features/user/presentation/bloc/currency_mode/currency_mode_bloc.dart';
+// export 'package:afex_mobile/features/user/presentation/bloc/hide_balance/hide_balance_bloc.dart';
+// export 'package:afex_mobile/features/user/presentation/bloc/industry_list/industry_list_bloc.dart';
+// export 'package:afex_mobile/features/user/presentation/bloc/kyc_progress/kyc_progress_bloc.dart';
+// export 'package:afex_mobile/features/user/presentation/bloc/next_of_kin/next_of_kin_bloc.dart';
+// export 'package:afex_mobile/features/user/presentation/bloc/notification_settings/notification_settings_bloc.dart';
+// export 'package:afex_mobile/features/user/presentation/bloc/profile_details/profile_details_bloc.dart';
+// export 'package:afex_mobile/features/user/presentation/bloc/referral/referral_bloc.dart';
+// export 'package:afex_mobile/features/user/presentation/bloc/user/user_bloc.dart';
+// export 'package:afex_mobile/features/user/presentation/bloc/user_actions/user_actions_bloc.dart';
+// export 'package:afex_mobile/features/user/presentation/bloc/user_types/user_types_bloc.dart';

@@ -1,0 +1,15 @@
+export 'add_profile_picture.dart';
+export 'app_lock.dart';
+export 'complete_registration.dart';
+export 'copies.dart';
+export 'onboard.dart';
+export 'recover_account.dart';
+export 'select_preference.dart';
+export 'set_password.dart';
+export 'setup_username.dart';
+export 'signin.dart';
+export 'signup.dart';
+export 'splash.dart';
+export 'verify_otp.dart';
+export 'welcome.dart';
+export '../../../home/presentation/controller/notification.dart';

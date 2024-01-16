@@ -1,0 +1,9 @@
+export 'copies.dart';
+export 'edit_profile.dart';
+export 'profile.dart';
+export 'your_profile.dart';
+export 'about.dart';
+export 'about_you.dart';
+export 'basic_info.dart';
+export 'contact_info.dart';
+export 'settings.dart';
