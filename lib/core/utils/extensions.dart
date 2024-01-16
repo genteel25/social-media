@@ -1,15 +1,48 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_localization/easy_localization.dart' hide TextDirection;
+import 'package:crypto/crypto.dart';
+// import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/cupertino.dart';
 import 'package:intl_phone_field/phone_number.dart';
+import 'package:money_formatter/money_formatter.dart';
 import 'package:timeago/timeago.dart';
 import '../core.dart';
+import '../security/cryptosystem/cryptosystem.dart';
 
 extension StringExtensions on String {
+  hashKey() {
+    final data = utf8.encode(this); // data being hashed
+    log(this);
+    var output = sha256.convert(data);
+    return output;
+  }
+
+  String encrypt() {
+    var crypto = GetIt.I.get<CryptoSystemImpl>();
+
+    return isEmpty ? "" : crypto.encrypt(this);
+    // return isEmpty ? "" : this;
+  }
+
+  bool parseBool() {
+    return trim().toLowerCase() == "true";
+  }
+
+  String decrypt() {
+    try {
+      var crypto = GetIt.I.get<CryptoSystemImpl>();
+      return isEmpty ? "" : crypto.decrypt(this);
+    } catch (e) {
+      return this;
+    }
+
+    // return isEmpty ? "" : this;
+  }
+
   String assetPath(String folder, String extension) =>
       'assets/$folder/$this.$extension';
 
@@ -84,42 +117,38 @@ extension StringExtensions on String {
         style: style?.copyWith(fontFamily: 'Switzer'),
       );
 
-  // String currencyFormat(CurrencyMode mode) {
-  //   switch (mode) {
-  //     case CurrencyMode.naira:
-  //       final f =
-  //           NumberFormat.currency(locale: 'en_NG', symbol: '₦', name: 'NGN');
-  //       return f.format(double.parse(this));
-
-  //     case CurrencyMode.dollar:
-  //       final f =
-  //           NumberFormat.currency(locale: 'en_US', symbol: '\$', name: 'USD');
-  //       return f.format(double.parse(this));
-
-  //     case CurrencyMode.shillings:
-  //       final f =
-  //           NumberFormat.currency(locale: 'en_KE', symbol: 'KSH', name: 'KSH');
-  //       return f.format(double.parse(this));
-  //     case CurrencyMode.demo:
-  //       final f =
-  //           NumberFormat.currency(locale: 'en_NG', symbol: '₦', name: 'NGN');
-  //       return f.format(double.parse(this));
-  //   }
-  // }
+  // extension StringExtension on String {
+  String formatCurrency() {
+    // var format = NumberFormat.simpleCurrency(
+    //     locale: Platform.localeName, name: 'NGN', decimalDigits: 0);
+    MoneyFormatter fmf = MoneyFormatter(
+        amount: double.parse(this),
+        settings: MoneyFormatterSettings(
+          symbol: '',
+          thousandSeparator: ',',
+          decimalSeparator: '.',
+          symbolAndNumberSeparator: '',
+          fractionDigits: 1,
+          compactFormatType: CompactFormatType.short,
+        ));
+    return fmf.output.compactSymbolOnLeft;
+  }
 
   String compactNumberFormat() {
     final f = NumberFormat.compact();
     return f.format(num.parse(this).toDouble());
   }
 
-  // String dynamicCompactFormat() {
-  //   return this.length > 10
-  //       ? this.compactCurrencyFormat()
-  //       : this.currencyFormat();
-  // }
-
   String clippedString({int length = 5}) {
-    return length > this.length ? this : '${this.substring(0, length)}..';
+    return length > this.length ? this : '${substring(0, length)}..';
+  }
+
+  String checkIfNone() {
+    if (toLowerCase().contains("none")) {
+      return "---";
+    } else {
+      return this;
+    }
   }
 
   String get numberFormat =>
@@ -133,6 +162,7 @@ extension StringExtensions on String {
 extension DateFormatter on DateTime {
   String get postTimeAgo => format(this);
   String get postDateFormat => DateFormat.MMMd().format(this);
+  String get datePickerFormatter => DateFormat('yyyy-MM-dd').format(this);
 }
 
 extension DurationExtension on int {
@@ -236,5 +266,16 @@ extension PhoneValidator on PhoneNumber {
     } on Exception {
       return false;
     }
+  }
+}
+
+extension GoRouterExtension on GoRouter {
+  String location() {
+    final RouteMatch lastMatch = routerDelegate.currentConfiguration.last;
+    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
+        ? lastMatch.matches
+        : routerDelegate.currentConfiguration;
+    final String location = matchList.uri.toString();
+    return location;
   }
 }

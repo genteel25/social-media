@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:duduzili/core/components/animated_menu.dart';
+
 import '../../../../core/helpers/helpers.dart';
 
 class ChatView extends StatelessWidget implements ChatViewContract {
@@ -103,57 +107,107 @@ class ChatView extends StatelessWidget implements ChatViewContract {
       bottomNavigationBar: Padding(
         padding: MediaQuery.of(context).viewInsets,
         child: Container(
+          color: Colors.white,
           padding: REdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          child: Stack(
+            fit: StackFit.loose,
+            alignment: Alignment.bottomLeft,
             children: [
-              Divider(
-                color: AppColors.neutral400,
-                height: 0.h,
-              ),
-              SizedBox(height: 16.h),
-              Row(
+              Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(
-                    Icons.add,
-                    color: AppColors.neutral800,
-                    size: 24.sp,
+                  // AnimationTest(controller: controller.animationController),
+                  Divider(
+                    color: AppColors.neutral400,
+                    height: 0.h,
                   ),
-                  SizedBox(width: 8.w),
-                  Expanded(
-                    child: TextFormField(
-                      cursorColor: AppColors.neutral600,
-                      decoration: InputDecoration(
-                        hintText: "Type message",
-                        filled: true,
-                        contentPadding: EdgeInsets.zero,
-                        fillColor: AppColors.neutral300,
-                        prefixIcon: SvgPicture.asset(
-                          "assets/svgs/emoji.svg",
-                          fit: BoxFit.scaleDown,
-                        ),
-                        suffixIcon: SvgPicture.asset(
-                          "assets/svgs/mic.svg",
-                          fit: BoxFit.scaleDown,
-                          color: AppColors.neutral800,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(8.r),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: AppColors.neutral600,
-                            width: 0.5.w,
+                  SizedBox(height: 16.h),
+                  Row(
+                    children: [
+                      ExpandTapWidget(
+                          tapPadding: const EdgeInsets.all(20),
+                          onTap: () {
+                            if (controller.animationController.isCompleted &&
+                                !controller.animationController.isAnimating) {
+                              controller.animationController.reverse();
+                              controller.animationListener();
+                              // controller.secondaryAnimationController
+                            } else if (controller
+                                    .animationController.isDismissed &&
+                                !controller.animationController.isAnimating) {
+                              controller.animationController.forward();
+                              controller.animationListener();
+                            }
+                          },
+                          child: Transform.rotate(
+                            angle: controller.isAnimated ? pi / 4 : 0,
+                            child: Icon(
+                              Icons.add,
+                              color: AppColors.neutral800,
+                              size: 24.sp,
+                            ),
+                          )),
+                      SizedBox(width: 8.w),
+                      Expanded(
+                        child: TextFormField(
+                          maxLines: null,
+                          controller: controller.chatController,
+                          focusNode: controller.focusNode,
+                          cursorColor: AppColors.neutral600,
+                          decoration: InputDecoration(
+                            hintText: "Type message",
+                            filled: true,
+                            contentPadding: EdgeInsets.zero,
+                            fillColor: AppColors.neutral300,
+                            prefixIcon: SvgPicture.asset(
+                              "assets/svgs/emoji.svg",
+                              fit: BoxFit.scaleDown,
+                            ),
+                            suffixIcon: controller.hasFocus
+                                ? null
+                                : SvgPicture.asset(
+                                    "assets/svgs/mic.svg",
+                                    fit: BoxFit.scaleDown,
+                                    color: AppColors.neutral800,
+                                  ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(8.r),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: AppColors.neutral600,
+                                width: 0.5.w,
+                              ),
+                              borderRadius: BorderRadius.circular(8.r),
+                            ),
                           ),
-                          borderRadius: BorderRadius.circular(8.r),
                         ),
                       ),
-                    ),
+                      controller.hasFocus
+                          ? Row(
+                              children: [
+                                SizedBox(width: 8.w),
+                                Container(
+                                  padding: REdgeInsets.all(8),
+                                  width: 40.w,
+                                  height: 40.h,
+                                  decoration: const BoxDecoration(
+                                    color: AppColors.primaryColor,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child:
+                                      SvgPicture.asset("assets/svgs/send.svg"),
+                                )
+                              ],
+                            )
+                          : const SizedBox.shrink(),
+                    ],
                   ),
+                  SizedBox(height: 16.h),
                 ],
               ),
-              SizedBox(height: 16.h),
+              AnimationTest(controller: controller.animationController),
             ],
           ),
         ),

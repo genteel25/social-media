@@ -10,7 +10,6 @@ class DropdownWidget extends StatelessWidget {
     return DropdownButton2(
       dropdownStyleData: DropdownStyleData(
         elevation: 1,
-
         width: 176.w,
         offset: Offset(-160.w, -5.h),
         decoration: BoxDecoration(

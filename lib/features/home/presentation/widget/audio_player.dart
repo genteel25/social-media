@@ -1,3 +1,5 @@
+import 'package:duduzili/features/home/presentation/view/media_view.dart';
+
 import '../../../../core/helpers/helpers.dart';
 
 class AudioPlayerWidget extends StatefulWidget {
@@ -259,7 +261,8 @@ class AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                                           return GestureDetector(
                                             onTap: () => audioPlayer.seek(
                                                 snapshot.data! +
-                                                    Duration(seconds: 15)),
+                                                    const Duration(
+                                                        seconds: 15)),
                                             // controller.audioPlayer.release(),
                                             child: SvgPicture.asset(
                                               "assets/svgs/setforward.svg",
@@ -267,7 +270,20 @@ class AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                                           );
                                         }),
                                     const Spacer(),
-                                    SvgPicture.asset("assets/svgs/zoom.svg"),
+                                    InkWell(
+                                      onTap: () => Navigator.push(
+                                        GlobalVariables
+                                            .mainNavigatorKey.currentContext!,
+                                        MaterialPageRoute(
+                                          builder: (context) => MediaViewWidget(
+                                              statusType: StatusType.audio,
+                                              audioPlayer: audioPlayer),
+                                        ),
+                                      ),
+                                      child: SvgPicture.asset(
+                                        "assets/svgs/zoom.svg",
+                                      ),
+                                    ),
                                   ],
                                 )
                               ],
@@ -303,7 +319,10 @@ class AudioPlayerWidgetState extends State<AudioPlayerWidget> {
             ),
           ),
           SizedBox(height: 20.h),
-          Divider(height: 0.h),
+          Divider(
+            height: 0.h,
+            color: AppColors.neutral300,
+          ),
           SizedBox(height: 12.h),
           const PostFooterWidget(),
         ],

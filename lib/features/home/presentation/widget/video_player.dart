@@ -1,3 +1,5 @@
+import 'package:duduzili/features/home/presentation/view/media_view.dart';
+
 import '../../../../core/helpers/helpers.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
@@ -16,15 +18,20 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   @override
   void initState() {
     super.initState();
-    videoController = VideoPlayerController.asset("assets/video/intro.mp4")
-      ..addListener(() {
-        if (videoController.value.isPlaying) {
-          setState(() {
-            position = videoController.value.position;
-          });
-        }
-      });
-    initializeVideoPlayerFuture = videoController.initialize();
+    if (mounted) {
+      videoController = VideoPlayerController.asset(
+        "assets/video/intro.mp4",
+        videoPlayerOptions: VideoPlayerOptions(),
+      )..addListener(() {
+          if (videoController.value.isPlaying) {
+            setState(() {
+              position = videoController.value.position;
+            });
+          }
+        });
+      initializeVideoPlayerFuture = videoController.initialize();
+    }
+
     // position = videoController.value.position;
   }
 
@@ -59,6 +66,7 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
       color: Colors.white,
       child: Column(
         children: [
+          SizedBox(height: 16.h),
           const PostHeaderWidget(),
           SizedBox(height: 16.h),
           GestureDetector(
@@ -136,7 +144,17 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
                                     right: 12.w,
                                     bottom: 12.h,
                                     child: ExpandTapWidget(
-                                      onTap: () {},
+                                      onTap: () => Navigator.push(
+                                        GlobalVariables
+                                            .mainNavigatorKey.currentContext!,
+                                        MaterialPageRoute(
+                                          builder: (context) => MediaViewWidget(
+                                            statusType: StatusType.video,
+                                            videoPlayerController:
+                                                videoController,
+                                          ),
+                                        ),
+                                      ),
                                       tapPadding: REdgeInsets.all(8),
                                       child: SvgPicture.asset(
                                           "assets/svgs/maximize.svg"),
@@ -164,7 +182,10 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
             ),
           ),
           SizedBox(height: 20.h),
-          Divider(height: 0.h),
+          Divider(
+            height: 0.h,
+            color: AppColors.neutral300,
+          ),
           SizedBox(height: 12.h),
           const PostFooterWidget(),
         ],

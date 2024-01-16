@@ -1,54 +1,66 @@
 import '../helpers/helpers.dart';
 
 class StackedImage extends StatelessWidget {
-  const StackedImage({Key? key, this.likedStringUrl}) : super(key: key);
+  const StackedImage({
+    Key? key,
+    this.likedStringUrl,
+    this.imageSize,
+    this.stackSpacing,
+  }) : super(key: key);
   final List<String>? likedStringUrl;
+  final double? stackSpacing;
+  final double? imageSize;
 
   @override
   Widget build(BuildContext context) {
-    return likedStringUrl != null && likedStringUrl!.isNotEmpty
-        ? IntrinsicWidth(
-            // width: ,
-            stepWidth: 20 * likedStringUrl!.length - 1,
-            child: Stack(
-                // clipBehavior: Clip.none,
-                // fit: StackFit.passthrough,
-                children: List.generate(
-              likedStringUrl!.length,
-              (index) => index == 0
-                  ? Container(
-                      width: 20.w,
-                      height: 20.h,
-                      padding: REdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.neutral300,
-                        border: Border.all(
-                          color: AppColors.neutral400,
-                          width: 1.w,
-                        ),
-                      ),
-                      child: const FlutterLogo(),
-                    )
-                  : Positioned(
-                      left: ((20 * index) - (5 * index)).toDouble(),
-                      child: Container(
-                        width: 20.w,
-                        height: 20.h,
-                        padding: REdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.neutral300,
-                          border: Border.all(
-                            color: AppColors.neutral400,
-                            width: 1.w,
-                          ),
-                        ),
-                        child: const FlutterLogo(),
-                      ),
+    return Container(
+      // color: AppColors.accentRed,
+      constraints: BoxConstraints(
+          maxWidth:
+              // likedStringUrl!.length == 1
+              //     ? (imageSize ?? 20).w
+              //     :
+              (imageSize! + (stackSpacing! * (likedStringUrl!.length - 0.7)))
+          // (imageSize ??
+          //         20 +
+          //             ((imageSize ?? 20 - stackSpacing!.toDouble()) *
+          //                     likedStringUrl!.length -
+          //                 1))
+          //     .w,
+          ),
+      height: imageSize?.h ?? 30.h,
+      // width: 200.w,
+      child: Stack(
+        alignment: Alignment.center,
+        fit: StackFit.expand,
+        children: List.generate(
+          likedStringUrl!.length,
+          (index) => Positioned(
+            left: (stackSpacing ?? 10.w) * index.toDouble(),
+            child: Container(
+                width: imageSize?.w ?? 20.w,
+                height: imageSize?.h ?? 20.h,
+                // padding: REdgeInsets.all(),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.neutral300,
+                    border: Border.all(
+                      color: AppColors.skyWhite,
+                      width: 1,
                     ),
-            )),
-          )
-        : const SizedBox.shrink();
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.neutral900.withOpacity(0.9),
+                        blurRadius: 0.3.r,
+                        // spreadRadius: 2.r,
+                      ),
+                    ]),
+                child: ExtendedImageWidget(
+                  imageUrl: likedStringUrl?[index].decrypt() ?? "",
+                )),
+          ),
+        ),
+      ),
+    );
   }
 }

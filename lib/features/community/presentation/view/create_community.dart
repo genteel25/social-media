@@ -1,3 +1,7 @@
+// ignore_for_file: deprecated_member_use, must_be_immutable
+
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import '../../../../core/helpers/helpers.dart';
 
 class CreateCommunityView extends StatelessWidget
@@ -21,84 +25,106 @@ class CreateCommunityView extends StatelessWidget
         child: Padding(
           padding: REdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 28.h),
-                Text(
-                  "Name",
-                  style: Styles.x12dp_222C27_600w(
-                    color: AppColors.neutral800,
-                    height: 1.5.h,
+            child: Form(
+              key: controller.formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 28.h),
+                  Text(
+                    "Name",
+                    style: Styles.x12dp_222C27_600w(
+                      color: AppColors.neutral800,
+                      height: 1.5.h,
+                    ),
                   ),
-                ),
-                SizedBox(height: 8.h),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: "Name your community",
+                  SizedBox(height: 8.h),
+                  TextFormField(
+                    controller: controller.nameController,
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.name,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: ValidationBuilder().required().build(),
+                    decoration: const InputDecoration(
+                      hintText: "Name your community",
+                    ),
                   ),
-                ),
-                SizedBox(height: 20.h),
-                Text(
-                  "Description",
-                  style: Styles.x12dp_222C27_600w(
-                    color: AppColors.neutral800,
-                    height: 1.5.h,
+                  SizedBox(height: 20.h),
+                  Text(
+                    "Description",
+                    style: Styles.x12dp_222C27_600w(
+                      color: AppColors.neutral800,
+                      height: 1.5.h,
+                    ),
                   ),
-                ),
-                SizedBox(height: 8.h),
-                TextFormField(
-                  maxLines: null,
-                  minLines: 6,
-                  decoration: const InputDecoration(
-                    hintText: "Write about your community",
+                  SizedBox(height: 8.h),
+                  TextFormField(
+                    maxLines: null,
+                    minLines: 6,
+                    controller: controller.descriptionController,
+                    textInputAction: TextInputAction.newline,
+                    keyboardType: TextInputType.multiline,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: ValidationBuilder().required().build(),
+                    decoration: const InputDecoration(
+                      hintText: "Write about your community",
+                    ),
                   ),
-                ),
-                SizedBox(height: 20.h),
-                Text(
-                  "Group Rules",
-                  style: Styles.x12dp_222C27_600w(
-                    color: AppColors.neutral800,
-                    height: 1.5.h,
+                  SizedBox(height: 20.h),
+                  Text(
+                    "Group Rules",
+                    style: Styles.x12dp_222C27_600w(
+                      color: AppColors.neutral800,
+                      height: 1.5.h,
+                    ),
                   ),
-                ),
-                SizedBox(height: 8.h),
-                TextFormField(
-                  maxLines: null,
-                  minLines: 6,
-                  decoration: const InputDecoration(
-                    isCollapsed: true,
-                    isDense: true,
-                    hintText:
-                        "Write out the rules each member of your community are expected to abide by..",
+                  SizedBox(height: 8.h),
+                  TextFormField(
+                    maxLines: null,
+                    minLines: 6,
+                    controller: controller.groupRulesController,
+                    textInputAction: TextInputAction.newline,
+                    keyboardType: TextInputType.multiline,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: ValidationBuilder().required().build(),
+                    decoration: const InputDecoration(
+                      isCollapsed: true,
+                      isDense: true,
+                      hintText:
+                          "Write out the rules each member of your community are expected to abide by..",
+                    ),
                   ),
-                ),
-                SizedBox(height: 20.h),
-                Text(
-                  "Privacy",
-                  style: Styles.x12dp_222C27_600w(
-                    color: AppColors.neutral800,
-                    height: 1.5.h,
+                  SizedBox(height: 20.h),
+                  Text(
+                    "Privacy",
+                    style: Styles.x12dp_222C27_600w(
+                      color: AppColors.neutral800,
+                      height: 1.5.h,
+                    ),
                   ),
-                ),
-                SizedBox(height: 8.h),
-                GestureDetector(
-                  onTap: () => _choosePrivacy(context,
-                      controller: controller.privacyController),
-                  child: AbsorbPointer(
-                    child: TextFormField(
-                      controller: controller.privacyController,
-                      decoration: InputDecoration(
-                        hintText: "Choose privacy",
-                        suffixIcon: SvgPicture.asset(
-                          "assets/svgs/arrow_down.svg",
-                          fit: BoxFit.none,
+                  SizedBox(height: 8.h),
+                  GestureDetector(
+                    onTap: () => _choosePrivacy(context,
+                        controller: controller.privacyController),
+                    child: AbsorbPointer(
+                      child: TextFormField(
+                        controller: controller.privacyController,
+                        textInputAction: TextInputAction.done,
+                        keyboardType: TextInputType.text,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: ValidationBuilder().required().build(),
+                        decoration: InputDecoration(
+                          hintText: "Choose privacy",
+                          suffixIcon: SvgPicture.asset(
+                            "assets/svgs/arrow_down.svg",
+                            fit: BoxFit.none,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -111,9 +137,31 @@ class CreateCommunityView extends StatelessWidget
             Container(
               padding: REdgeInsets.symmetric(horizontal: 20),
               width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text("Create"),
+              child: BlocListener<CommunityBloc, CommunityState>(
+                listener: (context, state) {
+                  state.maybeWhen(
+                    loading: () => EasyLoading.show(),
+                    createCommunitySuccess: (data) {
+                      log("data community: ${data.communityId}");
+                      EasyLoading.dismiss();
+                      context.pushNamed(
+                        RouteConstants.communityCoverPhoto,
+                        extra: data.communityId,
+                      );
+                    },
+                    createCommunityError: (error) {
+                      EasyLoading.dismiss();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(error)),
+                      );
+                    },
+                    orElse: () {},
+                  );
+                },
+                child: ElevatedButton(
+                  onPressed: () => controller.onCreateCommunityHandler(),
+                  child: const Text("Create"),
+                ),
               ),
             ),
             SizedBox(height: 20.h),
@@ -137,9 +185,10 @@ class CreateCommunityView extends StatelessWidget
 }
 
 class ChoosePrivacyWidget extends StatefulWidget {
-  const ChoosePrivacyWidget({Key? key, required this.controller})
+  ChoosePrivacyWidget({Key? key, this.controller, this.stringValue})
       : super(key: key);
-  final TextEditingController controller;
+  final TextEditingController? controller;
+  String? stringValue;
 
   @override
   ChoosePrivacyWidgetState createState() => ChoosePrivacyWidgetState();
@@ -148,8 +197,10 @@ class ChoosePrivacyWidget extends StatefulWidget {
 class ChoosePrivacyWidgetState extends State<ChoosePrivacyWidget> {
   void choosePrivacy(String value) {
     setState(() {
-      widget.controller.text = value;
+      widget.controller?.text = value;
+      widget.stringValue = value;
     });
+    log("string value: ${widget.stringValue}");
     context.pop();
   }
 

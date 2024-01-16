@@ -1,3 +1,6 @@
+import 'package:duduzili/core/data/data.dart';
+import 'package:duduzili/core/mixins/location_mixin.dart';
+
 import '../../../../core/helpers/helpers.dart';
 
 class SelectPreferenceScreen extends StatefulWidget {
@@ -8,7 +11,7 @@ class SelectPreferenceScreen extends StatefulWidget {
 }
 
 class SelectPreferenceController extends State<SelectPreferenceScreen>
-    with SingleTickerProviderStateMixin
+    with SingleTickerProviderStateMixin, GetLocationData
     implements SelectPreferenceControllerContract {
   late SelectPreferenceViewContract view;
 
@@ -39,6 +42,20 @@ class SelectPreferenceController extends State<SelectPreferenceScreen>
       parent: controller!,
       curve: Curves.easeInOut,
     );
+  }
+
+  @override
+  onUpdateLocationHandler() async {
+    (String long, String lat) location = await locationUpdate();
+    AuthData data = AuthData()
+      ..longitude = location.$1.encrypt()
+      ..latitude = location.$2.encrypt();
+
+    log("lat and long: $location");
+
+    if (context.mounted) {
+      context.read<AuthBloc>().add(AuthEvent.locationUpdate(data: data));
+    }
   }
 
   @override

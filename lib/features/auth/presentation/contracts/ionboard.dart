@@ -1,15 +1,19 @@
 import '../../../../core/helpers/helpers.dart';
 
 abstract class OnboardControllerContract {
-  late double currentIndex;
+  late int currentNumber;
 
   late double progressPercentage;
 
-  late PageController pageViewController;
+  late AnimationController animationController;
+
+  late List<String> svgAsset;
+
+  late List<String> title ;
+
+  late List<String> subTitle ;
 
   onChangePercentHandler() {}
-
-  changeCurrentIndex(int value) {}
 }
 
 abstract class OnboardViewContract extends BaseViewContract {

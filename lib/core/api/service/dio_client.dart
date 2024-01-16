@@ -1,19 +1,13 @@
-// import 'package:afex_mobile/core/helpers/helpers.dart';
-
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
+// import 'package:dio/dio.dart';
+import 'package:duduzili/core/core.dart';
 import 'package:firebase_performance_dio/firebase_performance_dio.dart';
-import 'package:flutter/foundation.dart';
-// import 'package:go_router/go_router.dart';
-// import 'package:firebase_performance_dio/firebase_performance_dio.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../../config/flavor/flavor.dart';
-// import '../../../features/auth/presentation/bloc/auth/auth_bloc.dart';
-// import '../../../features/auth/presentation/controllers/login.dart';
-// import '../core.dart';
 import '../../enums/enums.dart';
-// import '../../storage/istorage.dart';
+import '../../storage/istorage.dart';
 import '../exceptions/api_exception.dart';
 import '../exceptions/contracts/failure.dart';
 import '../network/network_info.dart';
@@ -38,7 +32,7 @@ class DioClient implements IApiClient {
 
   @override
   setToken(String token) {
-    _dio.options.headers['Authorization'] = 'Bearer $token';
+    // _dio.options.headers['Authorization'] = 'Bearer $token';
     // _dio.interceptors.add(
     //   RetryInterceptor(
     //     dio: _dio,
@@ -59,11 +53,23 @@ class DioClient implements IApiClient {
   }
 
   DioClient(this.networkInfo) {
-    _dio = Dio(BaseOptions(baseUrl: env.baseUrl))
-      ..options.connectTimeout = Duration(seconds: 60)
-      ..options.receiveTimeout = Duration(seconds: 60)
-      ..options.sendTimeout = Duration(seconds: 60)
-      ..interceptors.add(DioFirebasePerformanceInterceptor())
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: env.baseUrl,
+        headers: {
+          "API-KEY": env.apiKey,
+          "HASH-KEY": hashData.hashKey(),
+          "IDEMPOTENCY-KEY": idempotencyKey,
+          "content-type": "application/json",
+        },
+      ),
+    )
+      ..options.connectTimeout = const Duration(seconds: 60)
+      ..options.receiveTimeout = const Duration(seconds: 60)
+      ..options.sendTimeout = const Duration(seconds: 60)
+      ..interceptors.add(
+        DioFirebasePerformanceInterceptor(),
+      )
       ..interceptors.add(
         PrettyDioLogger(
           requestHeader: kDebugMode,
@@ -75,6 +81,23 @@ class DioClient implements IApiClient {
           maxWidth: 90,
           // logPrint: (object) => null,
         ),
+      )
+      ..interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (e, handler) async {
+            String? token = await GetIt.I.get<LocalStorage>().getAccessToken();
+            log(AppRouter.router.location());
+            if (AppRouter.router.location() != "/sign_up" &&
+                AppRouter.router.location() != "/sign_in") {
+              e.headers['Authorization'] = 'Bearer ${token?.decrypt()}';
+            }
+            log("headers: ${e.headers}");
+            handler.next(e);
+          },
+          onResponse: (e, handler) {
+            handler.next(e);
+          },
+        ),
       );
   }
 
@@ -82,6 +105,7 @@ class DioClient implements IApiClient {
   Future<Either<Failure, ApiResponse<T>>> request<T>(String url,
       MethodType method, T Function(dynamic) fromJson, dynamic params,
       {Map<String, dynamic>? queryParameters}) async {
+    // log()
     try {
       Response response;
       // if (await networkInfo.isConnected()) {
@@ -107,29 +131,43 @@ class DioClient implements IApiClient {
               data: params, queryParameters: queryParameters);
           break;
       }
-      if (_isRequestSuccessful(
-          response.statusCode, response.data['responseCode'])) {
+      if (_isRequestPatchSuccessful(response.statusCode)) {
+        return right(ApiResponseImpl<T>(
+          fromJson(response.data),
+          "",
+          "",
+          1,
+          true,
+        ));
+      }
+      if (_isRequestSuccessful(response.statusCode)) {
         return response.data.containsKey("data")
             ? right(ApiResponseImpl<T>(
                 fromJson(response.data['data']),
                 response.data['errors'],
                 response.data['message'],
-                response.data['responseCode'],
+                response.data['status_code'],
+                response.data['success'],
               ))
             : right(ApiResponseImpl<T>(
                 fromJson(response.data),
                 response.data['errors'],
                 response.data['message'],
-                response.data['responseCode'],
+                response.data['status_code'],
+                response.data['success'],
               ));
       }
       var requestResponse = ApiResponseImpl<T>(
-        null,
+        fromJson(response.data['data']),
         response.data['errors'],
         response.data['message'],
-        response.data['responseCode'],
+        response.data['status_code'],
+        response.data['success'],
       );
-      return left(ValidationFailure(requestResponse.message));
+
+      return left(
+        ValidationFailure(requestResponse.message),
+      );
       // } else {
       //   return left(InternetFailure());
       // }
@@ -149,21 +187,32 @@ class DioClient implements IApiClient {
         url,
         data: params,
       );
-      if (_isRequestSuccessful(
-          response.statusCode, response.data['responseCode'])) {
+      if (_isRequestPatchSuccessful(response.statusCode)) {
+        return right(ApiResponseImpl<T>(
+          fromJson(response.data),
+          "",
+          "",
+          1,
+          true,
+        ));
+      }
+      if (_isRequestSuccessful(response.statusCode)) {
         var requestResponse = ApiResponseImpl<T>(
           fromJson(response.data['data']),
           response.data['errors'],
           response.data['message'],
-          response.data['responseCode'],
+          response.data['status_code'],
+          response.data['success'],
         );
         return right(requestResponse);
       }
+
       var requestResponse = ApiResponseImpl<T>(
         null,
         response.data['errors'],
         response.data['message'],
-        response.data['responseCode'],
+        response.data['status_code'],
+        response.data['success'],
       );
       return left(ValidationFailure(requestResponse.message));
       // } else {
@@ -174,8 +223,9 @@ class DioClient implements IApiClient {
     }
   }
 
-  bool _isRequestSuccessful(int? statusCode, String responseCode) =>
-      (statusCode == 200 || statusCode == 201) && responseCode == '100';
+  bool _isRequestSuccessful(int? statusCode) =>
+      (statusCode == 200 || statusCode == 201);
+  bool _isRequestPatchSuccessful(int? statusCode) => (statusCode == 204);
 
   Failure _handleDioError(DioException error) {
     // if (error.error != null && error.error is SocketException) {
@@ -197,8 +247,8 @@ class DioClient implements IApiClient {
         failureType = BadCertificateFailure();
         break;
       case DioExceptionType.badResponse:
-        failureType =
-            BadResponseFailure(message: error.response?.data['errors']);
+        failureType = BadResponseFailure(
+            message: errorMessageHandler(error.response?.data['data']));
         break;
       case DioExceptionType.receiveTimeout:
         failureType = ReceivedTimeOutFailure();
@@ -211,5 +261,58 @@ class DioClient implements IApiClient {
         break;
     }
     return failureType;
+  }
+
+  String errorMessageHandler(dynamic error) {
+    log("error: $error");
+    String errorMsg = "";
+    if (error.runtimeType == String) {
+      errorMsg = error as String;
+      return errorMsg;
+    }
+    if (error.containsKey('errors') && error['errors'].runtimeType == String) {
+      errorMsg = error['errors'];
+      return errorMsg;
+    }
+    if (error.containsKey('errors') &&
+        error['errors'].containsKey('non_field_errors')) {
+      errorMsg = error['errors']['non_field_errors'].first as String;
+      return errorMsg;
+    }
+    if (error.containsKey('errors') && error['errors'].containsKey('otp')) {
+      errorMsg = error['errors']['otp'].first as String;
+      return errorMsg;
+    }
+    if (error.containsKey('errors') &&
+        error['errors'].containsKey('profile_picture')) {
+      errorMsg = error['errors']['profile_picture'].first as String;
+      return errorMsg;
+    }
+    if (error.containsKey('errors') && error['errors'].containsKey('email')) {
+      errorMsg = error['errors']['email'].first as String;
+      return errorMsg;
+    }
+    if (error.containsKey('errors') &&
+        error['errors'].containsKey('alternative_email') &&
+        error['errors'].containsKey('phone_number')) {
+      errorMsg =
+          "${error['errors']['alternative_email'].first} | Phone number: ${error['errors']['phone_number'].first}";
+      return errorMsg;
+    }
+    if (error.containsKey('errors') &&
+        error['errors'].containsKey('alternative_email')) {
+      errorMsg = error['errors']['alternative_email'].first as String;
+      return errorMsg;
+    }
+    if (error.containsKey('errors') &&
+        error['errors'].containsKey('phone_number')) {
+      errorMsg = error['errors']['phone_number'].first as String;
+      return errorMsg;
+    }
+    if (error.containsKey('detail')) {
+      errorMsg = error['detail'] as String;
+      return errorMsg;
+    }
+    return errorMsg;
   }
 }

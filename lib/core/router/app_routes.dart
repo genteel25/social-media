@@ -1,3 +1,5 @@
+import 'package:duduzili/config/di/app_initializer.dart';
+
 import '../helpers/helpers.dart';
 
 class AppRouter {
@@ -15,6 +17,19 @@ class AppRouter {
         path: '/',
         // onExit: (context) => true,
         builder: (context, state) => const SplashScreen(),
+        redirect: (context, state) async {
+          Future.delayed(const Duration(seconds: 16), () {
+            if (AppInitializer.isLoggedIn == true) {
+              router.goNamed(RouteConstants.home);
+            } else if (AppInitializer.firstTime == true) {
+              router.goNamed(RouteConstants.onboard);
+            } else {
+              router.goNamed(RouteConstants.signIn);
+            }
+          });
+
+          return "/";
+        },
         // routes: const [],
       ),
       GoRoute(
@@ -67,6 +82,7 @@ class AppRouter {
         name: RouteConstants.verifyOtp,
         builder: (context, state) => VerifyOtpScreen(
           accountRecovery: state.extra as bool?,
+          email: state.uri.queryParameters,
         ),
       ),
       GoRoute(
@@ -115,6 +131,21 @@ class AppRouter {
         parentNavigatorKey: GlobalVariables.mainNavigatorKey,
         builder: (context, state) => const AboutScreen(),
       ),
+      GoRoute(
+        path: "/${RouteConstants.notification}",
+        name: RouteConstants.notification,
+        parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+        builder: (context, state) => const NotificationScreen(),
+      ),
+      // GoRoute(
+      //   path: "/${RouteConstants.media}",
+      //   name: RouteConstants.media,
+      //   parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+      //   builder: (context, state) => MediaViewWidget(
+      //     statusType: state.extra as StatusType,
+      //     audioPlayer: state.uri.,
+      //   ),
+      // ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return NestedScaffoldWidget(navigationShell: navigationShell);
@@ -177,13 +208,23 @@ class AppRouter {
                     path: RouteConstants.communityInfo,
                     name: RouteConstants.communityInfo,
                     parentNavigatorKey: GlobalVariables.mainNavigatorKey,
-                    builder: (context, state) => const CommunityInfoScreen(),
+                    builder: (context, state) => CommunityInfoScreen(
+                      communityId: state.extra as String,
+                    ),
                   ),
                   GoRoute(
                     path: RouteConstants.createCommunity,
                     name: RouteConstants.createCommunity,
                     parentNavigatorKey: GlobalVariables.mainNavigatorKey,
                     builder: (context, state) => const CreateCommunityScreen(),
+                  ),
+                  GoRoute(
+                    path: RouteConstants.communityCoverPhoto,
+                    name: RouteConstants.communityCoverPhoto,
+                    parentNavigatorKey: GlobalVariables.mainNavigatorKey,
+                    builder: (context, state) => CommunityCoverPhotoScreen(
+                      communityId: state.extra as String,
+                    ),
                   ),
                 ],
               ),
@@ -231,7 +272,9 @@ class AppRouter {
                     path: RouteConstants.aboutYou,
                     name: RouteConstants.aboutYou,
                     parentNavigatorKey: GlobalVariables.mainNavigatorKey,
-                    builder: (context, state) => const AboutYouScreen(),
+                    builder: (context, state) => AboutYouScreen(
+                      aboutYouData: state.extra as AboutYouData,
+                    ),
                   ),
                   GoRoute(
                     path: RouteConstants.basicInfo,

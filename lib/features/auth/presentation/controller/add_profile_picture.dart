@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
+
 import '../../../../core/helpers/helpers.dart';
 
 class AddProfilePictureScreen extends StatefulWidget {
@@ -45,6 +49,40 @@ class AddProfilePictureController extends State<AddProfilePictureScreen>
     );
 
     onPressed = widget.onPressed;
+  }
+
+  @override
+  File pickedFile = File("");
+
+  @override
+  onPickFileFromDeviceHandler() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['jpg', 'pdf', 'doc'],
+      );
+
+      if (result != null) {
+        setState(() {
+          pickedFile = File(result.files.first.path!);
+        });
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.toString()),
+          ),
+        );
+      }
+    }
+  }
+
+  @override
+  uploadPictureToServerHandler() {
+    context.read<AuthBloc>().add(
+          AuthEvent.uploadProfilePicture(file: pickedFile),
+        );
   }
 
   @override

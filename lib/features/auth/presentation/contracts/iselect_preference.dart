@@ -5,6 +5,9 @@ abstract class SelectPreferenceControllerContract {
   Tween<double>? opacityTween;
   Animation<double>? enableLocationAnimation;
   late List<String> topic;
+
+  //Methods
+  Future<void> onUpdateLocationHandler();
 }
 
 abstract class SelectPreferenceViewContract extends BaseViewContract {

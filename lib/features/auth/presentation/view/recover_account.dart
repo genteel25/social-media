@@ -1,11 +1,11 @@
-
-
 import 'package:flutter/gestures.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 
 import '../../../../core/helpers/helpers.dart';
 
-class RecoverAccountView extends StatelessWidget implements RecoverAccountViewContract {
+class RecoverAccountView extends StatelessWidget
+    implements RecoverAccountViewContract {
   const RecoverAccountView({
     Key? key,
     required this.controller,
@@ -39,7 +39,7 @@ class RecoverAccountView extends StatelessWidget implements RecoverAccountViewCo
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(
-                      "Enter your Email Address. We will send you a 6-digit verification code.",
+                      "Enter your ${controller.usePhoneNumber ? "Phone number" : "Email Address"}. We will send you a 6-digit verification code.",
                       style: Styles.x14dp_222C27_400w(
                           color: AppColors.neutral800, height: 1.6.h),
                       textAlign: TextAlign.center,
@@ -59,6 +59,7 @@ class RecoverAccountView extends StatelessWidget implements RecoverAccountViewCo
                           ),
                           SizedBox(height: 8.h),
                           IntlPhoneField(
+                            controller: controller.emailController,
                             disableLengthCheck: true,
                             flagsButtonPadding: REdgeInsets.only(left: 10),
                             style: Styles.x12dp_222C27_400w(
@@ -80,6 +81,8 @@ class RecoverAccountView extends StatelessWidget implements RecoverAccountViewCo
                             enabled: true,
                             readOnly: false,
                             inputFormatters: const [],
+                            onChanged: (value) =>
+                                controller.onEnterPhoneNumberHandler(value),
                           ),
                         ],
                       )
@@ -109,10 +112,35 @@ class RecoverAccountView extends StatelessWidget implements RecoverAccountViewCo
                     SizedBox(
                       width: double.infinity,
                       height: 48.h,
-                      child: ElevatedButton(
-                        onPressed: () => context
-                            .pushNamed(RouteConstants.verifyOtp, extra: true),
-                        child: const Text("Generate OTP"),
+                      child: BlocListener<AuthBloc, AuthState>(
+                        listener: (context, state) {
+                          state.maybeWhen(
+                            loading: () => EasyLoading.show(),
+                            recoverAccountSuccess: (data) {
+                              EasyLoading.dismiss();
+                              controller.onProceedVerifyOtpHandler();
+                            },
+                            recoverAccountError: (error) {
+                              EasyLoading.dismiss();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(error),
+                                ),
+                              );
+                            },
+                            orElse: () {},
+                          );
+                        },
+                        child: ElevatedButton(
+                          onPressed: () => controller.onGenerateOtpHandler(),
+                          child: Text(
+                            "Generate OTP",
+                            style: Styles.x16dp_222C27_400w(
+                              color: Colors.white,
+                              height: 1.4.h,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                     // Container(

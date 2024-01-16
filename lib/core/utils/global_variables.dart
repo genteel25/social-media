@@ -1,3 +1,4 @@
+import 'package:duduzili/core/core.dart';
 import 'package:flutter/material.dart';
 
 class GlobalVariables {
@@ -19,6 +20,13 @@ class GlobalVariables {
   static final GlobalKey<ScaffoldState> timelineScaffoldKey =
       GlobalKey<ScaffoldState>();
 
+  static String defaultUsername = "";
+  static String username = "";
+  static bool isRememberMe = false;
+
   static final hashRegex = RegExp(r'\B#\w+');
   static final userRegex = RegExp(r'\B@\w+');
+  static final specialCharacterRegex = RegExp(r'[!@#$%^&*(),.?":{}|<>]');
+  static final emailRegex =
+      RegExp(r'^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
 }

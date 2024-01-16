@@ -23,12 +23,10 @@ class StoryViewWidgetState extends State<StoryViewWidget> {
           // child:
           Column(
         children: [
-          if (widget.statusType == statusType.image)
+          if (widget.statusType == StatusType.image)
             ImageStatus(
               imageUrls: widget.imageUrls,
             ),
-          if (widget.statusType == statusType.video) const VideoStatus(),
-          if (widget.statusType == statusType.audio) const AudioStatus(),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -90,9 +88,9 @@ class StoryViewWidgetState extends State<StoryViewWidget> {
                 SizedBox(height: 8.h),
                 Row(
                   children: [
-                    const StackedImage(
-                      likedStringUrl: ["assets/", "as", ""],
-                    ),
+                    // StackedImage(
+                    //   likedStringUrl: ["assets/", "as", ""],
+                    // ),
                     SizedBox(width: 4.w),
                     Text(
                       "Liked by Maria Mgosewa and 10 others",

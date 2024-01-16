@@ -1,6 +1,7 @@
 // part of '../controller/copy.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../../../core/helpers/helpers.dart';
 
@@ -93,7 +94,12 @@ class SettingsView extends StatelessWidget implements SettingsViewContract {
                         ],
                       ),
                       const Spacer(),
-                      SvgPicture.asset("assets/svgs/edit_outline.svg"),
+                      ExpandTapWidget(
+                        onTap: () =>
+                            context.pushNamed(RouteConstants.editProfile),
+                        tapPadding: REdgeInsets.all(16),
+                        child: SvgPicture.asset("assets/svgs/edit_outline.svg"),
+                      ),
                     ],
                   ),
                 ),
@@ -578,9 +584,26 @@ class SettingsView extends StatelessWidget implements SettingsViewContract {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(height: 24.h),
-          Text(
-            "Log out",
-            style: Styles.x12dp_222C27_600w(color: AppColors.errorError),
+          BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                loading: () => EasyLoading.show(),
+                logoutSuccess: () {
+                  EasyLoading.dismiss();
+                  context.goNamed(RouteConstants.signIn);
+                },
+                logoutError: (error) {},
+                orElse: () {},
+              );
+            },
+            child: ExpandTapWidget(
+              onTap: () => context.goNamed(RouteConstants.signIn),
+              tapPadding: REdgeInsets.all(10),
+              child: Text(
+                "Log out",
+                style: Styles.x12dp_222C27_600w(color: AppColors.errorError),
+              ),
+            ),
           ),
           SizedBox(height: 24.h),
         ],

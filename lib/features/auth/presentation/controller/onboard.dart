@@ -8,35 +8,40 @@ class OnboardScreen extends StatefulWidget {
 }
 
 class OnboardController extends State<OnboardScreen>
+    with SingleTickerProviderStateMixin
     implements OnboardControllerContract {
   late OnboardViewContract view;
 
   @override
-  double currentIndex = 0.0;
+  late AnimationController animationController;
+
+  @override
+  int currentNumber = 0;
 
   @override
   double progressPercentage = 100 / 3;
 
   @override
-  PageController pageViewController = PageController(initialPage: 0);
-
-  @override
   void initState() {
     super.initState();
-    view = OnboardView(
-      controller: this,
-    );
+    view = OnboardView(controller: this);
+
+    animationController = AnimationController(
+      vsync: this,
+      duration: 2000.milliseconds,
+    )..forward();
+    // startIncrementing();
   }
 
   @override
   onChangePercentHandler() {
-    if (currentIndex < 2) {
+    double newPercentage = 100 / 3;
+    if (currentNumber < 2) {
       setState(() {
-        pageViewController.animateToPage((currentIndex + 1).toInt(),
-            duration: const Duration(milliseconds: 600),
-            curve: Curves.easeInOut);
-        currentIndex++;
-        progressPercentage = progressPercentage * (currentIndex + 1);
+        currentNumber++;
+        animationController.reset();
+        animationController.forward();
+        progressPercentage = newPercentage * (currentNumber + 1);
       });
     } else {
       context.goNamed(RouteConstants.welcome);
@@ -44,14 +49,25 @@ class OnboardController extends State<OnboardScreen>
   }
 
   @override
-  changeCurrentIndex(int value) {
-    setState(() {
-      // currentIndex = value.toDouble();
-    });
-  }
+  List<String> svgAsset = ["onboard_first", "onboard_second", "onboard_third"];
+
+  @override
+  List<String> title = [
+    "Introducing Duduzili",
+    "Post and Share",
+    "Discover and Explore",
+  ];
+
+  @override
+  List<String> subTitle = [
+    "The ultimate social media app designed to connect people, inspire creativity, and foster meaningful interactions",
+    "Create and share posts, photos, videos, and stories with your friends, family, and the wider Duduzili community.",
+    "Find new people to follow, explore trending topics, and discover exciting content from users around the globe.",
+  ];
 
   @override
   void dispose() {
+    animationController.dispose();
     super.dispose();
   }
 

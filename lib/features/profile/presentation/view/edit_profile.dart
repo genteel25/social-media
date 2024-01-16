@@ -1,4 +1,9 @@
+import 'package:duduzili/features/profile/presentation/bloc/about_you_bloc/about_you_bloc_bloc.dart';
+
+import '../../../../core/components/extended_image_widget.dart';
+import '../../../../core/data/models/profile.dart';
 import '../../../../core/helpers/helpers.dart';
+import '../bloc/contact_info_bloc/contact_info_bloc.dart';
 
 class EditProfileView extends StatelessWidget
     implements EditProfileViewContract {
@@ -30,7 +35,7 @@ class EditProfileView extends StatelessWidget
                       // fit: StackFit.,
                       children: [
                         Container(
-                          padding: REdgeInsets.all(12),
+                          // padding: REdgeInsets.all(12),
                           width: 120.w,
                           height: 120.h,
                           decoration: BoxDecoration(
@@ -48,7 +53,19 @@ class EditProfileView extends StatelessWidget
                               ),
                             ],
                           ),
-                          child: const FlutterLogo(),
+                          child: BlocBuilder<ProfileBloc, ProfileState>(
+                            builder: (context, state) {
+                              return state.maybeWhen(
+                                profileSuccess: (ProfileData data) =>
+                                    ExtendedImageWidget(
+                                  imageUrl:
+                                      data.profilePicture.toString().decrypt(),
+                                  size: 120,
+                                ),
+                                orElse: () => const Text("data"),
+                              );
+                            },
+                          ),
                         ),
                         Positioned(
                           bottom: 0,
@@ -97,16 +114,62 @@ class EditProfileView extends StatelessWidget
                             color: AppColors.neutral1000,
                           ),
                         ),
-                        ExpandTapWidget(
-                          onTap: () =>
-                              context.pushNamed(RouteConstants.aboutYou),
-                          tapPadding: REdgeInsets.all(10),
-                          child: Text(
-                            "Edit",
-                            style: Styles.x12dp_222C27_400w(
-                              color: AppColors.primaryColor,
-                            ),
-                          ),
+                        BlocBuilder<AboutYouBloc, AboutYouState>(
+                          builder: (context, state) {
+                            return state.maybeWhen(
+                              loading: () => ExpandTapWidget(
+                                onTap: () => context.pushNamed(
+                                  RouteConstants.aboutYou,
+                                  extra: ProfileData(),
+                                ),
+                                tapPadding: REdgeInsets.all(10),
+                                child: Text(
+                                  "Edit",
+                                  style: Styles.x12dp_222C27_400w(
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                              ),
+                              aboutYouSuccess: (data) => ExpandTapWidget(
+                                onTap: () => context.pushNamed(
+                                  RouteConstants.aboutYou,
+                                  extra: data,
+                                ),
+                                tapPadding: REdgeInsets.all(10),
+                                child: Text(
+                                  "Edit",
+                                  style: Styles.x12dp_222C27_400w(
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                              ),
+                              aboutYouError: (error) => ExpandTapWidget(
+                                onTap: () => context.pushNamed(
+                                  RouteConstants.aboutYou,
+                                  extra: ProfileData(),
+                                ),
+                                tapPadding: REdgeInsets.all(10),
+                                child: Text(
+                                  "Edit",
+                                  style: Styles.x12dp_222C27_400w(
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                              ),
+                              orElse: () => ExpandTapWidget(
+                                onTap: () => context.pushNamed(
+                                    RouteConstants.aboutYou,
+                                    extra: ProfileData()),
+                                tapPadding: REdgeInsets.all(10),
+                                child: Text(
+                                  "Edit",
+                                  style: Styles.x12dp_222C27_400w(
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -119,11 +182,19 @@ class EditProfileView extends StatelessWidget
                       ),
                     ),
                     SizedBox(height: 4.h),
-                    Text(
-                      "Ayodele Davies",
-                      style: Styles.x10dp_222C27_400w(
-                        color: AppColors.neutral800,
-                      ),
+
+                    BlocBuilder<AboutYouBloc, AboutYouState>(
+                      builder: (context, state) {
+                        return state.maybeWhen(
+                          aboutYouSuccess: (AboutYouData data) => Text(
+                            data.userFullName,
+                            style: Styles.x10dp_222C27_400w(
+                              color: AppColors.neutral800,
+                            ),
+                          ),
+                          orElse: () => const Text("data"),
+                        );
+                      },
                     ),
                     SizedBox(height: 16.h),
                     Text(
@@ -134,11 +205,27 @@ class EditProfileView extends StatelessWidget
                       ),
                     ),
                     SizedBox(height: 4.h),
-                    Text(
-                      "@davayo",
-                      style: Styles.x10dp_222C27_400w(
-                        color: AppColors.neutral800,
-                      ),
+                    // Text(
+                    //   "@davayo",
+                    //   style: Styles.x10dp_222C27_400w(
+                    //     color: AppColors.neutral800,
+                    //   ),
+                    // ),
+                    BlocBuilder<AboutYouBloc, AboutYouState>(
+                      builder: (context, state) {
+                        return state.maybeWhen(
+                          aboutYouSuccess: (AboutYouData data) =>
+                              DetectableText(
+                            text: "@${data.username.toString().decrypt()}",
+                            basicStyle: Styles.x10dp_222C27_400w(
+                                color: AppColors.neutral1000),
+                            detectedStyle: Styles.x10dp_222C27_400w(
+                                color: AppColors.primaryColor),
+                            detectionRegExp: GlobalVariables.userRegex,
+                          ),
+                          orElse: () => const Text("data"),
+                        );
+                      },
                     ),
                     SizedBox(height: 16.h),
                     Text(
@@ -149,13 +236,19 @@ class EditProfileView extends StatelessWidget
                       ),
                     ),
                     SizedBox(height: 4.h),
-                    Text(
-                      "Looking for an experienced people to help me find people in US to test my app. Looking for an experienced people to help me find people in US to test my app",
-                      style: Styles.x10dp_222C27_400w(
-                        color: AppColors.neutral800,
-                      ),
+                    BlocBuilder<AboutYouBloc, AboutYouState>(
+                      builder: (context, state) {
+                        return state.maybeWhen(
+                          aboutYouSuccess: (AboutYouData data) => Text(
+                            data.bio!.decrypt(),
+                            style: Styles.x10dp_222C27_400w(
+                              color: AppColors.neutral800,
+                            ),
+                          ),
+                          orElse: () => const Text("data"),
+                        );
+                      },
                     ),
-                    // SizedBox(height: 16.h),
                   ],
                 ),
               ),
@@ -196,20 +289,27 @@ class EditProfileView extends StatelessWidget
                       contentPadding: EdgeInsets.zero,
                       visualDensity: const VisualDensity(vertical: -4),
                       leading: SvgPicture.asset("assets/svgs/house.svg"),
-                      title: RichText(
-                        text: TextSpan(
-                          text: "Lives in ",
-                          style: Styles.x10dp_222C27_400w(
-                              color: AppColors.neutral800),
-                          children: [
-                            TextSpan(
-                              text: "Lagos, Nigeria",
-                              style: Styles.x10dp_222C27_600w(
-                                color: AppColors.neutral800,
+                      title: BlocBuilder<BasicInfoBloc, BasicInfoState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                            basicInfoSuccess: (BasicInfoData data) => RichText(
+                              text: TextSpan(
+                                text: "Lives in ",
+                                style: Styles.x10dp_222C27_400w(
+                                    color: AppColors.neutral800),
+                                children: [
+                                  TextSpan(
+                                    text: data.city?.decrypt() ?? "N/A",
+                                    style: Styles.x10dp_222C27_600w(
+                                      color: AppColors.neutral800,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                            orElse: () => const Text("data"),
+                          );
+                        },
                       ),
                     ),
                     // SizedBox(height: 4.h),
@@ -220,11 +320,18 @@ class EditProfileView extends StatelessWidget
                       visualDensity: const VisualDensity(vertical: -4),
                       leading:
                           SvgPicture.asset("assets/svgs/profile_circle.svg"),
-                      title: Text(
-                        "Male",
-                        style: Styles.x10dp_222C27_400w(
-                          color: AppColors.neutral800,
-                        ),
+                      title: BlocBuilder<BasicInfoBloc, BasicInfoState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                            basicInfoSuccess: (BasicInfoData data) => Text(
+                              data.gender?.decrypt() ?? "N/A",
+                              style: Styles.x10dp_222C27_400w(
+                                color: AppColors.neutral800,
+                              ),
+                            ),
+                            orElse: () => const Text("data"),
+                          );
+                        },
                       ),
                     ),
                     // SizedBox(height: 4.h),
@@ -237,11 +344,18 @@ class EditProfileView extends StatelessWidget
                         "assets/svgs/heart.svg",
                         color: AppColors.neutral600,
                       ),
-                      title: Text(
-                        "Single",
-                        style: Styles.x10dp_222C27_400w(
-                          color: AppColors.neutral800,
-                        ),
+                      title: BlocBuilder<BasicInfoBloc, BasicInfoState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                            basicInfoSuccess: (BasicInfoData data) => Text(
+                              data.maritalStatus?.decrypt() ?? "N/A",
+                              style: Styles.x10dp_222C27_400w(
+                                color: AppColors.neutral800,
+                              ),
+                            ),
+                            orElse: () => const Text("data"),
+                          );
+                        },
                       ),
                     ),
                     ListTile(
@@ -250,20 +364,36 @@ class EditProfileView extends StatelessWidget
                       contentPadding: EdgeInsets.zero,
                       visualDensity: const VisualDensity(vertical: -4),
                       leading: SvgPicture.asset("assets/svgs/cake.svg"),
-                      title: RichText(
-                        text: TextSpan(
-                          text: "Born on ",
-                          style: Styles.x10dp_222C27_400w(
-                              color: AppColors.neutral800),
-                          children: [
-                            TextSpan(
-                              text: "April, 14",
-                              style: Styles.x10dp_222C27_600w(
-                                color: AppColors.neutral800,
+                      title: BlocBuilder<BasicInfoBloc, BasicInfoState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                            basicInfoSuccess: (BasicInfoData data) => RichText(
+                              text: TextSpan(
+                                text: "Born on ",
+                                style: Styles.x10dp_222C27_400w(
+                                    color: AppColors.neutral800),
+                                children: [
+                                  //                                 String get formattedDate {
+                                  //   initializeDateFormatting();
+                                  //   DateTime dateTime =
+                                  //       DateFormat("yyyy-MM-dd").parse(dateOfBirth?.decrypt() ?? "");
+                                  //   String string = DateFormat("MMMM dd").format(dateTime);
+                                  //   return string;
+                                  // }
+                                  TextSpan(
+                                    text: DateFormat("MMMM dd").format(
+                                        DateFormat("yyyy-MM-dd").parse(
+                                            data.dateOfBirth?.decrypt() ?? "")),
+                                    style: Styles.x10dp_222C27_600w(
+                                      color: AppColors.neutral800,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                            orElse: () => const Text("data"),
+                          );
+                        },
                       ),
                     ),
                     ListTile(
@@ -349,11 +479,19 @@ class EditProfileView extends StatelessWidget
                       ),
                       title: Row(
                         children: [
-                          Text(
-                            "daviesayodele22@gmail.com",
-                            style: Styles.x10dp_222C27_400w(
-                              color: AppColors.neutral800,
-                            ),
+                          BlocBuilder<ContactInfoBloc, ContactInfoState>(
+                            builder: (context, state) {
+                              return state.maybeWhen(
+                                contactInfoSuccess: (ContactInfoData data) =>
+                                    Text(
+                                  data.email?.decrypt().trim() ?? "N/A",
+                                  style: Styles.x10dp_222C27_400w(
+                                    color: AppColors.neutral800,
+                                  ),
+                                ),
+                                orElse: () => const Text("data"),
+                              );
+                            },
                           ),
                           SizedBox(width: 8.w),
                           SvgPicture.asset("assets/svgs/copy.svg"),
@@ -371,11 +509,19 @@ class EditProfileView extends StatelessWidget
                       ),
                       title: Row(
                         children: [
-                          Text(
-                            "+2348106545067",
-                            style: Styles.x10dp_222C27_400w(
-                              color: AppColors.neutral800,
-                            ),
+                          BlocBuilder<ContactInfoBloc, ContactInfoState>(
+                            builder: (context, state) {
+                              return state.maybeWhen(
+                                contactInfoSuccess: (ContactInfoData data) =>
+                                    Text(
+                                  data.phoneNumber?.decrypt().checkIfNone() ??
+                                      "N/A",
+                                  style: Styles.x10dp_222C27_400w(
+                                      color: AppColors.neutral800),
+                                ),
+                                orElse: () => const Text("data"),
+                              );
+                            },
                           ),
                           SizedBox(width: 8.w),
                           SvgPicture.asset("assets/svgs/copy.svg"),
@@ -693,11 +839,16 @@ class EditProfileView extends StatelessWidget
                                   color: AppColors.neutral1000,
                                 ),
                               ),
-                              subtitle: Padding(
-                                padding: REdgeInsets.only(top: 2),
-                                child: const StackedImage(
-                                  likedStringUrl: ["", "", "", "", ""],
-                                ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Padding(
+                                  //   padding: REdgeInsets.only(top: 2),
+                                  //   child: StackedImage(
+                                  //     likedStringUrl: ["", "", "", "", ""],
+                                  //   ),
+                                  // ),
+                                ],
                               ),
                               trailing: SizedBox(
                                 height: 32.h,

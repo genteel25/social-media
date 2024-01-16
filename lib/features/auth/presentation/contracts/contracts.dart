@@ -12,3 +12,4 @@ export 'isignup.dart';
 export 'isplash.dart';
 export 'iverify_otp.dart';
 export 'iwelcome.dart';
+export '../../../home/presentation/contracts/inotification.dart';

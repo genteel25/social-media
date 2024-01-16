@@ -1,5 +1,7 @@
+
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../helpers/helpers.dart';
-import 'global_variables.dart';
+// import 'global_variables.dart';
 
 class AppUtils {
   static AppBar storyViewAppBar(BuildContext context) {
@@ -101,6 +103,103 @@ class AppUtils {
     );
   }
 
+  static AppBar homeAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0,
+      leading: Row(
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(width: 20.w),
+          ExpandTapWidget(
+            tapPadding: REdgeInsets.all(10),
+            onTap: () => GlobalVariables.scaffoldKey.currentState!.openDrawer(),
+            child: Stack(
+              children: [
+                BlocBuilder<ProfileBloc, ProfileState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      profileLoading: () => SizedBox.shrink(),
+                      profileSuccess: (ProfileData data) => ExtendedImageWidget(
+                        imageUrl: data.profilePicture.toString().decrypt(),
+                      ),
+                      orElse: () => const Text("data"),
+                    );
+                  },
+                ),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    width: 10.w,
+                    height: 10.h,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    decoration: BoxDecoration(
+                      color: const Color(0xff008000),
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: AppColors.skyWhite,
+                        width: 1.2.w,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+      leadingWidth: 100.w,
+      title: SvgPicture.asset(
+        "assets/svgs/logo.svg",
+        width: 42.w,
+        height: 32.h,
+      ),
+      actions: [
+        ExpandTapWidget(
+          tapPadding: REdgeInsets.all(10),
+          onTap: () => context.goNamed(RouteConstants.search),
+          child: SvgPicture.asset(
+            "assets/svgs/search_inactive.svg",
+            width: 24.w,
+            height: 24.h,
+            color: const Color(0xff292D32),
+          ),
+        ),
+        SizedBox(width: 15.45.w),
+        BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              logoutLoading: () => EasyLoading.show(),
+              logoutSuccess: () {
+                EasyLoading.dismiss();
+                context.goNamed(RouteConstants.signIn);
+              },
+              loginError: (error) {
+                EasyLoading.dismiss();
+              },
+              orElse: () {},
+            );
+          },
+          child: ExpandTapWidget(
+            tapPadding: REdgeInsets.all(10),
+            onTap: () => context.read<AuthBloc>().add(
+                  const AuthEvent.logout(),
+                ),
+            child: SvgPicture.asset(
+              "assets/svgs/notification_outline.svg",
+              height: 24.h,
+              width: 24.w,
+              color: const Color(0xff292D32),
+            ),
+          ),
+        ),
+        SizedBox(width: 20.w),
+      ],
+      centerTitle: true,
+    );
+  }
+
   static AppBar normalAppBar(
     BuildContext context, {
     required String title,
@@ -109,7 +208,7 @@ class AppUtils {
   }) {
     return AppBar(
       toolbarHeight: 57.h,
-      leadingWidth: 120,
+      leadingWidth: 60.sp,
       leading: Row(
         children: [
           SizedBox(width: 20.sp),
@@ -152,12 +251,11 @@ class AppUtils {
   }
 
   static AppBar appBarIcon(BuildContext context,
-          {required String title, Widget? trailingWidget}) =>
+          {String? title, Widget? trailingWidget}) =>
       AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         leading: Row(
-          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(width: 20.w),
             ExpandTapWidget(
@@ -166,14 +264,16 @@ class AppUtils {
                   GlobalVariables.scaffoldKey.currentState!.openDrawer(),
               child: Stack(
                 children: [
-                  Container(
-                    padding: REdgeInsets.all(4),
-                    width: 32.w,
-                    height: 32.h,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: AppColors.neutral400)),
-                    child: const FlutterLogo(),
+                  BlocBuilder<ProfileBloc, ProfileState>(
+                    builder: (context, state) {
+                      return state.maybeWhen(
+                        profileSuccess: (ProfileData data) =>
+                            ExtendedImageWidget(
+                          imageUrl: data.profilePicture.toString().decrypt(),
+                        ),
+                        orElse: () => const Text("data"),
+                      );
+                    },
                   ),
                   Positioned(
                     bottom: 0,
@@ -198,12 +298,26 @@ class AppUtils {
           ],
         ),
         leadingWidth: 100.w,
-        title: Text(
-          title,
-          style: Styles.x16dp_222C27_600w(
-            color: AppColors.neutral1000,
-          ),
-        ),
+        title: title == null
+            ? BlocBuilder<ProfileBloc, ProfileState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    profileSuccess: (ProfileData data) => Text(
+                      data.fullName.toString().decrypt(),
+                      style: Styles.x16dp_222C27_600w(
+                        color: AppColors.neutral1000,
+                      ),
+                    ),
+                    orElse: () => const Text("data"),
+                  );
+                },
+              )
+            : Text(
+                title,
+                style: Styles.x16dp_222C27_600w(
+                  color: AppColors.neutral1000,
+                ),
+              ),
         actions: [
           ExpandTapWidget(
             tapPadding: REdgeInsets.all(10),

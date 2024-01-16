@@ -33,4 +33,7 @@ class RouteConstants {
   static const basicInfo = "basic_info";
   static const contactInfo = "contact_info";
   static const settings = "settings";
+  static const notification = "notification";
+  static const media = "media";
+  static const communityCoverPhoto = "community_cover_photo";
 }

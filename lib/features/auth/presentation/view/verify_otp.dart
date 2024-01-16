@@ -1,3 +1,6 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import '../../../../core/helpers/helpers.dart';
 
 class VerifyOtpView extends StatelessWidget implements VerifyOtpViewContract {
@@ -29,7 +32,7 @@ class VerifyOtpView extends StatelessWidget implements VerifyOtpViewContract {
                           ),
                           SizedBox(height: 8.h),
                           Text(
-                            "Enter the 6-digit OTP to geodes******@gmail.com",
+                            "Enter the 6-digit OTP sent to ${controller.email}",
                             style: Styles.x14dp_222C27_400w(
                               color: AppColors.neutral800,
                               height: 1.6,
@@ -47,7 +50,7 @@ class VerifyOtpView extends StatelessWidget implements VerifyOtpViewContract {
                           ),
                           SizedBox(height: 8.h),
                           Text(
-                            "We just sent a 4-digit code to your email geodes******@gmail.com",
+                            "We just sent a 6-digit code to your email ${controller.email}",
                             style: Styles.x14dp_222C27_400w(
                               color: AppColors.neutral800,
                               height: 1.33,
@@ -61,12 +64,15 @@ class VerifyOtpView extends StatelessWidget implements VerifyOtpViewContract {
                   width: double.infinity,
                   child: Pinput(
                     // cursor: ,
-
+                    controller: controller.pinputController,
                     length: 6,
+                    onCompleted: (value) =>
+                        controller.mainButtonValidatorHandler(),
                     defaultPinTheme: PinTheme(
                       // textStyle: Styles.x24dp_222C27_400w(),
                       width: 50.sp,
                       height: 50.sp,
+
                       textStyle:
                           Styles.x24dp_222C27_400w(color: AppColors.neutral900),
                       decoration: BoxDecoration(
@@ -99,42 +105,100 @@ class VerifyOtpView extends StatelessWidget implements VerifyOtpViewContract {
                 SizedBox(
                   width: double.infinity,
                   height: 54.sp,
-                  child: ElevatedButton(
-                      // onPressed: () => state.setNewPasswordNavigator(),
-                      onPressed: () => controller.accountRecovery == true
-                          ? context.pushNamed(RouteConstants.setPassword)
-                          : context
-                              .pushNamed(RouteConstants.completeRegistration),
-                      style: ElevatedButton.styleFrom(
+                  child: BlocListener<AuthBloc, AuthState>(
+                    listener: (context, state) {
+                      state.maybeWhen(
+                        loading: () {
+                          EasyLoading.show();
+                        },
+                        verifyOtpSuccess: (response) {
+                          EasyLoading.dismiss();
+                          return controller.proceedRegistrationHandler();
+                        },
+                        verifyOtpError: (message) {
+                          EasyLoading.dismiss();
+                          return ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(message),
+                            ),
+                          );
+                        },
+                        orElse: () {},
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   const SnackBar(
+                        //     content: Text("Something went wrong"),
+                        //   ),
+                        // ),
+                      );
+                    },
+                    child: ElevatedButton(
+                        onPressed:
+                            // controller.validated
+                            //     ?
+                            () => controller.verifyOtpClickHandler(),
+                        // : null,
+                        style: ElevatedButton.styleFrom(
                           elevation: 1,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.r),
                           ),
-                          backgroundColor: AppColors.primaryColor),
-                      child: const Text(
-                        "Verify OTP",
-                        // style: Styles.x16dp_2FC67E_500w(color: Colors.white),
-                      )),
+                          backgroundColor: AppColors.primaryColor,
+                        ),
+                        child: Text(
+                          "Verify OTP",
+                          style: Styles.x16dp_222C27_400w(
+                            color: Colors.white,
+                            height: 1.4.h,
+                          ),
+                        )),
+                  ),
                 ),
                 SizedBox(height: 24.h),
-                Align(
-                  alignment: Alignment.center,
-                  child: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      text: "Yet to receive the email? ",
-                      style: Styles.x14dp_222C27_400w(
-                        color: AppColors.neutral800,
-                      ),
-                      children: [
-                        TextSpan(
-                          // recognizer: TapGestureRecognizer()
-                          //   ..onTap = () => state.signupNavigator(),
-                          text: "Resend OTP",
-                          style: Styles.x14dp_222C27_400w(
-                              color: AppColors.primaryColor),
+                BlocListener<AuthBloc, AuthState>(
+                  listener: (context, state) {
+                    state.maybeWhen(
+                      loading: () {
+                        EasyLoading.show();
+                      },
+                      resendOtpSuccess: (data) {
+                        EasyLoading.dismiss();
+                      },
+                      resendOtpError: (error) {
+                        EasyLoading.dismiss();
+                        return ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(error),
+                          ),
+                        );
+                      },
+                      orElse: () {},
+                      // => ScaffoldMessenger.of(context).showSnackBar(
+                      //   const SnackBar(
+                      //     content: Text("Something went wrongs"),
+                      //   ),
+                      // ),
+                    );
+                  },
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: "Yet to receive the email? ",
+                        style: Styles.x14dp_222C27_400w(
+                          color: AppColors.neutral800,
                         ),
-                      ],
+                        children: [
+                          TextSpan(
+                            recognizer: TapGestureRecognizer()
+                              ..onTap =
+                                  () => controller.resendOtpClickHandler(),
+                            text: "Resend OTP",
+                            style: Styles.x14dp_222C27_400w(
+                                color: AppColors.primaryColor),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

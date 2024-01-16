@@ -2,11 +2,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class AnimatedWaveContainer extends StatefulWidget {
+  const AnimatedWaveContainer({Key? key}): super(key: key);
   @override
-  _AnimatedWaveContainerState createState() => _AnimatedWaveContainerState();
+  AnimatedWaveContainerState createState() => AnimatedWaveContainerState();
 }
 
-class _AnimatedWaveContainerState extends State<AnimatedWaveContainer>
+class AnimatedWaveContainerState extends State<AnimatedWaveContainer>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
@@ -17,7 +18,7 @@ class _AnimatedWaveContainerState extends State<AnimatedWaveContainer>
 
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     );
 
     _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
@@ -35,7 +36,7 @@ class _AnimatedWaveContainerState extends State<AnimatedWaveContainer>
             waveProgress: _animation.value,
             amplitude: 20.0,
             frequency: 2.0,
-            child: Container(
+            child: const SizedBox(
               width: 200.0,
               height: 200.0,
               // Your logo widget here
@@ -60,12 +61,13 @@ class WaveContainer extends StatelessWidget {
   final double frequency;
   final Widget child;
 
-  WaveContainer({
+  const WaveContainer({
+    Key? key,
     required this.waveProgress,
     required this.amplitude,
     required this.frequency,
     required this.child,
-  });
+  }):super(key: key);
 
   @override
   Widget build(BuildContext context) {

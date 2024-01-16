@@ -94,33 +94,59 @@ class ImageStatusState extends State<ImageStatus>
                 ),
               )),
           SizedBox(height: 32.5.h),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  "12/06/2023, 08:00AM",
-                  style: Styles.x12dp_222C27_400w(color: AppColors.neutral400),
+          Padding(
+            padding: REdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    "12/06/2023, 08:00AM",
+                    style:
+                        Styles.x12dp_222C27_400w(color: AppColors.neutral400),
+                  ),
                 ),
-              ),
-              Text(
-                "1 of 4",
-                style: Styles.x12dp_222C27_400w(color: AppColors.neutral600),
-              )
-            ],
+                Text(
+                  "${currentScreens.length} of ${imageUrls.length}",
+                  style: Styles.x12dp_222C27_400w(color: AppColors.neutral600),
+                )
+              ],
+            ),
           ),
           SizedBox(height: 8.h),
-          Container(
-            width: double.infinity,
-            height: 450.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.r),
-              color: AppColors.neutral1000,
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.r),
-              child: Image.network(
-                currentScreens.last,
-                fit: BoxFit.cover,
+          GestureDetector(
+            onHorizontalDragEnd: (details) {
+              //Swiping in right direction
+              if (details.primaryVelocity! > 0) {
+                if (currentScreens.length > 1) {
+                  setState(() {
+                    currentScreens.removeLast();
+                  });
+                }
+              }
+              //Swiping in left direction
+              if (details.primaryVelocity! < 0) {
+                int index = currentScreens.length;
+                if (index < imageUrls.length) {
+                  setState(() {
+                    currentScreens.add(imageUrls[index]);
+                    index++;
+                  });
+                }
+              }
+            },
+            child: Container(
+              width: double.infinity,
+              height: 450.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.r),
+                color: AppColors.neutral1000,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.r),
+                child: Image.network(
+                  currentScreens.last,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -141,14 +167,14 @@ class ImageStatusState extends State<ImageStatus>
                       height: 50.sp,
                       // padding: REdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        // border: Border.all(
-                        //   color: currentScreens!.last == widget.imageUrls![index]
-                        //       ? AppColors.primaryColor
-                        //       : AppColors.neutral800,
-                        //   width: currentScreens!.last == widget.imageUrls![index]
-                        //       ? 1.4.w
-                        //       : 0.8.w,
-                        // ),
+                        border: Border.all(
+                          color: currentScreens.last == widget.imageUrls![index]
+                              ? AppColors.skyWhite
+                              : AppColors.neutral800,
+                          width: currentScreens.last == widget.imageUrls![index]
+                              ? 1.7.w
+                              : 0.8.w,
+                        ),
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                       child: ClipRRect(

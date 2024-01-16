@@ -47,30 +47,33 @@ class CreatePostView extends StatelessWidget implements CreatePostViewContract {
                       color: AppColors.neutral600,
                     ),
                   ),
-                  trailing: Container(
-                    width: 100.w,
-                    height: 32.h,
-                    padding: REdgeInsets.symmetric(horizontal: 8),
-                    decoration: BoxDecoration(
-                      color: AppColors.neutral200,
-                      borderRadius: BorderRadius.circular(8.r),
-                      border: Border.all(color: AppColors.neutral400),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/svgs/globe.svg",
-                          fit: BoxFit.none,
-                        ),
-                        Text(
-                          "Public",
-                          style: Styles.x10dp_222C27_400w(
-                            color: AppColors.neutral800,
+                  trailing: GestureDetector(
+                    onTap: () => choosePrivacy(context),
+                    child: Container(
+                      width: 100.w,
+                      height: 32.h,
+                      padding: REdgeInsets.symmetric(horizontal: 8),
+                      decoration: BoxDecoration(
+                        color: AppColors.neutral200,
+                        borderRadius: BorderRadius.circular(8.r),
+                        border: Border.all(color: AppColors.neutral400),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SvgPicture.asset(
+                            "assets/svgs/globe.svg",
+                            fit: BoxFit.none,
                           ),
-                        ),
-                        const Icon(Icons.arrow_drop_down)
-                      ],
+                          Text(
+                            "Public",
+                            style: Styles.x10dp_222C27_400w(
+                              color: AppColors.neutral800,
+                            ),
+                          ),
+                          const Icon(Icons.arrow_drop_down)
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -140,7 +143,7 @@ class CreatePostView extends StatelessWidget implements CreatePostViewContract {
               width: double.infinity,
               height: 34.h,
               // color: AppColors.errorError,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   top: BorderSide(color: AppColors.neutral300),
                 ),
@@ -148,6 +151,17 @@ class CreatePostView extends StatelessWidget implements CreatePostViewContract {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Future<dynamic> choosePrivacy(BuildContext context) {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) => ChoosePrivacyWidget(
+        controller: TextEditingController(),
       ),
     );
   }

@@ -1,3 +1,5 @@
+import '../../../../core/components/extended_image_widget.dart';
+import '../../../../core/data/models/profile.dart';
 import '../../../../core/helpers/helpers.dart';
 
 class ProfileView extends StatelessWidget implements ProfileViewContract {
@@ -13,7 +15,6 @@ class ProfileView extends StatelessWidget implements ProfileViewContract {
       // backgroundColor: AppColors.skyWhite,
       appBar: AppUtils.appBarIcon(
         context,
-        title: "Ayodele Davies",
         trailingWidget: ExpandTapWidget(
           onTap: () => context.pushNamed(RouteConstants.settings),
           tapPadding: REdgeInsets.all(10),
@@ -44,15 +45,19 @@ class ProfileView extends StatelessWidget implements ProfileViewContract {
                         children: [
                           Stack(
                             children: [
-                              Container(
-                                padding: REdgeInsets.all(4),
-                                width: 60.w,
-                                height: 60.h,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: AppColors.neutral400)),
-                                child: const FlutterLogo(),
+                              BlocBuilder<ProfileBloc, ProfileState>(
+                                builder: (context, state) {
+                                  return state.maybeWhen(
+                                    profileSuccess: (ProfileData data) =>
+                                        ExtendedImageWidget(
+                                      imageUrl: data.profilePicture
+                                          .toString()
+                                          .decrypt(),
+                                      size: 60,
+                                    ),
+                                    orElse: () => const Text("data"),
+                                  );
+                                },
                               ),
                               Positioned(
                                 bottom: 0,
@@ -81,83 +86,141 @@ class ProfileView extends StatelessWidget implements ProfileViewContract {
                             ],
                           ),
                           SizedBox(width: 60.w),
-                          Column(
-                            children: [
-                              Text(
-                                "345",
-                                style: Styles.x12dp_222C27_600w(
-                                  color: AppColors.neutral1000,
-                                  height: 1.5.h,
+                          BlocBuilder<ProfileBloc, ProfileState>(
+                            builder: (context, state) {
+                              return state.maybeWhen(
+                                profileSuccess: (ProfileData data) => Column(
+                                  children: [
+                                    Text(
+                                      data.numberOfPosts?.decrypt() ?? "",
+                                      style: Styles.x12dp_222C27_600w(
+                                        color: AppColors.neutral1000,
+                                        height: 1.5.h,
+                                      ),
+                                    ),
+                                    Text(
+                                      data.numberOfPosts?.decrypt() == "0"
+                                          ? "Post"
+                                          : "Posts",
+                                      style: Styles.x8dp_222C27_400w(
+                                        color: AppColors.neutral800,
+                                      ),
+                                    )
+                                  ],
                                 ),
-                              ),
-                              Text(
-                                "Posts",
-                                style: Styles.x8dp_222C27_400w(
-                                  color: AppColors.neutral800,
-                                ),
-                              )
-                            ],
+                                orElse: () => const Text("data"),
+                              );
+                            },
                           ),
                           SizedBox(width: 40.w),
-                          Column(
-                            children: [
-                              Text(
-                                "657",
-                                style: Styles.x12dp_222C27_600w(
-                                  color: AppColors.neutral1000,
-                                  height: 1.5.h,
+                          BlocBuilder<ProfileBloc, ProfileState>(
+                            builder: (context, state) {
+                              return state.maybeWhen(
+                                profileSuccess: (ProfileData data) => Column(
+                                  children: [
+                                    Text(
+                                      data.followers?.decrypt() ?? "",
+                                      style: Styles.x12dp_222C27_600w(
+                                        color: AppColors.neutral1000,
+                                        height: 1.5.h,
+                                      ),
+                                    ),
+                                    Text(
+                                      data.followers?.decrypt() == "0"
+                                          ? "Follower"
+                                          : "Followers",
+                                      style: Styles.x8dp_222C27_400w(
+                                        color: AppColors.neutral800,
+                                      ),
+                                    )
+                                  ],
                                 ),
-                              ),
-                              Text(
-                                "Followers",
-                                style: Styles.x8dp_222C27_400w(
-                                  color: AppColors.neutral800,
-                                ),
-                              )
-                            ],
+                                orElse: () => const Text("data"),
+                              );
+                            },
                           ),
                           SizedBox(width: 40.w),
-                          Column(
-                            children: [
-                              Text(
-                                "256",
-                                style: Styles.x12dp_222C27_600w(
-                                  color: AppColors.neutral1000,
-                                  height: 1.5.h,
+                          BlocBuilder<ProfileBloc, ProfileState>(
+                            builder: (context, state) {
+                              return state.maybeWhen(
+                                profileSuccess: (ProfileData data) => Column(
+                                  children: [
+                                    Text(
+                                      data.followings?.decrypt() ?? "",
+                                      style: Styles.x12dp_222C27_600w(
+                                        color: AppColors.neutral1000,
+                                        height: 1.5.h,
+                                      ),
+                                    ),
+                                    Text(
+                                      data.followings?.decrypt() == "0"
+                                          ? "Following"
+                                          : "Followings",
+                                      style: Styles.x8dp_222C27_400w(
+                                        color: AppColors.neutral800,
+                                      ),
+                                    )
+                                  ],
                                 ),
-                              ),
-                              Text(
-                                "Following",
-                                style: Styles.x8dp_222C27_400w(
-                                  color: AppColors.neutral800,
-                                ),
-                              )
-                            ],
+                                orElse: () => const Text("data"),
+                              );
+                            },
                           ),
                         ],
                       ),
                       SizedBox(height: 12.h),
-                      Text(
-                        "Ayodele Davies",
-                        style: Styles.x14dp_222C27_600w(
-                          color: AppColors.neutral1000,
-                          height: 1.4.h,
-                        ),
+                      BlocBuilder<ProfileBloc, ProfileState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                            profileSuccess: (ProfileData data) => Text(
+                              data.fullName.toString().decrypt(),
+                              style: Styles.x14dp_222C27_600w(
+                                color: AppColors.neutral1000,
+                                height: 1.4.h,
+                              ),
+                            ),
+                            orElse: () => const Text("data"),
+                          );
+                        },
                       ),
-                      Text(
-                        "@davayo",
-                        style: Styles.x14dp_222C27_400w(
-                          color: AppColors.primaryColor,
-                        ),
+                      BlocBuilder<ProfileBloc, ProfileState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                            profileSuccess: (ProfileData data) =>
+                                DetectableText(
+                              text: "@${data.username.toString().decrypt()}",
+                              basicStyle: Styles.x14dp_222C27_400w(
+                                  color: AppColors.neutral1000, height: 1.5.h),
+                              detectedStyle: Styles.x14dp_222C27_400w(
+                                  color: AppColors.primaryColor, height: 1.5.h),
+                              detectionRegExp: GlobalVariables.userRegex,
+                            ),
+                            orElse: () => const Text("data"),
+                          );
+                        },
                       ),
-                      SizedBox(height: 12.h),
-                      Text(
-                        "Looking for an experienced people to help me find people in US to test my app. Looking for an experienced people to help me find people in US to test my app...see more",
-                        style: Styles.x10dp_222C27_400w(
-                          color: AppColors.neutral600,
-                        ),
+                      BlocBuilder<ProfileBloc, ProfileState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                            profileSuccess: (ProfileData data) =>
+                                data.bio!.decrypt().toLowerCase() == "none"
+                                    ? SizedBox(height: 12.h)
+                                    : Column(
+                                        children: [
+                                          SizedBox(height: 12.h),
+                                          Text(
+                                            data.bio!.decrypt(),
+                                            style: Styles.x10dp_222C27_400w(
+                                              color: AppColors.neutral600,
+                                            ),
+                                          ),
+                                          SizedBox(height: 12.h),
+                                        ],
+                                      ),
+                            orElse: () => const Text("data"),
+                          );
+                        },
                       ),
-                      SizedBox(height: 12.h),
                       Row(
                         children: [
                           Expanded(
@@ -170,11 +233,16 @@ class ProfileView extends StatelessWidget implements ProfileViewContract {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(4.r),
                                   ),
+                                  padding: EdgeInsets.zero,
                                 ),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.add, size: 14.w.h),
+                                    Icon(
+                                      Icons.add,
+                                      size: 14.w.h,
+                                      color: AppColors.skyWhite,
+                                    ),
                                     SizedBox(width: 4.w),
                                     Text(
                                       "New post",
@@ -383,7 +451,7 @@ class ProfileView extends StatelessWidget implements ProfileViewContract {
                     return const AudioPlayerWidget();
                   },
                   separatorBuilder: (context, index) => SizedBox(height: 8.h),
-                  itemCount: 8,
+                  itemCount: 3,
                 ),
                 Text("data"),
                 Text("data"),

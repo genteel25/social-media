@@ -5,9 +5,6 @@ class AppTheme {
     return ThemeData(
       textSelectionTheme: const TextSelectionThemeData(
         cursorColor: AppColors.primaryColor,
-
-        // selectionColor: ,
-        // selectionHandleColor: ,
       ),
       colorScheme:
           const ColorScheme.light().copyWith(background: AppColors.skyWhite),
@@ -32,6 +29,13 @@ class AppTheme {
             color: AppColors.neutral400,
           ),
         ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: BorderSide(
+            width: 0.8.w,
+            color: AppColors.errorError,
+          ),
+        ),
         errorStyle: Styles.x10dp_222C27_400w(color: AppColors.errorError),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
@@ -40,6 +44,10 @@ class AppTheme {
             color: AppColors.errorError,
           ),
         ),
+      ),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
       ),
       dropdownMenuTheme: DropdownMenuThemeData(
           inputDecorationTheme: InputDecorationTheme(
@@ -71,24 +79,20 @@ class AppTheme {
         ),
       )),
       elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ButtonStyle(
-          textStyle: MaterialStatePropertyAll(
-            Styles.x16dp_222C27_400w(
-              color: Colors.white,
-              height: 1.4.h,
-            ),
+        style: ElevatedButton.styleFrom(
+          textStyle: Styles.x16dp_222C27_400w(
+            color: Colors.white,
+            height: 1.4.h,
           ),
-          shape: MaterialStatePropertyAll(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.r),
-            ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.r),
           ),
-          elevation: const MaterialStatePropertyAll(0),
-          fixedSize: MaterialStatePropertyAll(
-            Size(double.infinity, 48.sp),
-          ),
-          backgroundColor:
-              const MaterialStatePropertyAll(AppColors.primaryColor),
+          elevation: 0,
+          fixedSize: Size(double.infinity, 48.sp),
+          disabledBackgroundColor: AppColors.neutral300,
+          disabledForegroundColor: AppColors.neutral900,
+          backgroundColor: AppColors.primaryColor,
+          foregroundColor: AppColors.skyWhite,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -134,6 +138,15 @@ class AppTheme {
       switchTheme: const SwitchThemeData(
         trackColor: MaterialStatePropertyAll(AppColors.primaryColor),
       ),
+      // shadowColor: Colors.transparent,
+      // bottomAppBarTheme:
+      // canvasColor: Colors.transparent,
+      // cardColor: Colors.transparent,
+      // bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      //   backgroundColor: AppColors.skyWhite.withOpacity(0.1),
+      //   elevation: 0,
+      // ),
+      // bottomAppBarColor: Colors.white.withOpacity(0.2),
     );
   }
 }

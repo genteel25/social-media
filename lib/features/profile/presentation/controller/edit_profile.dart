@@ -16,6 +16,11 @@ class EditProfileController extends State<EditProfileScreen>
   void initState() {
     super.initState();
     view = EditProfileView(controller: this);
+    initializeBlocs();
+  }
+
+  initializeBlocs() {
+    
   }
 
   @override

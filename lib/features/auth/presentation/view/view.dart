@@ -12,3 +12,4 @@ export 'signup.dart';
 export 'splash.dart';
 export 'verify_otp.dart';
 export 'welcome.dart';
+export '../../../home/presentation/view/notification.dart';

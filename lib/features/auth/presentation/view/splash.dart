@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../../../../core/helpers/helpers.dart';
 // import '../contracts/Splash_contract.dart';
 
@@ -40,7 +42,9 @@ class SplashView extends StatelessWidget implements SplashViewContract {
                         // width: 160.w,
                         // height: 48.h,
                       ).animate().fadeIn(
-                            delay: const Duration(milliseconds: 12900),
+                            delay: Duration(
+                                milliseconds:
+                                    Platform.isAndroid ? 18000 : 12900),
                             duration: const Duration(milliseconds: 800),
                           ),
                     ),
@@ -53,18 +57,20 @@ class SplashView extends StatelessWidget implements SplashViewContract {
                   controller: controller.gifController,
                 )
                     .animate(
-                      delay: const Duration(seconds: 12),
+                      delay: Duration(seconds: Platform.isAndroid ? 17 : 12),
                     )
                     .scaleXY(
-                      // curve: Curves.bounceOut,
                       begin: 1,
                       end: 0.5,
+                      delay:
+                          Duration(milliseconds: Platform.isAndroid ? 500 : 0),
                       duration: const Duration(milliseconds: 100),
                     )
                     .moveX(
                       begin: 1,
                       end: -88.w,
-                      delay: const Duration(milliseconds: 800),
+                      delay: Duration(
+                          milliseconds: Platform.isAndroid ? 1800 : 800),
                       duration: const Duration(milliseconds: 500),
                     ),
               ],

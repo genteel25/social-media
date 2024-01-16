@@ -34,7 +34,7 @@ class InternetFailure implements Failure {
 }
 
 class BadResponseFailure implements Failure {
-  final String? message;
+  final dynamic message;
 
   BadResponseFailure({this.message});
 
@@ -83,5 +83,15 @@ class BadRequestFailure implements Failure {
   @override
   String failureMessage() {
     return "";
+  }
+}
+
+class DBFailure implements Failure {
+  final dynamic message;
+
+  DBFailure({this.message});
+  @override
+  String failureMessage() {
+    return message ?? "Something went wrong";
   }
 }

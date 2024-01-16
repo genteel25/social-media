@@ -1,3 +1,5 @@
+import 'package:duduzili/core/data/models/community.dart';
+
 import '../../../../core/helpers/helpers.dart';
 
 class CreateCommunityScreen extends StatefulWidget {
@@ -13,6 +15,15 @@ class CreateCommunityController extends State<CreateCommunityScreen>
 
   @override
   TextEditingController privacyController = TextEditingController();
+  @override
+  TextEditingController nameController = TextEditingController();
+  @override
+  TextEditingController groupRulesController = TextEditingController();
+  @override
+  TextEditingController descriptionController = TextEditingController();
+
+  @override
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -23,7 +34,23 @@ class CreateCommunityController extends State<CreateCommunityScreen>
   }
 
   @override
+  onCreateCommunityHandler() {
+    CommunityData data = CommunityData()
+      ..name = nameController.text.encrypt()
+      ..description = descriptionController.text.encrypt()
+      ..groupRules = groupRulesController.text.encrypt()
+      ..privacy = privacyController.text.encrypt();
+    context
+        .read<CommunityBloc>()
+        .add(CommunityEvent.createCommunity(data: data));
+  }
+
+  @override
   void dispose() {
+    nameController.dispose();
+    descriptionController.dispose();
+    groupRulesController.dispose();
+    privacyController.dispose();
     super.dispose();
   }
 

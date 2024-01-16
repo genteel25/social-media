@@ -1,3 +1,4 @@
+// import 'package:dartz/dartz.dart';
 
 import '../../../../core/helpers/helpers.dart';
 
@@ -15,8 +16,11 @@ class CameraWidgetState extends State<CameraWidget> {
       body: CameraAwesomeBuilder.awesome(
         saveConfig: SaveConfig.photoAndVideo(),
         onMediaTap: (mediaCapture) {
-          // OpenFile.open(mediaCapture.filePath);
+          // OpenFile();
         },
+        // topActionsBuilder: (state) {
+        //   return Awesome
+        // },
       ),
     );
   }

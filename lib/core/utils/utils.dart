@@ -14,3 +14,5 @@ export 'functions.dart';
 export 'global_variables.dart';
 export 'observers.dart';
 export 'view_base_contract.dart';
+
+

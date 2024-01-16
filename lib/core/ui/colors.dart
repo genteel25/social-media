@@ -1,5 +1,3 @@
-
-
 import '../helpers/helpers.dart';
 
 class AppColors {
@@ -10,6 +8,11 @@ class AppColors {
   static const primary80 = Color(0xff6A5DC6);
   static const primaryLight = Color(0xff6B50DA);
   static const errorError = Color(0xffED5556);
+  static const tomato = Color(0xffF54336);
+  static const accentRed = Color(0xffDC2626);
+  static const orange = Color(0xffFF981F);
+  static const blue = Color(0xff1A96F0);
+  static const success = Color(0xff04802E);
   static const inkDarkest = Color(0xff090A0A);
   static const neutral1000 = Color(0xff23222C);
   static const neutral800 = Color(0xff494850);

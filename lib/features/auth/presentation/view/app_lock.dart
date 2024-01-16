@@ -157,7 +157,7 @@ class AppLockView extends StatelessWidget implements AppLockViewContract {
                         Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () => controller.onButtonClicked("2"),
                             highlightColor:
                                 AppColors.primaryColor.withOpacity(0.1),
                             splashColor:
@@ -182,7 +182,7 @@ class AppLockView extends StatelessWidget implements AppLockViewContract {
                         Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () => controller.onButtonClicked("3"),
                             highlightColor:
                                 AppColors.primaryColor.withOpacity(0.1),
                             splashColor:
@@ -216,7 +216,7 @@ class AppLockView extends StatelessWidget implements AppLockViewContract {
                         Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () => controller.onButtonClicked("4"),
                             highlightColor:
                                 AppColors.primaryColor.withOpacity(0.1),
                             splashColor:
@@ -241,7 +241,7 @@ class AppLockView extends StatelessWidget implements AppLockViewContract {
                         Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () => controller.onButtonClicked("5"),
                             highlightColor:
                                 AppColors.primaryColor.withOpacity(0.1),
                             splashColor:
@@ -266,7 +266,7 @@ class AppLockView extends StatelessWidget implements AppLockViewContract {
                         Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () => controller.onButtonClicked("6"),
                             highlightColor:
                                 AppColors.primaryColor.withOpacity(0.1),
                             splashColor:
@@ -300,7 +300,7 @@ class AppLockView extends StatelessWidget implements AppLockViewContract {
                         Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () => controller.onButtonClicked("7"),
                             highlightColor:
                                 AppColors.primaryColor.withOpacity(0.1),
                             splashColor:
@@ -325,7 +325,7 @@ class AppLockView extends StatelessWidget implements AppLockViewContract {
                         Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () => controller.onButtonClicked("8"),
                             highlightColor:
                                 AppColors.primaryColor.withOpacity(0.1),
                             splashColor:
@@ -350,7 +350,7 @@ class AppLockView extends StatelessWidget implements AppLockViewContract {
                         Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () => controller.onButtonClicked("9"),
                             highlightColor:
                                 AppColors.primaryColor.withOpacity(0.1),
                             splashColor:
@@ -402,7 +402,7 @@ class AppLockView extends StatelessWidget implements AppLockViewContract {
                         Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () => controller.onButtonClicked("0"),
                             highlightColor:
                                 AppColors.primaryColor.withOpacity(0.1),
                             splashColor:

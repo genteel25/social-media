@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
-
 import '../core.dart';
+import '../data/models/profile.dart';
+import 'extended_image_widget.dart';
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({Key? key}) : super(key: key);
@@ -33,36 +34,43 @@ class DrawerWidgetState extends State<DrawerWidget> {
             leading: Stack(
               fit: StackFit.loose,
               children: [
-                Container(
-                  padding: REdgeInsets.all(8),
-                  width: 40.sp,
-                  height: 40.sp,
-                  decoration: BoxDecoration(
-                    color: AppColors.skyWhite,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: AppColors.neutral300,
-                    ),
-                  ),
-                  child: const FlutterLogo(),
+                BlocBuilder<ProfileBloc, ProfileState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      profileSuccess: (ProfileData data) => ExtendedImageWidget(
+                        imageUrl: data.profilePicture.toString().decrypt(),
+                        size: 40,
+                      ),
+                      orElse: () => const Text("data"),
+                    );
+                  },
                 ),
                 Positioned(
                   bottom: 2,
                   right: 0,
                   child: Container(
-                    width: 10.sp,
-                    height: 10.sp,
-                    decoration: const BoxDecoration(
+                    width: 11.sp,
+                    height: 11.sp,
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color(0xff008000),
+                      color: const Color(0xff008000),
+                      border: Border.all(width: 1.w, color: AppColors.skyWhite),
                     ),
                   ),
                 )
               ],
             ),
-            title: Text(
-              "Ayodele Davies",
-              style: Styles.x16dp_222C27_500w(color: AppColors.neutral1000),
+            title: BlocBuilder<ProfileBloc, ProfileState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  profileSuccess: (ProfileData data) => Text(
+                    data.fullName.toString().decrypt(),
+                    style:
+                        Styles.x16dp_222C27_500w(color: AppColors.neutral1000),
+                  ),
+                  orElse: () => const Text("data"),
+                );
+              },
             ),
             subtitle: Text(
               "Online",
@@ -74,7 +82,7 @@ class DrawerWidgetState extends State<DrawerWidget> {
                 child: CupertinoSwitch(
                   activeColor: AppColors.primaryColor,
                   // thumbColor: AppColors.errorError,
-                  value: false,
+                  value: true,
                   onChanged: (e) {},
                 ),
               ),
@@ -92,19 +100,28 @@ class DrawerWidgetState extends State<DrawerWidget> {
           DrawerMenuItem(
             assetPath: "assets/svgs/sms.svg",
             label: "Message",
-            onClick: () {},
+            onClick: () {
+              context.goNamed(RouteConstants.messages);
+              context.pop();
+            },
           ),
           SizedBox(height: 8.h),
           DrawerMenuItem(
             assetPath: "assets/svgs/global.svg",
             label: "Community",
-            onClick: () {},
+            onClick: () {
+              context.goNamed(RouteConstants.community);
+              context.pop();
+            },
           ),
           SizedBox(height: 8.h),
           DrawerMenuItem(
             assetPath: "assets/svgs/notification_outline.svg",
             label: "Notification",
-            onClick: () {},
+            onClick: () {
+              context.pushNamed(RouteConstants.notification);
+              context.pop();
+            },
           ),
           SizedBox(height: 8.h),
           DrawerMenuItem(
@@ -135,7 +152,10 @@ class DrawerWidgetState extends State<DrawerWidget> {
           DrawerMenuItem(
             assetPath: "assets/svgs/settings.svg",
             label: "Settings",
-            onClick: () {},
+            onClick: () {
+              context.pushNamed(RouteConstants.settings);
+              context.pop();
+            },
           ),
           SizedBox(height: 8.h),
           DrawerMenuItem(
@@ -160,21 +180,23 @@ class DrawerWidgetState extends State<DrawerWidget> {
             width: double.infinity,
             height: 40.h,
             child: OutlinedButton(
-                onPressed: () {},
-                style: OutlinedButton.styleFrom(
-                  side: const BorderSide(
-                    color: AppColors.errorError,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4.r),
-                  ),
+              onPressed: () {},
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(
+                  color: AppColors.errorError,
                 ),
-                child: Text(
-                  "Log out",
-                  style: Styles.x12dp_222C27_500w(
-                    color: AppColors.errorError,
-                  ),
-                )),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.r),
+                ),
+                foregroundColor: AppColors.tomato.withOpacity(0.4),
+              ),
+              child: Text(
+                "Log out",
+                style: Styles.x12dp_222C27_500w(
+                  color: AppColors.errorError,
+                ),
+              ),
+            ),
           ),
           SizedBox(height: 41.h),
           Row(
@@ -187,10 +209,8 @@ class DrawerWidgetState extends State<DrawerWidget> {
               SizedBox(width: 6.w),
               Text(
                 "Duduzili ©2023 All Rights Reserved",
-                style: Styles.x10dp_222C27_400w(
-                  color: AppColors.neutral800,
-                ),
-              )
+                style: Styles.x10dp_222C27_400w(color: AppColors.neutral800),
+              ),
             ],
           ),
         ],

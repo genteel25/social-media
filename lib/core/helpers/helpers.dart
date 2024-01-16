@@ -17,7 +17,8 @@ export 'package:equatable/equatable.dart';
 export 'package:expand_tap_area/expand_tap_area.dart';
 export 'package:keyboard_service/keyboard_service.dart';
 export 'package:flutter_native_splash/flutter_native_splash.dart';
-export 'package:flutter_animate/flutter_animate.dart' hide ShimmerEffect;
+export 'package:flutter_animate/flutter_animate.dart'
+    hide ShimmerEffect, Adapter;
 export 'package:intl_phone_field/intl_phone_field.dart';
 export 'package:gif_view/gif_view.dart';
 export 'package:pinput/pinput.dart';
@@ -35,9 +36,17 @@ export 'package:flutter/foundation.dart';
 export 'package:flutter/services.dart';
 export 'package:easy_localization/easy_localization.dart' hide TextDirection;
 export 'package:internet_connection_checker/internet_connection_checker.dart';
+export 'package:flutter_image_stack/flutter_image_stack.dart';
 export 'package:country_picker/country_picker.dart';
 export 'package:status_view/status_view.dart';
 export 'package:dropdown_button2/dropdown_button2.dart';
+export 'package:percent_indicator/percent_indicator.dart';
+export 'package:flutter_dotenv/flutter_dotenv.dart';
+export 'package:shared_preferences/shared_preferences.dart';
+export 'package:form_validator/form_validator.dart';
+export 'package:intl/intl.dart' hide TextDirection;
+export 'package:isar/isar.dart';
+export 'package:path_provider/path_provider.dart';
 
 //Relative folder Export
 export 'contracts/view_contract.dart';
@@ -48,14 +57,18 @@ export 'extensions.dart';
 export 'logger.dart';
 export 'widget_helper.dart';
 
-
-
 //Adjacent folder export
 export '../components/components.dart';
 export '../ui/ui.dart';
 export '../router/router.dart';
 export '../utils/utils.dart' hide Country;
 export '../web_sockets/web_sockets.dart';
+export '../data/data.dart';
+export '../api/api.dart';
+export '../mixins/mixins.dart';
+export '../enums/enums.dart';
+export '../security/security.dart';
+export '../storage/storage.dart';
 
 //Feature folder export
 export '../../features/features.dart';

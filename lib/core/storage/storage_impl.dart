@@ -1,4 +1,5 @@
-import 'package:duduzili/core/storage/istorage.dart';
+import 'package:dartz/dartz.dart';
+import '../helpers/helpers.dart';
 
 class LocalStorageImpl implements LocalStorage {
   final DatabaseStorage databaseStorage;
@@ -10,21 +11,72 @@ class LocalStorageImpl implements LocalStorage {
   });
 
   @override
-  // Future<bool?> getFirstTime() => cacheStorage.getFirstTime();
+  Future<bool?> getFirstTime() => cacheStorage.getFirstTime();
 
   @override
-  Future<bool> getOnboardingStatus() => cacheStorage.getOnboardingStatus();
+  Future<void> setFirstTime() => cacheStorage.setFirstTime();
 
   @override
-  Future<bool?> isLoggedIn() async => await cacheStorage.isLoggedIn();
+  Future<String?> getAccessToken() => cacheStorage.getAccessToken();
 
   @override
-  Future<void> setFirstTime() async => cacheStorage.setFirstTime();
+  Future<String?> getRefreshToken() => cacheStorage.getRefreshToken();
 
   @override
-  Future<void> setLoggedIn(bool status) => cacheStorage.setLoggedIn(status);
+  Future<void> setToken(AuthData authData) => cacheStorage.setToken(authData);
 
-  // @override
-  // Future<void> saveUserDetails(LoginData data, String? password) =>
-  //     cacheStorage.saveUserDetails(data, password);
+  @override
+  Future<String?> getUsername() => cacheStorage.getUsername();
+
+  @override
+  Future<bool?> isRememberMe() => cacheStorage.isRememberMe();
+
+  @override
+  Future<void> rememberMe(bool value) => cacheStorage.rememberMe(value);
+
+  @override
+  Future<void> setUsername(String value) => cacheStorage.setUsername(value);
+
+  @override
+  Future<bool?> isUserLoggedIn() => cacheStorage.isUserLoggedIn();
+
+  @override
+  Future<void> userLoggedIn(bool value) => cacheStorage.userLoggedIn(value);
+
+  @override
+  Future<Either<Failure, void>> createDbProfile(ProfileData data) =>
+      databaseStorage.createDbProfile(data);
+
+  @override
+  Future<Either<Failure, ProfileData>> getDbProfile() =>
+      databaseStorage.getDbProfile();
+
+  @override
+  Future<Either<Failure, void>> createAboutYouDb(AboutYouData data) =>
+      databaseStorage.createAboutYouDb(data);
+
+  @override
+  Future<Either<Failure, AboutYouData>> getAboutYouDb() =>
+      databaseStorage.getAboutYouDb();
+  @override
+  Future<Either<Failure, void>> createBasicInfoDb(BasicInfoData data) =>
+      databaseStorage.createBasicInfoDb(data);
+
+  @override
+  Future<Either<Failure, BasicInfoData>> getBasicInfoDb() =>
+      databaseStorage.getBasicInfoDb();
+  @override
+  Future<Either<Failure, void>> createContactInfoDb(ContactInfoData data) =>
+      databaseStorage.createContactInfoDb(data);
+
+  @override
+  Future<Either<Failure, ContactInfoData>> getContactInfoDb() =>
+      databaseStorage.getContactInfoDb();
+  @override
+  Future<Either<Failure, void>> saveAllCountryToDb(List<CountryData> data) =>
+      databaseStorage.saveAllCountryToDb(data);
+
+  @override
+  Future<Either<Failure, List<CountryData>>> getAllCountryFromDb() =>
+      databaseStorage.getAllCountryFromDb();
 }

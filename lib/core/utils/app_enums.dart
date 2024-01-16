@@ -1,4 +1,4 @@
-enum statusType {
+enum StatusType {
   image,
   video,
   audio,

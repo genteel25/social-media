@@ -1,3 +1,5 @@
+import 'package:duduzili/core/data/data.dart';
+
 import '../../../../core/helpers/helpers.dart';
 
 class SetupUsernameScreen extends StatefulWidget {
@@ -14,6 +16,9 @@ class SetupUsernameController extends State<SetupUsernameScreen>
   late SetupUsernameViewContract view;
 
   @override
+  TextEditingController usernameController = TextEditingController();
+
+  @override
   AnimationController? controller;
 
   @override
@@ -24,6 +29,8 @@ class SetupUsernameController extends State<SetupUsernameScreen>
 
   @override
   Function? onPressed;
+
+  Timer? debounce;
 
   @override
   void initState() {
@@ -45,12 +52,32 @@ class SetupUsernameController extends State<SetupUsernameScreen>
     );
 
     onPressed = widget.onPressed;
+    usernameController.text = GlobalVariables.defaultUsername;
+  }
+
+  @override
+  onFetchDefaultUsernameHandler() {
+    AuthData data = AuthData()..username = usernameController.text.encrypt();
+    context.read<AuthBloc>().add(
+          AuthEvent.updateDefaultUsername(data: data),
+        );
+  }
+
+  @override
+  onValidateUsername() {
+    if (debounce?.isActive ?? false) debounce!.cancel();
+    debounce = Timer(const Duration(milliseconds: 1500), () {
+      BlocProvider.of<AuthBloc>(context).add(
+        AuthEvent.validateDefaultUsername(query: usernameController.text),
+      );
+    });
   }
 
   @override
   void dispose() {
-    super.dispose();
     controller?.dispose();
+    super.dispose();
+    // debounce?
   }
 
   @override

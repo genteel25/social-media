@@ -142,7 +142,7 @@ class WelcomeView extends StatelessWidget implements WelcomeViewContract {
                     width: double.infinity,
                     height: 48.sp,
                     child: ElevatedButton(
-                      onPressed: () => context.pushNamed(RouteConstants.signUp),
+                      onPressed: () => controller.proceedSignUpHandler(),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryColor,
                         shape: RoundedRectangleBorder(
@@ -169,8 +169,7 @@ class WelcomeView extends StatelessWidget implements WelcomeViewContract {
                       children: [
                         TextSpan(
                           recognizer: TapGestureRecognizer()
-                            ..onTap =
-                                () => context.pushNamed(RouteConstants.signIn),
+                            ..onTap = () => controller.proceedSignInHandler(),
                           text: "Sign in",
                           style: Styles.x14dp_222C27_600w(),
                         ),

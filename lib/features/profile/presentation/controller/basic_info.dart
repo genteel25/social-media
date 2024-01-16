@@ -1,3 +1,4 @@
+import 'package:intl/date_symbol_data_local.dart';
 import '../../../../core/helpers/helpers.dart';
 
 class BasicInfoScreen extends StatefulWidget {
@@ -16,57 +17,100 @@ class BasicInfoController extends State<BasicInfoScreen>
       TextEditingController(text: "Nigeria");
 
   @override
+  TextEditingController dobController = TextEditingController();
+
+  @override
+  TextEditingController countryFilterController = TextEditingController();
+
+  @override
+  TextEditingController cityController = TextEditingController();
+
+  @override
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  String dateOfBirth = "";
+
+  @override
+  bool groupedValue = true;
+
+  @override
   String flagEmoji = "";
+
+  @override
+  String maritalStatus = "";
+
+  @override
+  CountryData selectedCountryData = CountryData();
 
   @override
   void initState() {
     super.initState();
     view = BasicInfoView(controller: this);
+    initializedBasicInfoData();
   }
 
   @override
-  showDatePickerHandler() {
-    return showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2100));
+  void selectGenderHandler(bool value) {
+    setState(() {
+      groupedValue = value;
+    });
   }
 
   @override
-  countrySelectorHandler() {
-    return showCountryPicker(
-        context: context,
-        countryListTheme: CountryListThemeData(
-          flagSize: 25,
-          backgroundColor: Colors.white,
-          textStyle: const TextStyle(fontSize: 16, color: Colors.blueGrey),
-          bottomSheetHeight: 500, // Optional. Country list modal height
-          //Optional. Sets the border radius for the bottomsheet.
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20.0),
-            topRight: Radius.circular(20.0),
-          ),
-          //Optional. Styles the search field.
-          inputDecoration: InputDecoration(
-            labelText: 'Search',
-            hintText: 'Start typing to search',
-            prefixIcon: const Icon(Icons.search),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: const Color(0xFF8C98A8).withOpacity(0.2),
-              ),
-            ),
-          ),
-        ),
-        onSelect: (Country country) {
-          setState(() {
-            residenceController.text = country.displayNameNoCountryCode;
-            flagEmoji = country.flagEmoji;
-          });
+  void maritalStatusHandler(String value) {
+    setState(() {
+      maritalStatus = value;
+    });
+  }
 
-          log("flag emoji: ${country.flagEmoji}");
-        });
+  @override
+  showDatePickerHandler() async {
+    initializeDateFormatting();
+    DateTime? date = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1800),
+      lastDate: DateTime(2100),
+    );
+
+    setState(() {
+      dateOfBirth = date?.datePickerFormatter ?? "";
+      dobController.text = date?.datePickerFormatter ?? "";
+    });
+  }
+
+  @override
+  onSelectCountryHandler(CountryData data) {
+    setState(() {
+      selectedCountryData = data;
+      residenceController.text = data.name?.decrypt() ?? "";
+      flagEmoji = data.flagUrl?.decrypt() ?? "";
+    });
+    context.pop();
+  }
+
+  @override
+  filterCountryListHandler() {
+    context.read<AuthBloc>().add(const AuthEvent.filterCountry(searchText: ""));
+  }
+
+  initializedBasicInfoData() {}
+
+  @override
+  onUpdateChangesHandler() {
+    BasicInfoData data = BasicInfoData()
+      ..gender = groupedValue ? "Male".encrypt() : "Female".encrypt()
+      ..dateOfBirth = dobController.text.encrypt()
+      ..countryId = selectedCountryData.countryId
+      ..maritalStatus = maritalStatus.encrypt()
+      ..city = cityController.text.encrypt();
+
+    if (formKey.currentState!.validate()) {
+      context.read<EditProfileBloc>().add(
+            EditProfileEvent.editBasicInfo(data: data),
+          );
+    }
   }
 
   @override

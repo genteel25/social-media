@@ -1,3 +1,6 @@
+import 'package:empty_widget/empty_widget.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import '../../../../core/helpers/helpers.dart';
 
 class SelectPreferenceView extends StatelessWidget
@@ -79,63 +82,111 @@ class SelectPreferenceView extends StatelessWidget
               ),
             ),
             SizedBox(height: 24.h),
-            Wrap(
-              runSpacing: 16.h,
-              spacing: 8.w,
-              children: List.generate(
-                controller.topic.length,
-                (index) => Container(
-                  padding: REdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: const Color(0xff888888),
-                      width: 1.w,
-                    ),
-                    borderRadius: BorderRadius.circular(25.r),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        controller.topic[index],
-                        style:
-                            Styles.x14dp_222C27_500w(color: Color(0xff3a3a3a)),
-                      ),
-                      SizedBox(width: 6.w),
-                      Icon(
-                        Icons.add,
-                        size: 22.sp,
-                        color: AppColors.neutral600,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            BlocBuilder<AuthBloc, AuthState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  preferenceListSuccess: (data) => data.results!.isEmpty
+                      ? SizedBox(
+                          width: 200.w,
+                          child: EmptyWidget(
+                            title: "Empty Preference list",
+                            subTitle: "Preference list is Empty",
+                          ),
+                        )
+                      : Wrap(
+                          runSpacing: 16.h,
+                          spacing: 8.w,
+                          children: List.generate(
+                            controller.topic.length,
+                            (index) => Container(
+                              padding: REdgeInsets.symmetric(
+                                  horizontal: 14, vertical: 6),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: const Color(0xff888888),
+                                  width: 1.w,
+                                ),
+                                borderRadius: BorderRadius.circular(25.r),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    controller.topic[index],
+                                    style: Styles.x14dp_222C27_500w(
+                                        color: Color(0xff3a3a3a)),
+                                  ),
+                                  SizedBox(width: 6.w),
+                                  Icon(
+                                    Icons.add,
+                                    size: 22.sp,
+                                    color: AppColors.neutral600,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                  orElse: () => const Text("data"),
+                );
+                // return ;
+              },
             ),
             SizedBox(height: 20.h),
-            SizedBox(
-              width: double.infinity,
-              height: 48.sp,
-              child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Load more topics",
-                  style:
-                      Styles.x16dp_222C27_400w(color: AppColors.primaryColor),
-                ),
-              ),
-            ),
-            SizedBox(height: 60.h),
+            // SizedBox(
+            //   width: double.infinity,
+            //   height: 48.sp,
+            //   child: TextButton(
+            //     onPressed: () {},
+            //     child: Text(
+            //       "Load more topics",
+            //       style:
+            //           Styles.x16dp_222C27_400w(color: AppColors.primaryColor),
+            //     ),
+            //   ),
+            // ),
+            SizedBox(height: 180.h),
             Stack(
               children: [
                 SizedBox(
                   width: double.infinity,
                   height: 48.sp,
-                  child: ElevatedButton(
-                    // onPressed: () => widget.onPressed!(),
-                    onPressed: () =>
-                        AppBottomSheets.enableLocationSheet(context),
-                    child: const Text("Complete Registration"),
+                  child: BlocListener<AuthBloc, AuthState>(
+                    listener: (context, state) {
+                      state.maybeWhen(
+                        locationUpdateLoading: () => EasyLoading.show(),
+                        locationUpdateSuccess: (data) {
+                          EasyLoading.dismiss();
+                          context.goNamed(RouteConstants.home);
+                        },
+                        locationUpdateError: (error) {
+                          EasyLoading.dismiss();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(error),
+                            ),
+                          );
+                        },
+                        orElse: () {},
+                      );
+                    },
+                    child: ElevatedButton(
+                      // onPressed: () => context.read<AuthBloc>().add(
+                      //       const AuthEvent.fetchPreferenceList(),
+                      //     ),
+                      onPressed: () => AppBottomSheets.enableLocationSheet(
+                        context,
+                        onLocationUpdate: () =>
+                            controller.onUpdateLocationHandler(),
+                      ),
+                      child: Text(
+                        "Complete Registration",
+                        style: Styles.x16dp_222C27_400w(
+                          color: Colors.white,
+                          height: 1.5.h,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 // Container(

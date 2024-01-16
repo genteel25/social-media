@@ -1,38 +1,30 @@
-
 import '../../../../core/helpers/helpers.dart';
 
 class VideoStatus extends StatefulWidget {
-  const VideoStatus({Key? key}) : super(key: key);
+  const VideoStatus({
+    Key? key,
+    required this.videoController,
+  }) : super(key: key);
+  final VideoPlayerController videoController;
 
   @override
   VideoStatusState createState() => VideoStatusState();
 }
 
 class VideoStatusState extends State<VideoStatus> {
-  late VideoPlayerController videoController;
+  // late VideoPlayerController videoController;
   late Future<void> initializeVideoPlayerFuture;
   Duration? position;
 
   @override
   void initState() {
     super.initState();
-    videoController = VideoPlayerController.asset("assets/video/intro.mp4")
-      ..addListener(() {
-        if (videoController.value.isPlaying) {
-          setState(() {
-            position = videoController.value.position;
-          });
-        }
-      });
-    initializeVideoPlayerFuture = videoController.initialize();
-    videoController
-      ..setVolume(1)
-      ..play();
+    initializeVideoPlayerFuture = widget.videoController.play();
   }
 
   @override
   void dispose() {
-    videoController.dispose();
+    // widget.videoController.value.position;
     super.dispose();
   }
 
@@ -48,8 +40,8 @@ class VideoStatusState extends State<VideoStatus> {
           child: InkWell(
             onTap: () {
               setState(() {
-                videoController.value.isPlaying
-                    ? videoController.pause()
+                widget.videoController.value.isPlaying
+                    ? widget.videoController.pause()
                     : null;
               });
             },
@@ -63,14 +55,14 @@ class VideoStatusState extends State<VideoStatus> {
                     alignment: Alignment.center,
                     children: [
                       AspectRatio(
-                        aspectRatio: videoController.value.aspectRatio,
+                        aspectRatio: widget.videoController.value.aspectRatio,
                         // Use the VideoPlayer widget to display the video.
-                        child: VideoPlayer(videoController),
+                        child: VideoPlayer(widget.videoController),
                       ),
-                      videoController.value.isPlaying
+                      widget.videoController.value.isPlaying
                           ? const SizedBox.shrink()
                           : ExpandTapWidget(
-                              onTap: () => videoController.play(),
+                              onTap: () => widget.videoController.play(),
                               tapPadding: REdgeInsets.all(10),
                               child: AnimatedContainer(
                                 duration: const Duration(seconds: 2),
@@ -125,28 +117,31 @@ class VideoStatusState extends State<VideoStatus> {
           ),
         ),
         SizedBox(height: 39.h),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: ProgressBar(
-            barHeight: 4.h,
-            // progress: snapshot.data ?? Duration.zero,
-            progress: position ?? const Duration(seconds: 0),
-            // buffered: audioPlayer.bufferedPosition,
-            buffered: const Duration(seconds: 30),
-            // total: audioPlayer.duration ?? Duration.zero,
-            total: videoController.value.duration,
-            onSeek: (e) => videoController.seekTo(e),
-            timeLabelLocation: TimeLabelLocation.below,
-            timeLabelPadding: 14,
-            timeLabelTextStyle: Styles.x10dp_222C27_400w(
-              color: const Color(0xffEAF4F4),
+        ValueListenableBuilder(
+          valueListenable: widget.videoController,
+          builder: (context, value, child) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: ProgressBar(
+              barHeight: 4.h,
+              // progress: snapshot.data ?? Duration.zero,
+              progress: value.position,
+              // buffered: audioPlayer.bufferedPosition,
+              buffered: const Duration(seconds: 30),
+              // total: audioPlayer.duration ?? Duration.zero,
+              total: widget.videoController.value.duration,
+              onSeek: (e) => widget.videoController.seekTo(e),
+              timeLabelLocation: TimeLabelLocation.below,
+              timeLabelPadding: 14,
+              timeLabelTextStyle: Styles.x10dp_222C27_400w(
+                color: const Color(0xffEAF4F4),
+              ),
+              thumbCanPaintOutsideBar: false,
+              thumbRadius: 0,
+              thumbGlowRadius: 7.r,
+              thumbGlowColor: const Color(0xffeaf4f4).withOpacity(0.7),
+              progressBarColor: AppColors.skyWhite,
+              baseBarColor: const Color(0xffeaf4f4).withOpacity(0.2),
             ),
-            thumbCanPaintOutsideBar: false,
-            thumbRadius: 0,
-            thumbGlowRadius: 7.r,
-            thumbGlowColor: const Color(0xffeaf4f4).withOpacity(0.7),
-            progressBarColor: AppColors.skyWhite,
-            baseBarColor: const Color(0xffeaf4f4).withOpacity(0.2),
           ),
         ),
       ],

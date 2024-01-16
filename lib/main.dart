@@ -1,52 +1,20 @@
 import 'package:duduzili/duduzili.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'config/di/app_initializer.dart';
 import 'config/flavor/flavor.dart';
 import 'core/helpers/helpers.dart';
 
-// import 'utils/helper.dart';
-
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   if (kDebugMode) {
-//     Bloc.observer = AppBlocObserver();
-//   }
-//   await ScreenUtil.ensureScreenSize();
-//   runApp(const MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return ScreenUtilInit(
-//         designSize: const Size(375, 812),
-//         minTextAdapt: false,
-//         splitScreenMode: false,
-//         //scaleByHeight: true,
-//         useInheritedMediaQuery: true,
-//         rebuildFactor: (old, data) {
-//           return false;
-//         },
-//         builder: (context, child) {
-//           return MaterialApp.router(
-//             debugShowCheckedModeBanner: false,
-//             theme: AppTheme.lightTheme(),
-//             routerConfig: AppRouter.router,
-//           );
-//         });
-//   }
-// }
-
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: "assets/.env");
   BuildFlavor.init(
     flavor: Flavor.debug,
-    baseUrl: dotenv.env['BASE_URL']!,
-    appName: dotenv.env['APP_NAME']!,
+    baseUrl: dotenv.env['BASE_URL'] ?? "",
+    appName: dotenv.env['APP_NAME'] ?? "",
+    apiKey: dotenv.env['API_KEY'] ?? "",
+    secretKey: dotenv.env['SECRET_KEY'] ?? "",
+    encKey: dotenv.env['OMS_ENC_KEY_STAGING'] ?? "",
+    vector: dotenv.env['OMS_VECTOR_KEY_STAGING'] ?? "",
   );
   await AppInitializer.initGetIt();
 

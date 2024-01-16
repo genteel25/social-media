@@ -502,9 +502,10 @@ class AboutView extends StatelessWidget implements AboutViewContract {
                               ),
                               subtitle: Padding(
                                 padding: REdgeInsets.only(top: 2),
-                                child: const StackedImage(
-                                  likedStringUrl: ["", "", "", "", ""],
-                                ),
+                                child: null,
+                                //  StackedImage(
+                                //   likedStringUrl: ["", "", "", "", ""],
+                                // ),
                               ),
                               trailing: SizedBox(
                                 height: 32.h,

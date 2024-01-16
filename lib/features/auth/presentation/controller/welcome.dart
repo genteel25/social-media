@@ -1,5 +1,6 @@
+import 'package:duduzili/core/storage/istorage.dart';
+
 import '../../../../core/helpers/helpers.dart';
-// import '../contracts/Welcome_contract.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -18,6 +19,18 @@ class WelcomeController extends State<WelcomeScreen>
     view = WelcomeView(
       controller: this,
     );
+  }
+
+  @override
+  proceedSignInHandler() {
+    GetIt.I.get<LocalStorage>().setFirstTime();
+    context.goNamed(RouteConstants.signIn);
+  }
+
+  @override
+  proceedSignUpHandler() {
+    GetIt.I.get<LocalStorage>().setFirstTime();
+    context.goNamed(RouteConstants.signUp);
   }
 
   @override

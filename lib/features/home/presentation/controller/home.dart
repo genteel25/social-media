@@ -27,6 +27,8 @@ class HomeController extends State<HomeScreen>
     forYouItemList
       ..insert(5, "")
       ..insert(10, "");
+
+    initializeBlocs();
   }
 
   @override
@@ -34,6 +36,19 @@ class HomeController extends State<HomeScreen>
     setState(() {
       currentSelectedChipIndex = value;
     });
+  }
+
+  initializeBlocs() {
+    context.read<ProfileBloc>().add(const ProfileEvent.fetchDashboardProfile());
+    context.read<AboutYouBloc>().add(const AboutYouEvent.fetchAboutYou());
+    context.read<BasicInfoBloc>().add(const BasicInfoEvent.fetchBasicInfo());
+    context.read<AuthBloc>().add(const AuthEvent.countryList());
+    context.read<ContactInfoBloc>().add(
+          const ContactInfoEvent.fetchContactInfo(),
+        );
+    context.read<DiscoverCommunityBloc>().add(
+          const DiscoverCommunityEvent.fetchDiscoverCommunity(),
+        );
   }
 
   @override

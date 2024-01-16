@@ -1,3 +1,5 @@
+
+
 import '../../../../core/helpers/helpers.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -31,6 +33,11 @@ class ProfileController extends State<ProfileScreen>
     super.initState();
     view = ProfileView(controller: this);
     tabController = TabController(length: 4, vsync: this);
+    initializeBlocs();
+  }
+
+  initializeBlocs() {
+    
   }
 
   @override

@@ -5,15 +5,16 @@ class ApiResponseImpl<T> implements ApiResponse<T> {
   final T? _data;
   final String _message;
   final dynamic _errors;
-  final String _responseCode;
+  final int _status_code;
+  final bool _success;
 
-  ApiResponseImpl(this._data, this._errors, this._message, this._responseCode);
+  ApiResponseImpl(this._data, this._errors, this._message, this._status_code, this._success);
 
   @override
   T? get data => _data;
 
   @override
-  String get responseCode => _responseCode;
+  int get status_code => _status_code;
 
   @override
   String get message => _message;
@@ -22,7 +23,10 @@ class ApiResponseImpl<T> implements ApiResponse<T> {
   dynamic get errors => _errors;
 
   @override
-  bool get isSuccess => responseCode == '100';
+  bool get isSuccess => status_code == '100';
+
+  @override
+  bool get success => _success;
   @override
   String get defaultErrorMessage => 'an_error_occured';
 }

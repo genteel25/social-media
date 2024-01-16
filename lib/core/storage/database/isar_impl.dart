@@ -1,71 +1,49 @@
-// // ignore_for_file: unused_field
+// import '../istorage.dart';
 
-// import 'package:afex_mobile/core/core.dart';
-// import 'package:afex_mobile/core/data/models/order.dart';
-// import 'package:afex_mobile/core/data/models/securities.dart';
-// import 'package:afex_mobile/core/storage/istorage.dart';
-// import 'package:isar/isar.dart';
-// import 'package:path_provider/path_provider.dart';
+import 'package:dartz/dartz.dart';
+import 'package:duduzili/core/helpers/helpers.dart';
 
-// class IsarImpl implements DatabaseStorage {
-//   late Isar _isar;
+class IsarImpl implements DatabaseStorage {
+  @override
+  Future<Either<Failure, void>> createDbProfile(ProfileData data) async =>
+      await ProfileRepository().createObject(data);
 
-//   IsarImpl() {
-//     openDb();
-//   }
+  @override
+  Future<Either<Failure, ProfileData>> getDbProfile() async =>
+      await ProfileRepository().getObjects();
 
-//   @override
-//   Future openDb() async {
-//     _isar = await Isar.open(
-//       [OrderSchema, SecuritiesSchema],
-//       inspector: false,
-//       directory:
-//           await getApplicationDocumentsDirectory().then((value) => value.path),
-//     );
-//     _isar.writeTxn(() => _isar.orders.clear());
-//   }
+  @override
+  Future<Either<Failure, void>> createAboutYouDb(AboutYouData data) async =>
+      await AboutYouRepository().createObject(data);
 
-//   @override
-//   close() => _isar.writeTxn(() => _isar.clear());
+  @override
+  Future<Either<Failure, AboutYouData>> getAboutYouDb() async =>
+      await AboutYouRepository().getObjects();
 
-//   @override
-//   Future<void> populateOrderBook(List<Order> openOrders) async {
-//     return _isar.writeTxn(() => _isar.orders.putAll(openOrders));
-//   }
+  @override
+  Future<Either<Failure, void>> createBasicInfoDb(BasicInfoData data) async =>
+      await BasicInfoRepository().createObject(data);
 
-//   @override
-//   Stream<void> orders() => _isar.orders.watchLazy();
+  @override
+  Future<Either<Failure, BasicInfoData>> getBasicInfoDb() async =>
+      await BasicInfoRepository().getObjects();
+  @override
+  Future<Either<Failure, void>> createContactInfoDb(
+          ContactInfoData data) async =>
+      await ContactInfoRepository().createObject(data);
 
-//   @override
-//   Future<List<Order>> getBuyOrders(String code) async {
-//     return await _isar.orders
-//         .where()
-//         .filter()
-//         .securityCodeEqualTo(code.trim())
-//         .orderTypeEqualTo('Buy'.encrypt())
-//         .findAll();
-//   }
+  @override
+  Future<Either<Failure, ContactInfoData>> getContactInfoDb() async =>
+      await ContactInfoRepository().getObjects();
 
-//   @override
-//   Future<List<Order>> getSellOrders(String code) async {
-//     return await _isar.orders
-//         .where()
-//         .filter()
-//         .securityCodeEqualTo(code.trim())
-//         .orderTypeEqualTo('Sell'.encrypt())
-//         .findAll();
-//   }
+  @override
+  Future<Either<Failure, List<CountryData>>> getAllCountryFromDb()async => await CountryRepository().getAllObjects();
 
-//   @override
-//   saveFavoritesToDb({required List<Securities> securitiesList}) async {
-//     return await _isar.writeTxn(() async {
-//       await _isar.securities.clear();
-//       _isar.securities.putAll(securitiesList);
-//     });
-//   }
+  @override
+  Future<Either<Failure, void>> saveAllCountryToDb(List<CountryData> data) async => await CountryRepository().createMultipleObjects(data);
 
-//   @override
-//   Future<List<Securities>> fetchFavoritesFromDb() async {
-//     return await _isar.securities.where().findAll();
-//   }
-// }
+  // @override
+  // Future<List<String>> getAllSecurities() {
+  //   throw UnimplementedError();
+  // }
+}
